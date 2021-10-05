@@ -3,8 +3,9 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from "path";
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
+import ViteComponents, { AntDesignVueResolver } from 'vite-plugin-components'
 
-const url = 'http://192.168.1.102:7001'
+const url = 'http://101.34.156.252:7001'
 
 export default defineConfig({
   css:{},
@@ -18,7 +19,7 @@ export default defineConfig({
   },
   server:{
     host:'0.0.0.0',
-    port:8888,
+    port:80,
     proxy:{
       '^/login|user|role|category|fileupload/.*':{
         target:url,
@@ -33,8 +34,11 @@ export default defineConfig({
   plugins: [vue(),vueJsx(),vueI18n({
     // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
     // compositionOnly: false,
-
     // you need to set i18n resource including paths !
     include: path.resolve(__dirname, './src/locales/**')
-  })]
+  }),
+  ViteComponents({
+    customComponentResolvers: [AntDesignVueResolver()],
+  })
+]
 })

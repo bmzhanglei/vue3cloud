@@ -9,10 +9,12 @@
   "dependencies": {
     "ant-design-vue": "^2.2.8",
     "axios": "^0.22.0",
+    "vite-plugin-components": "^0.13.3",
     "vue": "^3.2.0",
     "vue-i18n": "^9.1.7",
     "vue-router": "^4.0.11",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^2.4.0",

@@ -3,7 +3,7 @@
   <a-button type="primary">
       Primary
     </a-button>
-  
+   <a-rate v-model:value="value" />
 </template>
 
 <script lang="ts">
@@ -17,8 +17,9 @@ export default defineComponent({
     }
   },
   setup: () => {
-    const count = ref(0)
-    return { count }
+    const count = ref<number>(0)
+     const value = ref<number>(2);
+    return { count ,value}
   }
 })
 </script>

@@ -7,6 +7,15 @@ export default {
       news: '新闻动态',
       contactUs: '联系我们',
     },
+    common:{
+      login:"Login",
+      reset:"Reset",
+    },
+    user:{
+      username:"Username",
+      password:"Password",
+      verify:"Identifying Code"
+    },
     about:{
       About:"About"
     }

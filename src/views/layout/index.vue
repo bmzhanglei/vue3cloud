@@ -1,11 +1,9 @@
 <template>
-   <router-view></router-view>
+    登陆进去了
 </template>
-
 <script lang="ts" setup>
 
 </script>
-
-<style>
+<style lang="scss" scoped>
 
 </style>

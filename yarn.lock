@@ -778,12 +778,17 @@ csstype@^2.6.8:
   resolved "https://registry.nlark.com/csstype/download/csstype-2.6.18.tgz#980a8b53085f34af313410af064f2bd241784218"
   integrity sha1-mAqLUwhfNK8xNBCvBk8r0kF4Qhg=
 
-debug@^4.1.0, debug@^4.3.1:
+debug@^4.1.0, debug@^4.3.1, debug@^4.3.2:
   version "4.3.2"
   resolved "https://registry.nlark.com/debug/download/debug-4.3.2.tgz#f0a49c18ac8779e31d4a0c6029dfb76873c7428b"
   integrity sha1-8KScGKyHeeMdSgxgKd+3aHPHQos=
   dependencies:
     ms "2.1.2"
+
+deepmerge@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.npm.taobao.org/deepmerge/download/deepmerge-4.2.2.tgz#44d2ea3679b8f4d4ffba33f03d865fc1e7bf4955"
+  integrity sha1-RNLqNnm49NT/ujPwPYZfwee/SVU=
 
 dom-align@^1.12.1:
   version "1.12.2"
@@ -945,7 +950,7 @@ estree-walker@^2.0.1, estree-walker@^2.0.2:
   resolved "https://registry.npm.taobao.org/estree-walker/download/estree-walker-2.0.2.tgz?cache=0&sync_timestamp=1611956983677&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Festree-walker%2Fdownload%2Festree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
   integrity sha1-UvAQF4wqTBF6d1fP6UKtt9LaTKw=
 
-fast-glob@^3.2.5:
+fast-glob@^3.2.5, fast-glob@^3.2.7:
   version "3.2.7"
   resolved "https://registry.nlark.com/fast-glob/download/fast-glob-3.2.7.tgz#fd6cb7a2d7e9aa7a7846111e85a196d6b2f766a1"
   integrity sha1-/Wy3otfpqnp4RhEehaGW1rL3ZqE=
@@ -1400,6 +1405,11 @@ shebang-regex@^3.0.0:
   resolved "https://registry.nlark.com/shebang-regex/download/shebang-regex-3.0.0.tgz?cache=0&sync_timestamp=1628896299850&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fshebang-regex%2Fdownload%2Fshebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha1-rhbxZE2HPsrYQ7AwexQzYtTEIXI=
 
+shvl@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npm.taobao.org/shvl/download/shvl-2.0.3.tgz#eb4bd37644f5684bba1fc52c3010c96fb5e6afd1"
+  integrity sha1-60vTdkT1aEu6H8UsMBDJb7Xmr9E=
+
 source-map-js@^0.6.2:
   version "0.6.2"
   resolved "https://registry.nlark.com/source-map-js/download/source-map-js-0.6.2.tgz#0bb5de631b41cfbda6cfba8bd05a80efdfd2385e"
@@ -1482,6 +1492,16 @@ util-deprecate@~1.0.1:
   resolved "https://registry.nlark.com/util-deprecate/download/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
+vite-plugin-components@^0.13.3:
+  version "0.13.3"
+  resolved "https://registry.nlark.com/vite-plugin-components/download/vite-plugin-components-0.13.3.tgz#8bda0f508ee90249a066ba63d5985798e5ca9fed"
+  integrity sha1-i9oPUI7pAkmgZrpj1ZhXmOXKn+0=
+  dependencies:
+    debug "^4.3.2"
+    fast-glob "^3.2.7"
+    magic-string "^0.25.7"
+    minimatch "^3.0.4"
+
 vite@^2.4.3:
   version "2.6.2"
   resolved "https://registry.npmmirror.com/vite/download/vite-2.6.2.tgz?cache=0&sync_timestamp=1633019069109&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fvite%2Fdownload%2Fvite-2.6.2.tgz#5bbb4afe1f69ed9d6482e51a0f761f8cfc230e22"
@@ -1535,6 +1555,14 @@ vue@^3.2.0:
     "@vue/runtime-dom" "3.2.19"
     "@vue/server-renderer" "3.2.19"
     "@vue/shared" "3.2.19"
+
+vuex-persistedstate@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.nlark.com/vuex-persistedstate/download/vuex-persistedstate-4.1.0.tgz#127165f85f5b4534fb3170a5d3a8be9811bd2a53"
+  integrity sha1-EnFl+F9bRTT7MXCl06i+mBG9KlM=
+  dependencies:
+    deepmerge "^4.2.2"
+    shvl "^2.0.3"
 
 vuex@^4.0.2:
   version "4.0.2"
