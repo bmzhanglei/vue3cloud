@@ -9,7 +9,7 @@ export const getCaptcha = () => {  //获取验证码
     })
 }
 
-export const doLogin = data => {
+export const doLogin = (data:any) => {
   return https.request({
     url: '/login/doLogin',
     data,
@@ -17,7 +17,7 @@ export const doLogin = data => {
   })
 }
 
-export const loginOut = data => {
+export const loginOut = (data:any) => {
     return https.request({
       url: '/login/loginOut',
       data,

@@ -2,18 +2,20 @@
 import axios from "axios"
 const cancelTokenSources = new Map(); // 定义cancel队列
 class Https{
-    constructor(config) {
+    config = null
+    constructor(config:any) {
         this.config = config || {
           timeout: 6000,
           withCredentials: true, //指定具体请求来源域名
           // baseURL: process.env.VUE_APP_API_BASE_URL,
+          // baseURL: 'https://api.coderen.top',
           headers: {
             "Content-Type": "application/json; charset=utf-8"
           }
         };       
       }
-      interceptors(instance) {
-          instance.interceptors.request.use(config => {
+      interceptors(instance:any) {
+          instance.interceptors.request.use((config:any) => {
             // debugger
             //     const token = localStorage.getItem("token");
             //     if (token) {
@@ -27,17 +29,17 @@ class Https{
                  }
                 return config;
             },
-            error=>{
+            (error:any)=>{
                 return Promise.reject(error); 
           });
           instance.interceptors.response.use(
-             response => {
+             (response:any) => {
                 if (response.config.cancelToken) {
                     cancelTokenSources.delete(response.config.cancelToken);
                  }
                 return response.data;
               },
-              error => {
+              (error:any) => {
                 if (error.response) {
                     const data = error.response.data;
                     if (error.response.status === 403) {
@@ -68,7 +70,7 @@ class Https{
               }
           );
       }
-      request(options) {      
+      request(options:any) {      
         const instance = axios.create();
         const requestOptions = Object.assign({}, this.config, options);
         this.interceptors(instance);
@@ -76,7 +78,7 @@ class Https{
       }
 }
 
-const https = new Https();
+const https = new Https(null);
 export default https;
 export {
     cancelTokenSources

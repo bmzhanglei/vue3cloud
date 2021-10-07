@@ -1,6 +1,7 @@
 {
   "name": "vue3cloud",
   "version": "0.0.0",
+  "license":"MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development vite",
     "build": "vue-tsc --noEmit && vite build",

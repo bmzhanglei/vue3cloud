@@ -3,7 +3,7 @@ import App from './App.vue'
 import '@/style/index.scss'
 import store,{key} from './store'
 import util from './utils/util'
-import i18n from '@/language/i18n'
+import i18n from './locales/i18n'
 import router from './router/index';
 
 const app = createApp(App)

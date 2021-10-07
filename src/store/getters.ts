@@ -1,5 +1,6 @@
 const getters = {
-    // username:state=>(p)=>state.app.username+"---"+p,
+    // language:state=>(p)=>state.app.username+"---"+p,
+    language:(state:any) => state.language,
     // token: state =>
     //  state.user.token
     //   ? state.user.token

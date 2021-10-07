@@ -9,6 +9,7 @@ import {doLogin} from '../apis/login'
 
 console.log('modules----->',modules)
 // 1.创建一个injectionKey
+// debugger
 export const key: InjectionKey<Store<State>> = Symbol()
 
 export type User = {
@@ -17,40 +18,40 @@ export type User = {
   password:string,
   verify:string
 }
+type Lang = {language:string}
 
 export type State = {
-  // counter: number,
+  language?: string,
+  app?:Lang
   // todos?: TodoState
-  user?: Login
+  // user?: LoginState
 }
 
-export default createStore({
-  // state: {
-  //   user:{},
-  //   // counter: 1
-  // },
-  // mutations: {
-  //   // add(state) {
-  //   //   state.counter++
-  //   // },   
-  // },
-  // actions:{
-   
-  // },
+export default createStore<State>({
+  state:{
+    language:'zh'
+  },
+  mutations:{
+    setLanguage(state:any,data:string){
+        state.language = data
+    }
+  },
   modules,
   getters,
   plugins:[createPersistedState({  //状态管理持久化
     storage:window.sessionStorage,
-    reducer: data =>{
-      // console.log(data.app)
+    reducer: (data:State) =>{
+      // console.log('数据持久化-->',data)
+      // debugger
       return {
-        //  app:{username:data.app.username}   //指定数据持久化
-         app:data.app   //指定数据持久化
+         app:{language:data.language}   //指定数据持久化
+        //  app:data   //指定数据持久化
       }
     }
   })] 
 })
 
 export function useStore() {
+console.log(baseUseStore(key))
   return baseUseStore(key);
 }
