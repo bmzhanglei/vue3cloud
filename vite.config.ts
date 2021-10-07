@@ -19,7 +19,7 @@ export default({command,mode})=>{
     },
     esbuild:{},
     // mode:"development",
-    mode:"production",
+    // mode:"production",
     build:{
       // sourcemap:false,
       // chunkSizeWarningLimit:1500,
