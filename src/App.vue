@@ -5,15 +5,14 @@
 </template>
 
 <script lang="ts" setup>
- 
  import en_US from 'ant-design-vue/es/locale/en_US';
  import zh_CN from 'ant-design-vue/es/locale/zh_CN';
   import {useI18n } from 'vue-i18n'
-  const {locale} = useI18n()
-
-  
+  const {locale} = useI18n() 
 </script>
 
 <style>
-
+#app{
+  height:100%
+}
 </style>

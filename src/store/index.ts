@@ -7,7 +7,7 @@ import getters from './getters'
 import modules from "./store";
 import {doLogin} from '../apis/login'
 
-console.log('modules----->',modules)
+// console.log('modules----->',modules)
 // 1.创建一个injectionKey
 // debugger
 export const key: InjectionKey<Store<State>> = Symbol()

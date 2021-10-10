@@ -46,9 +46,10 @@ export default({command,mode})=>{
       // https:true,
       cors:true,
       proxy:{
-        '^/login|user|role|category|fileupload/.*':{
+        '^/v1':{
           target:url,
-          changeOrigin:true
+          changeOrigin:true,
+          rewrite:(path) => path.replace(/^\/v1/, '')
         },
         '^/socket.io':{
           target:url,

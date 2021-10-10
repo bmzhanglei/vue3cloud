@@ -1,5 +1,6 @@
 
 <script lang="ts" setup>
+import Locale from '../../components/Locale.vue' 
 import type { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
 import type { UnwrapRef } from "vue";
 import { reactive, ref, onMounted } from "vue";
@@ -7,7 +8,7 @@ import { useRouter } from "vue-router";
 import { getCaptcha } from "../../apis/login";
 import { useStore } from "../../store";
  import {useI18n } from 'vue-i18n'
-
+ const {t,locale} = useI18n()
 interface FormState {
   username: string;
   password: string;
@@ -19,8 +20,6 @@ interface VerifyCode {
   text: string | undefined;
 }
 
-
-const {t,locale} = useI18n()
 // console.log(import.meta.env.VITE_BASE_URL)
 
 const store = useStore()
@@ -30,24 +29,12 @@ const layout = {
   wrapperCol: { span: 12 },
 };
 const formRef = ref();
-let langStr = ref('English')
 const formState: UnwrapRef<FormState> = reactive({
-  username: "zhanglei",
+  username: "zhangsan",
   password: "111111",
   verify: "",
   tip:""
 });
-//  debugger
- locale.value = store.state?.app?.language || "zh"
- const isZh2 = locale.value === "zh"
- langStr.value=isZh2?'English':'中文';
-  const toggleLanguage = ()=>{
-    const isZh = langStr.value === "中文"
-    const val = isZh ?'zh':'en'
-    langStr.value=isZh?'English':'中文';
-    store.commit('setLanguage',val)
-    locale.value = val
-}
 
 const validObj = { required: true, message: "required!", trigger: "blur" }
 const rules = {username: [validObj], password: [validObj],verify: [validObj]};
@@ -62,8 +49,6 @@ const getCode = () => {
     code.data = res.data;
   });
 };
-
-
 
 onMounted(() => {
   getCode();
@@ -85,17 +70,13 @@ const onSubmit = () => {
 const resetForm = () => {
   formRef.value.resetFields();
 };
-
 </script>
 
-
-
 <template>
- <a-date-picker />
-   <a-button type="primary" size="small" @click="toggleLanguage">
-      {{langStr}}
-    </a-button>
- <h1>{{formState.tip}}</h1>
+ <a-row>
+    <a-col :offset="8" :span="8"><h3>{{formState.tip}}</h3></a-col>
+    <a-col :span="8" > <Locale/></a-col>
+  </a-row>
   <a-form ref="formRef" :model="formState" :rules="rules" v-bind="layout">
     <a-form-item :label="$t('username')" name="username">
       <a-input v-model:value="formState.username" />
@@ -114,10 +95,10 @@ const resetForm = () => {
 
     <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
       <a-button type="primary" html-type="submit" @click="onSubmit">{{
-       t("login")
+       $t("login")
       }}</a-button>
       <a-button style="margin-left: 10px" @click="resetForm">{{
-       t("reset")
+       $t("reset")
       }}</a-button>
     </a-form-item>
   </a-form>

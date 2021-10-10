@@ -2,36 +2,55 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 
 export type AppRouteRecordRaw = RouteRecordRaw & {hidden?:boolean}
-
+import layOut from "@/views/layout/index.vue";
 import Home from '@/views/Home.vue'
 
 const router = createRouter({
     history:createWebHashHistory(),
     routes:[
         {
-            path: '/login',
-            name: 'Login',
-     
+            path: '/',
+            hidden:true,
+            name: 'Login',     
             component: () => import(/* webpackChunkName: "userManager" */'@/views/login/index.vue')
           },
           {
             path: '/index',
+            component:layOut,
+            meta: {
+              title: "首页",
+              locale: 'index',
+              icon: "viteshouye",
+              // breadcrumb: true
+            },
             name: 'Index',
-            component: () => import(/* webpackChunkName: "userManager" */'@/views/layout/index.vue')
+            children:[
+              {
+                path: "",
+                name: "index",
+                component: () => import("@/views/dashboard/index.vue"),
+                meta: {
+                  title: "首页",
+                  locale: 'index',        
+                  icon: "viteshouye",
+                },
+              },{
+                path: "user",
+                name: "user",
+                component: () => import("@/views/user/index.vue"),
+                meta: {
+                  title: "用户",
+                  locale: 'user',        
+                  icon: "viteshouye",
+                },
+              }
+            ]           
+          },{
+            path:"/:pathMatch(.*)",
+            hidden:true,
+            name: '404',
+            component: () => import("@/views/404.vue"),
           }
-        // {
-        //     path:'/home',   
-        //     hidden:false,
-        //     component:Home,
-        //     meta:{
-        //         title:"代办列表",
-        //         icon:""
-        //     }
-        // },
-        // {
-        //     path:'/add',
-        //     component:()=>import("@/views/AddTodo.vue")
-        // },
     ] as AppRouteRecordRaw[]
 })
 

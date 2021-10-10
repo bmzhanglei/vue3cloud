@@ -5,7 +5,7 @@ import { ref } from 'vue'
 
 <template>
 <div>
-    home
+   404
 </div>
 </template>
 
