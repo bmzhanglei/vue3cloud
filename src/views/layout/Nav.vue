@@ -1,29 +1,24 @@
 <script setup lang="ts">
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from '@ant-design/icons-vue';
+import {Icon} from '../../components/Icon';
 import { ref } from 'vue'
+import { useRoute, useRouter } from "vue-router";
+import  {routesType} from '../../router'
   const  selectedKeys= ref<string[]>(['1']);
-//   const vv = UserOutlined
+  const router = useRouter()
+  const routes = router.getRoutes().filter(res=>res.redirect) 
+//   console.log(router)
+  console.log(routes)
+
 </script>
 
 <template>
 <div>
      <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
-        <a-menu-item key="1">
-          <user-outlined />
-          <span>nav 1</span>
+        <a-menu-item v-for="item in routes" :key="item.path">
+          <Icon :icon="item.meta.icon"/>       
+         <span>{{item.meta.title}}</span>
         </a-menu-item>
-        <a-menu-item key="2">
-          <video-camera-outlined />
-          <span>nav 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <upload-outlined />
-          <span>nav 3</span>
-        </a-menu-item>
+   
       </a-menu>
 </div>
 </template>

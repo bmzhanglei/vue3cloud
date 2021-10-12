@@ -2,9 +2,6 @@
 import Nav from './Nav.vue'
 import Header from './Header.vue'
 import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons-vue';
