@@ -1,12 +1,13 @@
-import { defineConfig } from 'vite'
+import { defineConfig , UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import path from "path";
+const path = require("path");
 import {loadEnv} from 'vite'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
+import viteCompression from 'vite-plugin-compression';
 import ViteComponents, { AntDesignVueResolver } from 'vite-plugin-components'
 
-export default({command,mode})=>{
+export default({command,mode}:UserConfig):UserConfig=>{
   const url = loadEnv(mode,process.cwd()).VITE_BASE_URL
   const port = loadEnv(mode,process.cwd()).VITE_PORT
   return defineConfig({
@@ -21,6 +22,7 @@ export default({command,mode})=>{
     // mode:"development",
     // mode:"production",
     build:{
+      minify: "esbuild",
       // sourcemap:false,
       // chunkSizeWarningLimit:1500,
       // rollupOptions:{
@@ -35,8 +37,8 @@ export default({command,mode})=>{
     },
     resolve:{
       alias:{
-        "@":path.resolve(__dirname,'src'),
-        "apis":path.resolve(__dirname,'src/apis'),
+        "@":path.resolve('src'),
+        "apis":path.resolve('src/apis'),
         'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
       },
     },
@@ -60,7 +62,7 @@ export default({command,mode})=>{
         overlay:false //是否屏蔽服务器报错
       }
     },
-    plugins: [vue(),vueJsx(),
+    plugins: [vue(),vueJsx(),viteCompression(),
       vueI18n({
       // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
       // compositionOnly: false,

@@ -1,12 +1,12 @@
 
 <script lang="ts" setup>
-import Locale from '../../components/Locale.vue' 
+import Locale from '@/components/Locale.vue' 
 import type { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
 import type { UnwrapRef } from "vue";
 import { reactive, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { getCaptcha } from "../../apis/login";
-import { useStore } from "../../store";
+import { getCaptcha } from "apis/login";
+import { useStore } from "@/store";
  import {useI18n } from 'vue-i18n'
  const {t,locale} = useI18n()
 interface FormState {

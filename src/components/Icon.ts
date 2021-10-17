@@ -1,11 +1,8 @@
 import { createVNode } from 'vue'
 import  * as $Icon from '@ant-design/icons-vue'
 
-interface icons{
-  icon: string 
-}
 
-export const Icon = (props: icons) => {
+export const Icon = (props: { icon: string }) => {
   const { icon } = props;
-  return createVNode($Icon[icon]);
+  return createVNode($Icon[icon as keyof typeof $Icon]);
 };
