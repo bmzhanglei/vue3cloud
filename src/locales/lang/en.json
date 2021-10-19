@@ -3,5 +3,9 @@
     "reset":"Reset",
     "username":"Username",
     "password":"Password",
-    "verify":"Identifying Code"
+    "verify":"Identifying Code",
+    "menu":"Menu",
+    "index":"Index",
+    "user":"User",
+    "role":"Role"
 }

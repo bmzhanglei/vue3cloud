@@ -5,8 +5,7 @@ import { ref } from 'vue'
 
 <template>
 <div>
-    用户
-    <router-view></router-view>
+    角色
 </div>
 </template>
 

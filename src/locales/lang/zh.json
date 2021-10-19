@@ -3,5 +3,9 @@
     "reset":"重置",
     "username":"用户名",
     "password":"密码",
-    "verify":"验证码"
+    "verify":"验证码",
+    "menu":"菜单",
+    "index":"首页",
+    "user":"用户",
+    "role":"角色"
 }

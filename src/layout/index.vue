@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Nav from './Nav.vue'
+import NavMemu from './NavMenu.vue'
 import Header from './Header.vue'
 import {
   MenuUnfoldOutlined,
@@ -14,11 +14,10 @@ import {  ref } from 'vue';
   <a-layout class="layout">
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
       <div class="logo" />
-      <Nav></Nav>
+      <NavMemu></NavMemu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header>
-     
+      <a-layout-header>     
         <menu-unfold-outlined
           v-if="collapsed"
           class="trigger"

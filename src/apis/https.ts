@@ -1,5 +1,5 @@
 
-import axios from "axios"
+import axios ,{ AxiosRequestConfig, AxiosResponse, AxiosError } from "axios"
 const cancelTokenSources = new Map(); // 定义cancel队列
 class Https{
     config = null
@@ -15,7 +15,7 @@ class Https{
         };       
       }
       interceptors(instance:any) {
-          instance.interceptors.request.use((config:any) => {
+          instance.interceptors.request.use((config:AxiosRequestConfig):AxiosRequestConfig => {
             // debugger
             //     const token = localStorage.getItem("token");
             //     if (token) {
@@ -29,17 +29,17 @@ class Https{
                  }
                 return config;
             },
-            (error:any)=>{
+            (error:AxiosError)=>{
                 return Promise.reject(error); 
           });
           instance.interceptors.response.use(
-             (response:any) => {
+             (response:AxiosResponse): AxiosResponse | Promise<AxiosResponse> => {
                 if (response.config.cancelToken) {
                     cancelTokenSources.delete(response.config.cancelToken);
                  }
                 return response.data;
               },
-              (error:any) => {
+              (error:AxiosError) => {
                 if (error.response) {
                     const data = error.response.data;
                     if (error.response.status === 403) {

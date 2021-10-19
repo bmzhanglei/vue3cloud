@@ -22,7 +22,7 @@ export default({command,mode}:UserConfig):UserConfig=>{
     // mode:"development",
     // mode:"production",
     build:{
-      minify: "esbuild",
+      // minify: "esbuild",
       // sourcemap:false,
       // chunkSizeWarningLimit:1500,
       // rollupOptions:{
