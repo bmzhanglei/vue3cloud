@@ -1,16 +1,33 @@
 
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { createRouter,RouteMeta, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import {
   UserOutlined,
   VideoCameraOutlined,
   UploadOutlined,
 } from '@ant-design/icons-vue';
-export type AppRouteRecordRaw = RouteRecordRaw & {hidden?:boolean,key:string}
+import {defineComponent} from 'vue'
+
+export type Component<T extends any = any> =
+  | ReturnType<typeof defineComponent>
+  | (() => Promise<typeof import('*.vue')>)
+  | (() => Promise<T>);
+export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
+  key:string,
+  hidden?:boolean,
+  name: string;
+  meta: RouteMeta;
+  component?: Component | string;
+  children?: AppRouteRecordRaw[] | undefined;
+}
+
+export type AppRouteModule =  AppRouteRecordRaw
+
+// export type AppRouteRecordRaw = RouteRecordRaw & {hidden?:boolean,key:string,children?:AppRouteRecordRaw[]}
 import layOut from "@/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
 import Home from '@/views/Home.vue'
 
-const routes :AppRouteRecordRaw[] = [
+const routes = [
   {
       key:"0.1",
       path: '/',
@@ -43,13 +60,13 @@ const routes :AppRouteRecordRaw[] = [
           }
         },{
           key:"1.2",
-          path: "/index/user",
-          name: "user",
+          path: "/index/role",
+          name: "roles",
           hidden:false,
           component: RouterView,
           meta: {
-            title: "user",
-            locale: 'user',        
+            title: "role",
+            locale: 'role',        
             icon: "UserOutlined",
           },
           children:[{
@@ -64,13 +81,24 @@ const routes :AppRouteRecordRaw[] = [
             }
             }
           ]
+        },{
+          key:"1.3",
+          path: "/index/user",
+          name: "user",
+          hidden:false,
+          component: () => import("@/views/user/index.vue"),
+          meta: {
+            title: "user",
+            locale: 'user',        
+            icon: "UserOutlined",
+          }        
         }
       ]           
     },{   
         key:"2",         
         path: '/menu',
         name: 'menu',
-        hidden:true,
+        // hidden:true,
         component:layOut,            
         meta: {         
           title: "menu",
@@ -81,7 +109,8 @@ const routes :AppRouteRecordRaw[] = [
         redirect: "/menu/childmenu1",      
         children:[
           {
-            key:"2.1",              
+            key:"2.1",   
+            // hidden:true,           
             path: "/menu/childmenu1",
             name: "menu2",
             component: () => import("@/views/menu/index.vue"),
@@ -100,13 +129,13 @@ const routes :AppRouteRecordRaw[] = [
       name: '404',
       component: () => import("@/views/404.vue"),
     }
-] as AppRouteRecordRaw[]
+]
 
-export type routesType = typeof routes[0]
+
 
 const router = createRouter({
     history:createWebHashHistory(),
-    routes:routes
+    routes:routes as unknown as RouteRecordRaw[]
 })
 
 export default router

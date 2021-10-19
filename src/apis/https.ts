@@ -43,7 +43,7 @@ class Https{
                 if (error.response) {
                     const data = error.response.data;
                     if (error.response.status === 403) {
-                        console.log("无权限访问",data.message)
+                        // console.log("无权限访问",data.message)
                     }
                     if (error.response.status === 401) {
                          //退出登陆
