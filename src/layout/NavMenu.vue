@@ -35,7 +35,7 @@ import type {AppRouteModule} from '@/router'
 
         <template v-for="item in routes" :key="item.key">        
             <template v-if="item.children?.length==1">
-                <a-menu-item :key="item.children[0]?.key"> 
+                <a-menu-item :key="item.children[0].key"> 
                      <router-link :to="item.children[0].path">                     
                         <Icon :icon="item.meta?.icon as string"/>       
                         <span>{{$t(item.meta?.title as string)}}</span>                 

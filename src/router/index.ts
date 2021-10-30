@@ -27,12 +27,13 @@ import layOut from "@/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
 import Home from '@/views/Home.vue'
 
-const routes = [
+const routes:AppRouteRecordRaw[] = [
   {
       key:"0.1",
       path: '/',
       hidden:true,
-      name: 'Login',     
+      name: 'Login',   
+      meta: {      }  ,
       component: () => import(/* webpackChunkName: "userManager" */'@/views/login/index.vue')
     },
     {
@@ -127,7 +128,12 @@ const routes = [
       path:"/:pathMatch(.*)",
       hidden:true,
       name: '404',
-      component: () => import("@/views/404.vue"),
+      meta: {
+        title: "404",
+        locale: '404',        
+        icon: "UserOutlined",
+      },
+      component: () => import("@/views/404.vue")
     }
 ]
 

@@ -48,16 +48,16 @@ export default({command,mode}:UserConfig):UserConfig=>{
       // https:true,
       cors:true,
       proxy:{
-        // '^/v1':{
-        //   target:url,
-        //   changeOrigin:true,
-        //   rewrite:(path) => path.replace(/^\/v1/, '')
-        // },
-        '^/login':{
+        '^/v1':{
           target:url,
           changeOrigin:true,
-          // rewrite:(path) => path.replace(/^\/v1/, '')
+          rewrite:(path) => path.replace(/^\/v1/, '')
         },
+        // '^/login':{
+        //   target:url,
+        //   changeOrigin:true,
+        //   // rewrite:(path) => path.replace(/^\/v1/, '')
+        // },
         '^/socket.io':{
           target:url,
           changeOrigin:true
