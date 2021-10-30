@@ -1,6 +1,7 @@
 
 import axios ,{ AxiosRequestConfig, AxiosResponse, AxiosError } from "axios"
 const cancelTokenSources = new Map(); // 定义cancel队列
+
 class Https{
     config = null
     constructor(config:any) {
