@@ -1257,10 +1257,10 @@ minimist@^1.2.5:
   resolved "https://registry.nlark.com/minimist/download/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha1-Z9ZgFLZqaoqqDAg8X9WN9OTpdgI=
 
-mitt@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.nlark.com/mitt/download/mitt-2.1.0.tgz?cache=0&sync_timestamp=1624483449786&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fmitt%2Fdownload%2Fmitt-2.1.0.tgz#f740577c23176c6205b121b2973514eade1b2230"
-  integrity sha1-90BXfCMXbGIFsSGylzUU6t4bIjA=
+mitt@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.nlark.com/mitt/download/mitt-3.0.0.tgz?cache=0&sync_timestamp=1624483449786&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fmitt%2Fdownload%2Fmitt-3.0.0.tgz#69ef9bd5c80ff6f57473e8d89326d01c414be0bd"
+  integrity sha1-ae+b1cgP9vV0c+jYkybQHEFL4L0=
 
 "mkdirp@>=0.5 0":
   version "0.5.5"
@@ -1625,13 +1625,6 @@ vue-types@^3.0.0:
   integrity sha1-7BbgXUEsA4Ji/B76TOuWR+f7YB0=
   dependencies:
     is-plain-object "3.0.1"
-
-vue3-eventbus@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.nlark.com/vue3-eventbus/download/vue3-eventbus-2.0.0.tgz#0ee35d7286a164f8e635b7a3f2b7b0270ddfbd47"
-  integrity sha1-DuNdcoahZPjmNbej8rewJw3fvUc=
-  dependencies:
-    mitt "^2.1.0"
 
 vue@^3.2.0:
   version "3.2.19"

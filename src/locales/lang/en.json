@@ -7,5 +7,6 @@
     "menu":"Menu",
     "index":"Index",
     "user":"User",
-    "role":"Role"
+    "role":"Role",
+    "desktop":"DeskTop"
 }

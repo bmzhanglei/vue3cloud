@@ -5,7 +5,7 @@ import { ref } from 'vue'
 
 <template>
 <div>
-    header
+    toolbar
 </div>
 </template>
 

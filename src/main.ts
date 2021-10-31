@@ -5,9 +5,17 @@ import store,{key} from './store'
 import util from './utils/util'
 import i18n from './locales/i18n'
 import router from './router/index';
+import { emitter } from './utils/bus'
 
 const app = createApp(App)
-
+declare module '@vue/runtime-core' {
+    export interface ComponentCustomProperties {
+      emitter: typeof emitter,
+      util:typeof util
+    }
+  }
+  
+// app.config.globalProperties.emitter = emitter
 app.config.globalProperties.$utils = util
 
 app.use(router)

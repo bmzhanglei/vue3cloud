@@ -19,6 +19,8 @@ import type {AppRouteModule} from '@/router'
     // selectedKeys.value = [menuInfo.name as string]
 
       }
+
+   
   // console.log(routes)
 //  watch(router, setMenuKey)
 </script>
@@ -37,8 +39,8 @@ import type {AppRouteModule} from '@/router'
             <template v-if="item.children?.length==1">
                 <a-menu-item :key="item.children[0].key"> 
                      <router-link :to="item.children[0].path">                     
-                        <Icon :icon="item.meta?.icon as string"/>       
-                        <span>{{$t(item.meta?.title as string)}}</span>                 
+                        <Icon :icon="item.meta.icon as string"/>       
+                        <span>{{$t(item.meta.title as string)}}</span>                 
                      </router-link>                
                 </a-menu-item>
             </template>

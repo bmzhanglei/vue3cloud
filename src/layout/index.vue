@@ -1,29 +1,25 @@
 <script lang="ts" setup>
 import NavMemu from './NavMenu.vue'
-import Header from './Header.vue'
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-} from '@ant-design/icons-vue';
+import Header from './header/index.vue'
+// import Header from './Header.vue'
+import { emitter } from '@/utils/bus';
+import util from '@/utils/util'
 import {  ref } from 'vue';
-  
-     const collapsed = ref<boolean>(false);
+  const collapsed = ref<boolean>(false);
+
+  emitter.on("getCollapse",param=>{
+     collapsed.value = !!param 
+  })
 </script>
 
 <template>
   <a-layout class="layout">
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
-      <div class="logo" />
+      <div class="logo"> login</div>
       <NavMemu></NavMemu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header>     
-        <menu-unfold-outlined
-          v-if="collapsed"
-          class="trigger"
-          @click="() => (collapsed = !collapsed)"
-        />
-        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+      <a-layout-header> 
         <Header/>
       </a-layout-header>
 
@@ -38,18 +34,12 @@ import {  ref } from 'vue';
 </template>
 
 <style lang="scss" scoped>
+.logo {color:white}
 .layout{
     height:100%;
   .ant-layout-header{
-       background: #fff; padding: 0;display: flex;align-items: center;
-  .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 24px;
-    cursor: pointer;
-    transition: color 0.3s;
-     &:hover{color: #1890ff;}
-    }
+       background: #fff; padding: 0;height:auto;line-height: 40px;
+
   
   }
 }
