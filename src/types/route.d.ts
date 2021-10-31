@@ -18,6 +18,6 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
 
 export type Tbread = Partial<Record<'name'|'path'|'key',string>>  //定义面包屑
 
-
+export type Ttag = Tbread & {active?:boolean}  
 
 // export type AppRouteModule =  AppRouteRecordRaw

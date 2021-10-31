@@ -12,13 +12,11 @@ import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
   const collapsed = ref<boolean>(false);
   const store = useStore()
   watch(collapsed,()=>{
-      emitter.emit("getCollapse",collapsed.value as boolean)
+      emitter.emit("getCollapse",!!collapsed.value)
   })
   const breads = computed(():Tbread[]=>{
      return store.state.breadcrumb
   }) 
-  // ref<Tbread[]>([])
-
 
   // onMounted(()=>{
   //   emitter.on('getBread',(param)=>{

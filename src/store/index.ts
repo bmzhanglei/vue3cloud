@@ -2,11 +2,12 @@ import { InjectionKey } from 'vue'
 import { createStore, Store ,useStore as baseUseStore} from "vuex";
 import createPersistedState from 'vuex-persistedstate'
 import todos, { TodoState } from './modules/todos'
-import { LoginState } from "../types/login";
+import { LoginState } from "@/types/login";
+import util from '@/utils/util';
 import getters from './getters'
 import modules from "./store";
 import {doLogin} from '../apis/login'
-import type {Tbread} from '@/types/route' 
+import type {Tbread,Ttags} from '@/types/route' 
 // console.log('modules----->',modules)
 // 1.创建一个injectionKey
 // debugger
@@ -23,7 +24,8 @@ type Lang = {language:string}
 export type State = {
   language?: string,
   app?:Lang,
-  breadcrumb:Tbread[]
+  breadcrumb:Tbread[],
+  tagviews:Ttags[]
   // todos?: TodoState
   // user?: LoginState
 }
@@ -32,6 +34,7 @@ export default createStore<State>({
   state:{
     language:'zh',
     breadcrumb:[],
+    tagviews:[]
   },
   mutations:{
     setLanguage(state:State,data:string){
@@ -39,7 +42,19 @@ export default createStore<State>({
     },
     setBreadcrumb(state:State,data:Tbread[]){
         state.breadcrumb = data                     
+    },
+    addTagview(state:State,data:Ttags){
+      if(!state.tagviews.some(res=>res.key === data.key)){
+        state.tagviews.push(data)                    
+      }
+    },
+    delTagview(state:State,data:string[]){
+
+       util.delRest(state.tagviews,'key',data)
+    
+        // state.tagviews = state.tagviews.filter(res=>!res.key)
     }
+
   },
   modules,
   getters,

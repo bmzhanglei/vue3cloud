@@ -2,7 +2,7 @@
 
 import Breadcrumb from './Breadcrumb.vue';
 import ToolBar from './ToolBar.vue';
-import TagView from './TagView.vue';
+import TagView from './tagview/index.vue';
 import { getCurrentInstance, ref ,watch} from 'vue'
 
  const curInstance = getCurrentInstance()

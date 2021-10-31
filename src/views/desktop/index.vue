@@ -6,6 +6,7 @@ import { ref } from 'vue'
 <template>
 <div>
   deskTop
+   <a-input></a-input>
 </div>
 </template>
 

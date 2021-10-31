@@ -107,6 +107,17 @@ const routes :AppRouteRecordRaw[]= [{
                   icon: "",
                   breadcrumb: true
                 },
+              },{               
+                path: "/index/role2",
+                name: "role22",
+                component: () => import("@/views/role/index2.vue"),
+                meta: {
+                  key:"1.2.1.2",
+                  title: "role",
+                  locale: 'role',        
+                  icon: "",
+                  breadcrumb: true
+                },
               }]
             }
           ]
@@ -181,9 +192,12 @@ router.beforeEach((to,from,next)=>{
       // debugger
       const bread = to.matched.filter(res=>res.meta.breadcrumb).map(res=>({name:res.meta.title,path:res.path,key:res.meta.key}))
       if(bread[0].name!=='desktop'){
-        bread.unshift({name:'desktop',path:'/desktop/index',key:'3'})
+        bread.unshift({name:'desktop',path:'/desktop/index',key:'3.1'})
       }
+      store.commit('addTagview',bread[0])
+      
       store.commit('setBreadcrumb',bread)
+      store.commit('addTagview',bread[bread.length-1])
   }
    next()
 })
