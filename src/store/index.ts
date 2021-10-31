@@ -6,7 +6,7 @@ import { LoginState } from "../types/login";
 import getters from './getters'
 import modules from "./store";
 import {doLogin} from '../apis/login'
-import type {ITbread} from '@/types/route' 
+import type {Tbread} from '@/types/route' 
 // console.log('modules----->',modules)
 // 1.创建一个injectionKey
 // debugger
@@ -23,7 +23,7 @@ type Lang = {language:string}
 export type State = {
   language?: string,
   app?:Lang,
-  breadcrumb:ITbread[]
+  breadcrumb:Tbread[]
   // todos?: TodoState
   // user?: LoginState
 }

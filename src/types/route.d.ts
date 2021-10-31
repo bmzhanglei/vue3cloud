@@ -1,6 +1,6 @@
 
 
-import { RouteRecordRaw } from "vue-router";
+import { RouteRecordRaw ,RouteMeta} from "vue-router";
 import {defineComponent} from 'vue'
 
 export type Component<T extends any = any> =

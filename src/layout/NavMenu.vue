@@ -4,18 +4,18 @@ import { ref,watch ,computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import SubMenu from './SubMenu.vue'
 import { useStore } from '@/store';
-import type {AppRouteRecordRaw} from '@/types/route'
+import type {AppRouteRecordRaw,Tbread} from '@/types/route'
   const store = useStore()
   const selectedKeys= ref<string[]>([""]);
   const openKeys = ref<string[]>([""])
 
-  const selKeys = computed(()=>{
+  const selKeys = computed(():Tbread[]=>{
     return store.state.breadcrumb 
   })
   
   watch(selKeys,(newVal,oldVal)=>{
-      selectedKeys.value = [newVal[newVal.length-1].key]
-      openKeys.value = newVal.map(res=>res.key)
+      selectedKeys.value = [newVal[newVal.length-1].key as string]
+      openKeys.value = newVal.map(res=>res.key as string)
       // console.log(openKeys.value)
   },{immediate:true})
 
