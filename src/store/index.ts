@@ -57,7 +57,7 @@ export default createStore<State>({
 })
 
 export function useStore() {
-  console.log('baseUseStore--->',baseUseStore(key))
+  // console.log('baseUseStore--->',baseUseStore(key))
   // debugger
   return baseUseStore(key);
 } 

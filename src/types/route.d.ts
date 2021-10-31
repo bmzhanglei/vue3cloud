@@ -9,7 +9,6 @@ export type Component<T extends any = any> =
         | (() => Promise<T>);
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
-    key:string,
     hidden?:boolean,
     name: string;
     meta: RouteMeta;
@@ -17,7 +16,7 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
     children?: AppRouteRecordRaw[] | undefined;
 }
 
-export type Tbread = Partial<Record<'name'|'path',string>>  //定义面包屑
+export type Tbread = Partial<Record<'name'|'path'|'key',string>>  //定义面包屑
 
 
 

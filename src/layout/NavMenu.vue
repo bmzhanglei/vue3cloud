@@ -1,45 +1,45 @@
 <script setup lang="ts">
 import {Icon} from '@/components/Icon';
-import { ref,watch } from 'vue'
+import { ref,watch ,computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import SubMenu from './SubMenu.vue'
+import { useStore } from '@/store';
 import type {AppRouteRecordRaw} from '@/types/route'
+  const store = useStore()
+  const selectedKeys= ref<string[]>([""]);
+  const openKeys = ref<string[]>([""])
 
-  const  selectedKeys= ref<string[]>(["1.1"]);
-  watch(selectedKeys,(newVal,oldVal)=>{
-      console.log(selectedKeys.value)
+  const selKeys = computed(()=>{
+    return store.state.breadcrumb 
   })
+  
+  watch(selKeys,(newVal,oldVal)=>{
+      selectedKeys.value = [newVal[newVal.length-1].key]
+      openKeys.value = newVal.map(res=>res.key)
+      // console.log(openKeys.value)
+  },{immediate:true})
+
   const  collapsed= ref<boolean>(false);
   const router = useRouter()
   const routes:AppRouteRecordRaw[]= router.getRoutes().filter(res=>res.redirect) as unknown as AppRouteRecordRaw[]
-//   console.log(router)
-  const setMenuKey = () => {
-    debugger
-    // selectedKeys.value = [menuInfo.name as string]
 
-      }
-
-   
-  // console.log(routes)
-//  watch(router, setMenuKey)
 </script>
 
 <template>
 <div>
      <a-menu theme="dark" 
-        mode="inline"   
-        :default-selected-keys="['1.3']"
-        :default-open-keys="['1.3']"
+        mode="inline"         
          v-model:selectedKeys="selectedKeys"
+         v-model:openKeys="openKeys"
          :inline-collapsed="collapsed"
          >
 
-        <template v-for="item in routes" :key="item.key">        
+        <template v-for="item in routes" :key="item.meta.key">        
             <template v-if="item.children?.length==1">
-                <a-menu-item :key="item.children[0].key"> 
+                <a-menu-item :key="item.children[0].meta.key"> 
                      <router-link :to="item.children[0].path">                     
                         <Icon :icon="item.meta.icon as string"/>       
-                        <span>{{$t(item.meta.title as string)}}</span>                 
+                        <span>{{$t(item.meta.title as string)+item.meta.key as string}}</span>                 
                      </router-link>                
                 </a-menu-item>
             </template>
