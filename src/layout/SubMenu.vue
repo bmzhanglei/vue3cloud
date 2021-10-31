@@ -2,16 +2,16 @@
 import { ref ,watch} from 'vue'
 import {Icon} from '@/components/Icon';
 import { useRoute, useRouter } from "vue-router";
-import type {AppRouteModule}  from '@/router'
- const menuInfos = defineProps<{menuInfo:AppRouteModule}>()
+import type {AppRouteRecordRaw} from '@/types/route'
+ const menuInfos = defineProps<{menuInfo:AppRouteRecordRaw}>()
 
    const  selectedKeys= ref<string[]>(['1.3']);
      watch(selectedKeys,(newVal,oldVal)=>{
-      console.log(selectedKeys.value)
+      // console.log(selectedKeys.value)
   })
 
 
- console.log(menuInfos)
+//  console.log(menuInfos)
    const router = useRouter()
 
 </script>

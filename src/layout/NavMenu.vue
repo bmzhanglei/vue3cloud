@@ -3,8 +3,7 @@ import {Icon} from '@/components/Icon';
 import { ref,watch } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import SubMenu from './SubMenu.vue'
-import type {AppRouteModule} from '@/router'
-// import type {routesType} from '@/router'
+import type {AppRouteRecordRaw} from '@/types/route'
 
   const  selectedKeys= ref<string[]>(["1.1"]);
   watch(selectedKeys,(newVal,oldVal)=>{
@@ -12,7 +11,7 @@ import type {AppRouteModule} from '@/router'
   })
   const  collapsed= ref<boolean>(false);
   const router = useRouter()
-  const routes:AppRouteModule[]= router.getRoutes().filter(res=>res.redirect) as unknown as AppRouteModule[]
+  const routes:AppRouteRecordRaw[]= router.getRoutes().filter(res=>res.redirect) as unknown as AppRouteRecordRaw[]
 //   console.log(router)
   const setMenuKey = () => {
     debugger

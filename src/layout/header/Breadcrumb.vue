@@ -1,27 +1,36 @@
 <script setup lang="ts">
 import { emitter } from '@/utils/bus';
-import { ref, watch, onMounted, reactive } from 'vue';
+import { ref, watch,computed, onMounted, reactive } from 'vue';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons-vue';
-  type Tbread = Partial<Record<'name'|'path',string> > 
+import type {Tbread} from '@/types/route'
+import { useStore } from '@/store';
+import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
 
   const collapsed = ref<boolean>(false);
-
+  const store = useStore()
   watch(collapsed,()=>{
       emitter.emit("getCollapse",collapsed.value as boolean)
   })
-  let breads= ref<Tbread[]>([])
-  onMounted(()=>{
-    emitter.on('getBread',(param)=>{
-      //  breads.value = []
-      //  breads.value[0] = {name:'desktop',path:'/desktop/index'}
-      // debugger
-       breads.value = param as Tbread[]
-   
-    })
-  })
+  const breads = computed(():Tbread[]=>{
+     return store.state.breadcrumb
+  }) 
+  // ref<Tbread[]>([])
+
+
+  // onMounted(()=>{
+  //   emitter.on('getBread',(param)=>{
+  //     debugger
+  //      breads.value = param as Tbread[]   
+  //   })
+  //   })
+    // emitter.on('getBread',(param)=>{
+    //   // debugger
+    //    breads.value = param as Tbread[]   
+    // })
+
 
 
 </script>

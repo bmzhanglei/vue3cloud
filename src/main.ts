@@ -15,10 +15,12 @@ declare module '@vue/runtime-core' {
     }
   }
   
+  // debugger
 // app.config.globalProperties.emitter = emitter
 app.config.globalProperties.$utils = util
 
-app.use(router)
 app.use(store,key)
+
+app.use(router)
 app.use(i18n)
 app.mount('#app')
