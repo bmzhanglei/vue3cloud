@@ -49,10 +49,15 @@ export default createStore<State>({
       }
     },
     delTagview(state:State,data:string[]){
-
-       util.delRest(state.tagviews,'key',data)
-    
-        // state.tagviews = state.tagviews.filter(res=>!res.key)
+       util.delRest(state.tagviews,'key',data);    
+    },
+    activeTagview(state:State,key:string){
+      state.tagviews.forEach(item=>{
+          item.active = item.key === key         
+      })
+    },
+    sortTagviews(state:State,data:Ttags[]){
+        state.tagviews = data
     }
 
   },

@@ -194,10 +194,14 @@ router.beforeEach((to,from,next)=>{
       if(bread[0].name!=='desktop'){
         bread.unshift({name:'desktop',path:'/desktop/index',key:'3.1'})
       }
-      store.commit('addTagview',bread[0])
-      
+      store.commit('addTagview',bread[0])      
       store.commit('setBreadcrumb',bread)
-      store.commit('addTagview',bread[bread.length-1])
+
+      const currentTag = bread[bread.length-1]
+
+      store.commit('addTagview',currentTag)      
+      store.commit('activeTagview',currentTag.key)
+
   }
    next()
 })

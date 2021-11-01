@@ -1595,6 +1595,11 @@ vite@^2.4.3:
   optionalDependencies:
     fsevents "~2.3.2"
 
+vue-draggable-next@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmmirror.com/vue-draggable-next/download/vue-draggable-next-2.1.1.tgz#49886da82f116d11b3e4df7674320fdacf5d7e04"
+  integrity sha1-SYhtqC8RbRGz5N92dDIP2s9dfgQ=
+
 vue-i18n@^9.1.7:
   version "9.1.7"
   resolved "https://registry.npmmirror.com/vue-i18n/download/vue-i18n-9.1.7.tgz?cache=0&sync_timestamp=1633175010218&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fvue-i18n%2Fdownload%2Fvue-i18n-9.1.7.tgz#6f28dd2135197066508e2e65ab204a019750d773"
