@@ -67,7 +67,14 @@ export default({command,mode}:UserConfig):UserConfig=>{
         overlay:false //是否屏蔽服务器报错
       }
     },
-    plugins: [vue(),vueJsx(),viteCompression(),
+    plugins: [vue({
+      template: {
+        compilerOptions: {
+          // 将所有包含短横线的标签作为自定义元素处理
+          isCustomElement: tag => tag.includes('_')
+        }
+      }
+    }),vueJsx(),viteCompression(),
       vueI18n({
       // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
       // compositionOnly: false,
