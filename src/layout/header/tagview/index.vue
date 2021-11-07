@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { ref,computed ,reactive,inject, nextTick} from 'vue'
+import { ref,computed ,reactive, nextTick} from 'vue'
 import { useStore } from '@/store';
 import { emitter } from '@/utils/bus';
-import { RouteRecordName, useRouter } from 'vue-router'
-import { ContextMenuItemProps } from '@/components/common/typings'
-import type {Ttag,Reload} from '@/typings/route'
+import {  useRouter } from 'vue-router'
+import type {   RouteRecordName } from 'vue-router';
+import type { ContextMenuItemProps } from '@/components/common/typings'
+import type {Ttag} from '@/typings/route'
+import {DelState} from '../../../typings/enum'
 import {Icon} from '@/components/Icon';
 import { VueDraggableNext } from 'vue-draggable-next'
+
 const router =  useRouter()
 const {state,commit} = useStore()
-
-// const reload = inject<Reload>('reload')!
-
-enum DelState{
-   Right,Other,All,Single
-}
 
 const closeTags = (delState:DelState,routeName:string = "desktop")=>{
       const index = state.tagviews.findIndex(res=>res.name === routeName)
@@ -95,14 +92,10 @@ const contextMenuDisable = (delState:DelState,routeName:string = "desktop")=>{
           onClick: (routeName) => {
             let tagview = state.tagviews.map(res=>res.name)
             tagview = tagview.filter(res=>res!==routeName)
-
-            const reload = {state:false,names:routeName}   
-
+            const reload = {state:false,names:routeName} 
             emitter.emit('reload',reload)
-
             const index = state.tagviews.findIndex(res=>res.name === routeName)   
-            const indexActive = state.tagviews.findIndex(res=>res.active)    
-
+            const indexActive = state.tagviews.findIndex(res=>res.active)  
             let curTag = JSON.parse(JSON.stringify(state.tagviews[index]))             
             if (indexActive > -1 && state.tagviews[indexActive].name !== routeName) {
                router.push({ name: routeName })               
@@ -171,18 +164,10 @@ const tags = computed({
       contextmenu.routeName = viewName
       contextmenu.show = true
     }
-
-    //   const onTagMove = (e: any) => {
-    //   // 如果是工作台标签，则不允许拖拽
-    //   debugger
-    //   if (e.relatedContext.element.name == 'desktopIndex') return false
-    //   if (e.relatedContext.element.name == 'desktopIndex') return false
-    //   if (e.draggedContext.element.name == 'desktop') return false
-    //   if (e.draggedContext.element.name == 'desktop') return false
-    // }
 </script>
 
 <template>
+<div class="tagviewOut">
 <div class='tagview'>
       <VueDraggableNext
       v-model="tags"      
@@ -190,18 +175,19 @@ const tags = computed({
       ghostClass="tag-ghost"
       filter=".no-drag" 
     >
-      <!-- <transition-group>        -->
-        <a-button v-for="(item,index) in tags" :key="item.key" 
-                   @contextmenu.prevent="onTagRightClick($event, item.name)"
+      <!-- <transition-group>  -->
+           <a-button v-for="(item,index) in tags" :key="item.key" 
+                   @contextmenu.prevent="onTagRightClick($event, item.name as string)"
                   :class="{'no-drag': item.name === 'desktop' }"   
                   :type="item.active?'primary':'default'" size="small">
-            <router-link :to="item.path"> {{$t(item?.name)}}-{{item.name}}  </router-link> 
+            <router-link :to="item.path"> {{$t(item?.name as string)}}-{{item.name}}  </router-link> 
             <Icon icon="CloseOutlined"  @contextmenu.stop.prevent v-if="item.key!=='3.1'" class="icon" @click="closeTags(DelState.Single,item.name)"/>      
         </a-button>
     <!-- </transition-group> -->
-    </VueDraggableNext>
+    </VueDraggableNext>    
 </div>
-
+<div class="screen">全屏</div>
+</div>
   <ContextMenu
     v-model:visable="contextmenu.show"
     :menu="contextmenu.menu"
@@ -212,7 +198,20 @@ const tags = computed({
 </template>
 
 <style lang='scss' scoped>
+.tagviewOut{
+ position: relative;  
+  .screen{
+    position: absolute;
+    right:0px;
+    float:right;
+    top:0;
+    width: 30px;
+    z-index:10;
+    background-color: white;
+  }
+}
 .tagview{
+  margin-right:30px;
   &::-webkit-scrollbar{
     height:6px;
     transform: translateY(-6px);

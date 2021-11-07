@@ -5,16 +5,19 @@ import RouterView  from './RouterView.vue';
 import { useStore } from '@/store';
 // import Header from './Header.vue'
 import { emitter } from '@/utils/bus';
-import {RouteRecordName,useRouter} from 'vue-router'
+import {useRouter} from 'vue-router'
 import util from '@/utils/util'
-import {  ref ,nextTick,provide} from 'vue';
+import {  ref ,nextTick,provide, computed} from 'vue';
 
-const collapsed = ref<boolean>(false);
 const {commit,state} = useStore()
 const router = useRouter()
-  emitter.on("getCollapse",param=>{
-    collapsed.value = !!param 
-  })
+const collapsed = computed(()=>state.collapse);
+
+
+  // emitter.on("getCollapse",param=>{
+  //   collapsed.value = !!param 
+  //     debugger
+  // })
 </script>
 
 <template>
@@ -27,12 +30,8 @@ const router = useRouter()
       <a-layout-header> 
         <Header/>
       </a-layout-header>
-
-      <a-layout-content
-        :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
-      >
-        <RouterView></RouterView>
-         <!-- <router-view></router-view> -->
+      <a-layout-content class="main">
+        <RouterView></RouterView>    
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -45,8 +44,7 @@ const router = useRouter()
     height:100%;
   .ant-layout-header{
        background: #fff; padding: 0;height:auto;line-height: 40px;
-
-  
-  }
+  }  
+  .main{margin: 10px; padding: 10px; background: #fff; }
 }
 </style>

@@ -16,7 +16,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, watch } from 'vue'
 import { ContextMenuItemProps } from './typings'
-import { CommonObject } from '@/typings'
+import type { CommonObject } from '@/typings'
 
 export default defineComponent({
   name: 'contextmenu',
@@ -58,7 +58,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .contextmenu-wrapper {
   width: fit-content;
   position: fixed;

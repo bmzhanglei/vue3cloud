@@ -1,3 +1,4 @@
-export interface CommonObject extends object {
-    [key: string]: any
+export interface CommonObject {
+    [key: string]: string
   }
+

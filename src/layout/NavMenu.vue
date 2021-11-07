@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {Icon} from '@/components/Icon';
-import { ref,watch ,computed} from 'vue'
+import { ref, watch, computed, nextTick, onMounted } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import SubMenu from './SubMenu.vue'
+import { emitter } from '@/utils/bus';
 import { useStore } from '@/store';
 import type {AppRouteRecordRaw,Tbread} from '@/typings/route'
   const store = useStore()
@@ -12,12 +13,14 @@ import type {AppRouteRecordRaw,Tbread} from '@/typings/route'
   const selKeys = computed(():Tbread[]=>{
     return store.state.breadcrumb 
   })
-  
+
+  const collapsedMenu = computed(()=>store.state.collapse);
+    
   watch(selKeys,(newVal,oldVal)=>{
-    // debugger
-      selectedKeys.value = [newVal[newVal.length-1].key as string]
+    selectedKeys.value = [newVal[newVal.length-1].key as string]
+    if(!collapsedMenu.value){
       openKeys.value = newVal.map(res=>res.key as string)
-      // console.log(openKeys.value)
+    }
   },{immediate:true})
 
   const  collapsed= ref<boolean>(false);
@@ -52,6 +55,7 @@ import type {AppRouteRecordRaw,Tbread} from '@/typings/route'
 </div>
 </template>
 
-<style lang='scss' scoped>
-
+<style>
+.ant-menu-submenu-popup.show{display: block;}
+.ant-menu-submenu-popup.hide{display: none;}
 </style>

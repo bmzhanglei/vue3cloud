@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { RouteRecordName } from 'vue-router'
+import  type { RouteRecordName } from 'vue-router'
 
 export interface ClickEvent {
   routeName: string | RouteRecordName

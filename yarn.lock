@@ -422,6 +422,11 @@
   resolved "https://registry.npmmirror.com/@types/node/download/@types/node-16.11.0.tgz#4b95f2327bacd1ef8f08d8ceda193039c5d7f52e"
   integrity sha1-S5XyMnus0e+PCNjO2hkwOcXX9S4=
 
+"@types/sortablejs@^1.10.7":
+  version "1.10.7"
+  resolved "https://registry.nlark.com/@types/sortablejs/download/@types/sortablejs-1.10.7.tgz#ab9039c85429f0516955ec6dbc0bb20139417b15"
+  integrity sha1-q5A5yFQp8FFpVextvAuyATlBexU=
+
 "@vitejs/plugin-vue-jsx@^1.2.0":
   version "1.2.0"
   resolved "https://registry.npmmirror.com/@vitejs/plugin-vue-jsx/download/@vitejs/plugin-vue-jsx-1.2.0.tgz?cache=0&sync_timestamp=1632923108286&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40vitejs%2Fplugin-vue-jsx%2Fdownload%2F%40vitejs%2Fplugin-vue-jsx-1.2.0.tgz#a4216bdbb8b12800537d39e3b5711fcf2eb470ef"
@@ -1469,6 +1474,11 @@ shvl@^2.0.3:
   version "2.0.3"
   resolved "https://registry.npm.taobao.org/shvl/download/shvl-2.0.3.tgz#eb4bd37644f5684bba1fc52c3010c96fb5e6afd1"
   integrity sha1-60vTdkT1aEu6H8UsMBDJb7Xmr9E=
+
+sortablejs@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.nlark.com/sortablejs/download/sortablejs-1.14.0.tgz#6d2e17ccbdb25f464734df621d4f35d4ab35b3d8"
+  integrity sha1-bS4XzL2yX0ZHNN9iHU811Ks1s9g=
 
 source-map-js@^0.6.2:
   version "0.6.2"

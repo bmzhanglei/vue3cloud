@@ -7,12 +7,8 @@ import util from '@/utils/util';
 import getters from './getters'
 import modules from "./store";
 import {doLogin} from '../apis/login'
-import type {Tbread,Ttags} from '@/typings/route' 
+import type {Tbread,Ttag} from '@/typings/route' 
 // console.log('modules----->',modules)
-// debugger
-const clearCache = (state: State) => {
-  state.cachedList = state.tagviews.map((view) => util.getBigName(view.name as string))
-}
 
 // 1.创建一个injectionKey
 export const key: InjectionKey<Store<State>> = Symbol()
@@ -26,11 +22,12 @@ export type User = {
 type Lang = {language:string}
 
 export type State = {
+  collapse:boolean,
   language?: string,
   app?:Lang,
   breadcrumb:Tbread[],
-  tagviews:Ttags[],
-  cachedList:Ttags[]
+  tagviews:Ttag[],
+  cachedList:Ttag[]
   // todos?: TodoState
   // user?: LoginState
 }
@@ -40,22 +37,26 @@ export default createStore<State>({
     language:'zh',
     breadcrumb:[],
     tagviews:[],
-    cachedList:[]
+    cachedList:[],
+    collapse:false  //左侧菜单是否展示
   },
   mutations:{
     setLanguage(state:State,data:string){
         state.language = data
     },
+    setCollapse(state:State,data:boolean){
+      state.collapse = data
+    },
     setBreadcrumb(state:State,data:Tbread[]){
         state.breadcrumb = data                     
     },
-    addTagview(state:State,data:Ttags){
+    addTagview(state:State,data:Ttag){
       if(!state.tagviews.some(res=>res.key === data.key)){
         state.tagviews.push(data)                    
       }
     },
     delTagview(state:State,data:string[]){
-       util.delRest(state.tagviews,'key',data);    
+       util.delRest(state.tagviews,data);    
     },
     activeTagview(state:State,key:string){
       state.tagviews.forEach(item=>{
@@ -63,7 +64,7 @@ export default createStore<State>({
       })
       // console.log(state.tagviews.map(res=>res.name))
     },
-    sortTagviews(state:State,data:Ttags[]){
+    sortTagviews(state:State,data:Ttag[]){
         state.tagviews = data
     },
     
