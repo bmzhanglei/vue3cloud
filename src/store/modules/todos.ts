@@ -1,6 +1,6 @@
 import { Module } from "vuex";
 import { State } from "..";
-import { Todo } from "../../types/types";
+import { Todo } from "../../typings/types";
 // import http from '../../apis/https'
 const initialState = {
   todos: [

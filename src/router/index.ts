@@ -7,7 +7,7 @@ import {
   UploadOutlined,
 } from '@ant-design/icons-vue';
 import store from '@/store'
-import type {AppRouteRecordRaw}  from '@/types/route'
+import type {AppRouteRecordRaw}  from '@/typings/route'
 
 import layOut from "@/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";

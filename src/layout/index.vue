@@ -2,15 +2,31 @@
 import NavMemu from './NavMenu.vue'
 import Header from './header/index.vue'
 import RouterView  from './RouterView.vue';
+import { useStore } from '@/store';
 // import Header from './Header.vue'
 import { emitter } from '@/utils/bus';
+import {RouteRecordName,useRouter} from 'vue-router'
 import util from '@/utils/util'
-import {  ref } from 'vue';
+import {  ref ,nextTick,provide} from 'vue';
   const collapsed = ref<boolean>(false);
-
+const {commit} = useStore()
+const router = useRouter()
   emitter.on("getCollapse",param=>{
      collapsed.value = !!param 
   })
+     const reload = ref(true)
+    const onReload = (routerName: string | RouteRecordName) => {
+      // commit("REMOVE_CACHED_VIEW", routerName)
+      // reload.value = false
+      nextTick(() => {
+        // if (activeView.value !== routerName) {
+        //   router.push({ name: routerName })
+        // }
+        // reload.value = true
+        // commit("ADD_CACHED_VIEW", routerName)
+      })
+    }
+    provide('reload', onReload)
 </script>
 
 <template>

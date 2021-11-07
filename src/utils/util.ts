@@ -1,4 +1,4 @@
-import {Ttag} from '@/types/route'
+import {Ttag} from '@/typings/route'
 
 const add = (a:number,b:number)=>a+b
 
@@ -13,7 +13,12 @@ const delRest = (origin:Ttag[],key:string,delKeys:string[])=>{
     }    
 }
 
+const getBigName = (name: string) =>{
+    return name.replace(name[0], name[0].toUpperCase())
+  }
+
 export default {
     add,
-    delRest
+    delRest,
+    getBigName
 }

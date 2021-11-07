@@ -1,6 +1,6 @@
 import { Module } from "vuex";
 import { State } from "..";
-import { LoginState } from "../../types/login";
+import { LoginState } from "../../typings/login";
 import { doLogin } from '../../apis/login'
 
 export default {

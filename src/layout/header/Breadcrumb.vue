@@ -5,7 +5,7 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons-vue';
-import type {Tbread} from '@/types/route'
+import type {Tbread} from '@/typings/route'
 import { useStore } from '@/store';
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
 

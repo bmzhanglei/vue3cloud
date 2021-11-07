@@ -1,6 +1,6 @@
 
 
-import { RouteRecordRaw ,RouteMeta} from "vue-router";
+import { RouteRecordRaw ,RouteMeta,RouteRecordName} from "vue-router";
 import {defineComponent} from 'vue'
 
 export type Component<T extends any = any> =
@@ -19,5 +19,7 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
 export type Tbread = Partial<Record<'name'|'path'|'key',string>>  //定义面包屑
 
 export type Ttag = Tbread & {active?:boolean}  
+
+export type Reload = (routeName: string | RouteRecordName) => void
 
 // export type AppRouteModule =  AppRouteRecordRaw

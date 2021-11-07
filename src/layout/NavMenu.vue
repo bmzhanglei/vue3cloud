@@ -4,7 +4,7 @@ import { ref,watch ,computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import SubMenu from './SubMenu.vue'
 import { useStore } from '@/store';
-import type {AppRouteRecordRaw,Tbread} from '@/types/route'
+import type {AppRouteRecordRaw,Tbread} from '@/typings/route'
   const store = useStore()
   const selectedKeys= ref<string[]>([""]);
   const openKeys = ref<string[]>([""])

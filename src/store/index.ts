@@ -2,15 +2,19 @@ import { InjectionKey } from 'vue'
 import { createStore, Store ,useStore as baseUseStore} from "vuex";
 import createPersistedState from 'vuex-persistedstate'
 import todos, { TodoState } from './modules/todos'
-import { LoginState } from "@/types/login";
+import { LoginState } from "@/typings/login";
 import util from '@/utils/util';
 import getters from './getters'
 import modules from "./store";
 import {doLogin} from '../apis/login'
-import type {Tbread,Ttags} from '@/types/route' 
+import type {Tbread,Ttags} from '@/typings/route' 
 // console.log('modules----->',modules)
-// 1.创建一个injectionKey
 // debugger
+const clearCache = (state: State) => {
+  state.cachedList = state.tagviews.map((view) => util.getBigName(view.name as string))
+}
+
+// 1.创建一个injectionKey
 export const key: InjectionKey<Store<State>> = Symbol()
 
 export type User = {
@@ -25,7 +29,8 @@ export type State = {
   language?: string,
   app?:Lang,
   breadcrumb:Tbread[],
-  tagviews:Ttags[]
+  tagviews:Ttags[],
+  cachedList:Ttags[]
   // todos?: TodoState
   // user?: LoginState
 }
@@ -34,7 +39,8 @@ export default createStore<State>({
   state:{
     language:'zh',
     breadcrumb:[],
-    tagviews:[]
+    tagviews:[],
+    cachedList:[]
   },
   mutations:{
     setLanguage(state:State,data:string){

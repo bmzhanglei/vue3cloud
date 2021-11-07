@@ -2,7 +2,7 @@
 import { ref ,watch} from 'vue'
 import {Icon} from '@/components/Icon';
 import { useRoute, useRouter } from "vue-router";
-import type {AppRouteRecordRaw} from '@/types/route'
+import type {AppRouteRecordRaw} from '@/typings/route'
  const menuInfos = defineProps<{menuInfo:AppRouteRecordRaw}>()
 
 </script>
