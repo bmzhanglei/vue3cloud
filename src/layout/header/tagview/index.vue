@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref,computed ,reactive,inject, shallowReactive} from 'vue'
+import { ref,computed ,reactive,inject, nextTick} from 'vue'
 import { useStore } from '@/store';
+import { emitter } from '@/utils/bus';
 import { RouteRecordName, useRouter } from 'vue-router'
 import { ContextMenuItemProps } from '@/components/common/typings'
 import type {Ttag,Reload} from '@/typings/route'
@@ -9,7 +10,7 @@ import { VueDraggableNext } from 'vue-draggable-next'
 const router =  useRouter()
 const {state,commit} = useStore()
 
-const reload = inject<Reload>('reload')!
+// const reload = inject<Reload>('reload')!
 
 enum DelState{
    Right,Other,All,Single
@@ -91,7 +92,30 @@ const contextMenuDisable = (delState:DelState,routeName:string = "desktop")=>{
       menu: [
         {
           label: '刷新',
-          onClick: (routeName) => reload(routeName)
+          onClick: (routeName) => {
+            let tagview = state.tagviews.map(res=>res.name)
+            tagview = tagview.filter(res=>res!==routeName)
+
+            const reload = {state:false,names:routeName}   
+
+            emitter.emit('reload',reload)
+
+            const index = state.tagviews.findIndex(res=>res.name === routeName)   
+            const indexActive = state.tagviews.findIndex(res=>res.active)    
+
+            let curTag = JSON.parse(JSON.stringify(state.tagviews[index]))             
+            if (indexActive > -1 && state.tagviews[indexActive].name !== routeName) {
+               router.push({ name: routeName })               
+            }else{
+                commit("addTagview",curTag)
+                commit("activeTagview",curTag.key)               
+            }
+             nextTick(() => {
+                reload.state = true
+                reload.names = ''
+                emitter.emit('reload',reload)
+              })
+          }
         },
         {
           label: '关闭',
@@ -171,7 +195,7 @@ const tags = computed({
                    @contextmenu.prevent="onTagRightClick($event, item.name)"
                   :class="{'no-drag': item.name === 'desktop' }"   
                   :type="item.active?'primary':'default'" size="small">
-            <router-link :to="item.path"> {{$t(item?.name)}}  </router-link> 
+            <router-link :to="item.path"> {{$t(item?.name)}}-{{item.name}}  </router-link> 
             <Icon icon="CloseOutlined"  @contextmenu.stop.prevent v-if="item.key!=='3.1'" class="icon" @click="closeTags(DelState.Single,item.name)"/>      
         </a-button>
     <!-- </transition-group> -->

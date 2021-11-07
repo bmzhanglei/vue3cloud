@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 </script>
-
+<script lang='ts'>export default{name:'menu2'}</script>
 <template>
 <div>
     菜单

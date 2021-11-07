@@ -14,6 +14,7 @@ import type {AppRouteRecordRaw,Tbread} from '@/typings/route'
   })
   
   watch(selKeys,(newVal,oldVal)=>{
+    // debugger
       selectedKeys.value = [newVal[newVal.length-1].key as string]
       openKeys.value = newVal.map(res=>res.key as string)
       // console.log(openKeys.value)
@@ -34,12 +35,12 @@ import type {AppRouteRecordRaw,Tbread} from '@/typings/route'
          :inline-collapsed="collapsed"
          >
 
-        <template v-for="item in routes" :key="item.meta.key">        
+        <template v-for="(item,index) in routes" :key="item.meta.key">        
             <template v-if="item.children?.length==1">
                 <a-menu-item :key="item.children[0].meta.key"> 
                      <router-link :to="item.children[0].path">                     
                         <Icon :icon="item.meta.icon as string"/>       
-                        <span>{{$t(item.meta.title as string)+item.meta.key as string}}</span>                 
+                        <span>{{$t(item.children[0].name as string)+'-'+item.children[0].name as string}}</span>                 
                      </router-link>                
                 </a-menu-item>
             </template>

@@ -5,8 +5,15 @@
     "password":"Password",
     "verify":"Identifying Code",
     "menu":"Menu",
+    "menu2":"Menu2",
     "index":"Index",
     "user":"User",
     "role":"Role",
-    "desktop":"DeskTop"
+    "roles":"Roles",
+    "role1":"Role1",
+    "role11":"Role11",
+    "role22":"Role22",
+    "desktop":"DeskTop",
+    "desktopIndex":"DeskTopIndex",
+    "dashboard":"Dashboard"
 }

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 </script>
-
+<script lang='ts'>export default{name:'role11'}</script>
 <template>
 <div>
     角色

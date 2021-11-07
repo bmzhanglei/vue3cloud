@@ -8,25 +8,13 @@ import { emitter } from '@/utils/bus';
 import {RouteRecordName,useRouter} from 'vue-router'
 import util from '@/utils/util'
 import {  ref ,nextTick,provide} from 'vue';
-  const collapsed = ref<boolean>(false);
-const {commit} = useStore()
+
+const collapsed = ref<boolean>(false);
+const {commit,state} = useStore()
 const router = useRouter()
   emitter.on("getCollapse",param=>{
-     collapsed.value = !!param 
+    collapsed.value = !!param 
   })
-     const reload = ref(true)
-    const onReload = (routerName: string | RouteRecordName) => {
-      // commit("REMOVE_CACHED_VIEW", routerName)
-      // reload.value = false
-      nextTick(() => {
-        // if (activeView.value !== routerName) {
-        //   router.push({ name: routerName })
-        // }
-        // reload.value = true
-        // commit("ADD_CACHED_VIEW", routerName)
-      })
-    }
-    provide('reload', onReload)
 </script>
 
 <template>

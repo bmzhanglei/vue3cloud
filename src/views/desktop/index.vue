@@ -4,7 +4,7 @@ import { ref, getCurrentInstance } from 'vue';
 
 // proxy
 </script>
-
+<script lang='ts'>export default{name:'desktop'}</script>
 <template>
 <div>
   deskTop

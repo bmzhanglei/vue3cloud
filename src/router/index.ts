@@ -12,8 +12,7 @@ import type {AppRouteRecordRaw}  from '@/typings/route'
 import layOut from "@/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
 
-const routes :AppRouteRecordRaw[]= [{
-     
+const routes :AppRouteRecordRaw[]= [{     
       path: '/',
       hidden:true,
       name: 'Login',   
@@ -48,8 +47,7 @@ const routes :AppRouteRecordRaw[]= [{
         }
       ]
     },
-    {
-      
+    {      
       path: '/index',
       name: 'index',
       component:layOut,
@@ -135,7 +133,8 @@ const routes :AppRouteRecordRaw[]= [{
           }        
         }
       ]           
-    },{             
+    },
+    {             
         path: '/menu',
         name: 'menu',
         // hidden:true,
@@ -143,7 +142,7 @@ const routes :AppRouteRecordRaw[]= [{
         meta: {  
           key:"2",              
           title: "menu",
-          locale: 'index',
+          locale: 'menu',
           icon: "UserOutlined",
           breadcrumb: false
         },     
@@ -157,14 +156,15 @@ const routes :AppRouteRecordRaw[]= [{
             meta: {
               key:"2.1",   
               title: "menu",
-              locale: 'index',        
-              icon: "",
+              locale: 'menu',     
+              icon: "UserOutlined",
               breadcrumb: true
             }
           
           }
         ]
-    },{      
+    },
+    {      
       path:"/:pathMatch(.*)",
       hidden:true,
       name: '404',
@@ -190,7 +190,7 @@ router.beforeEach((to,from,next)=>{
   //  console.log('to',to.matched)
   if(to.fullPath!="/"){
       // debugger
-      const bread = to.matched.filter(res=>res.meta.breadcrumb).map(res=>({name:res.meta.title,path:res.path,key:res.meta.key}))
+      const bread = to.matched.filter(res=>res.meta.breadcrumb).map(res=>({name:res.name,path:res.path,key:res.meta.key}))
       if(bread[0].name!=='desktop'){
         bread.unshift({name:'desktop',path:'/desktop/index',key:'3.1'})
       }
@@ -198,7 +198,7 @@ router.beforeEach((to,from,next)=>{
       store.commit('setBreadcrumb',bread)
 
       const currentTag = bread[bread.length-1]
-
+      // debugger
       store.commit('addTagview',currentTag)      
       store.commit('activeTagview',currentTag.key)
 

@@ -61,10 +61,12 @@ export default createStore<State>({
       state.tagviews.forEach(item=>{
           item.active = item.key === key         
       })
+      // console.log(state.tagviews.map(res=>res.name))
     },
     sortTagviews(state:State,data:Ttags[]){
         state.tagviews = data
-    }
+    },
+    
 
   },
   modules,

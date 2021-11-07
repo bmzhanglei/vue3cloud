@@ -5,8 +5,15 @@
     "password":"密码",
     "verify":"验证码",
     "menu":"菜单",
+    "menu2":"菜单2",
     "index":"首页",
     "user":"用户",
     "role":"角色",
-    "desktop":"桌面"
+    "roles":"角色s",
+    "role1":"角色1",
+    "role11":"角色11",
+    "role22":"角色22",
+    "desktop":"桌面",
+    "desktopIndex":"桌面",
+    "dashboard":"桌面"
 }
