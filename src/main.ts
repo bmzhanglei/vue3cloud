@@ -12,9 +12,9 @@ const app = createApp(App)
 declare module '@vue/runtime-core' {
     export interface ComponentCustomProperties {
       emitter: typeof emitter,
-      util:typeof util
+      $utils: typeof util
     }
-  }
+}
   
   // debugger
 // app.config.globalProperties.emitter = emitter

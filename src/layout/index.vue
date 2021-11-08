@@ -8,12 +8,11 @@ import { emitter } from '@/utils/bus';
 import {useRouter} from 'vue-router'
 import util from '@/utils/util'
 import {  ref ,nextTick,provide, computed} from 'vue';
-
+import {Icon} from '@/components/Icon';
 const {commit,state} = useStore()
 const router = useRouter()
 const collapsed = computed(()=>state.collapse);
-
-
+const isScreen = computed(()=>state.fullScreen);
   // emitter.on("getCollapse",param=>{
   //   collapsed.value = !!param 
   //     debugger
@@ -22,8 +21,11 @@ const collapsed = computed(()=>state.collapse);
 
 <template>
   <a-layout class="layout">
-    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
-      <div class="logo"> login</div>
+    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible v-show="!isScreen">
+      <div class="logo">   
+         <Icon icon="Html5Outlined" color="yellowgreen" size="30px"/> 
+        <span :class='{"ttlShow":!collapsed}'>系统通用模版</span>    
+      </div>
       <NavMemu></NavMemu>
     </a-layout-sider>
     <a-layout>
@@ -39,12 +41,27 @@ const collapsed = computed(()=>state.collapse);
 </template>
 
 <style lang="scss" scoped>
-.logo {color:white}
+.logo {
+  color:white;
+  font-size:18px;
+  display: flex;
+  padding-top:10px;
+  align-items: center;
+  max-height: 40px;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  > span:first-of-type{margin-right: 10px;margin-left:25px;display: inline-flex;}
+  > span:last-of-type{opacity: 0;}
+}
 .layout{
     height:100%;
   .ant-layout-header{
        background: #fff; padding: 0;height:auto;line-height: 40px;
   }  
   .main{margin: 10px; padding: 10px; background: #fff; }
+}
+.ttlShow{
+  opacity: 1!important;  
+  transition: all .7s;
 }
 </style>

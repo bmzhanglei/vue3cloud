@@ -15,10 +15,23 @@ const delRest = (origin:Ttag[],delKeys:string[])=>{
 
 const getBigName = (name: string) =>{
     return name.replace(name[0], name[0].toUpperCase())
-  }
+}
+
+const fullScreen = ( fullScreenState:boolean,element: HTMLElement | Element = document.documentElement): void =>{
+    if (element.requestFullscreen) {
+        !fullScreenState ? document.exitFullscreen() : element.requestFullscreen();
+    }else if (element.msRequestFullscreen) {
+        !fullScreenState ? document.msExitFullscreen() :element.msRequestFullscreen();
+    }else if (element.mozRequestFullScreen) {
+        !fullScreenState ? document.mozCancelFullScreen() :element.mozRequestFullScreen();
+    }else if (element.webkitRequestFullScreen) {
+        !fullScreenState ? document.webkitCancelFullScreen() :element.webkitRequestFullScreen();
+    }
+}
 
 export default {
     add,
     delRest,
-    getBigName
+    getBigName,
+    fullScreen
 }

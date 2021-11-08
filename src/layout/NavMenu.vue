@@ -37,7 +37,6 @@ import type {AppRouteRecordRaw,Tbread} from '@/typings/route'
          v-model:openKeys="openKeys"
          :inline-collapsed="collapsed"
          >
-
         <template v-for="(item,index) in routes" :key="item.meta.key">        
             <template v-if="item.children?.length==1">
                 <a-menu-item :key="item.children[0].meta.key"> 

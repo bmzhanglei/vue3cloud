@@ -23,6 +23,7 @@ type Lang = {language:string}
 
 export type State = {
   collapse:boolean,
+  fullScreen:boolean,
   language?: string,
   app?:Lang,
   breadcrumb:Tbread[],
@@ -38,6 +39,7 @@ export default createStore<State>({
     breadcrumb:[],
     tagviews:[],
     cachedList:[],
+    fullScreen:false,
     collapse:false  //左侧菜单是否展示
   },
   mutations:{
@@ -46,6 +48,9 @@ export default createStore<State>({
     },
     setCollapse(state:State,data:boolean){
       state.collapse = data
+    },
+    setFullScreen(state:State,data:boolean){
+      state.fullScreen = data
     },
     setBreadcrumb(state:State,data:Tbread[]){
         state.breadcrumb = data                     

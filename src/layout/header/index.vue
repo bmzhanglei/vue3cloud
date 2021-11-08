@@ -1,17 +1,16 @@
 <script setup lang="ts">
-
+import { useStore } from '@/store';
 import Breadcrumb from './Breadcrumb.vue';
 import ToolBar from './ToolBar.vue';
 import TagView from './tagview/index.vue';
-import { getCurrentInstance, ref ,watch} from 'vue'
+import { computed} from 'vue'
+const {commit,state} = useStore()
+const isScreen = computed(()=>state.fullScreen);
 
- const curInstance = getCurrentInstance()
-//  console.log(curInstance?.proxy?.$utils.add(1,2))
 </script>
-
 <template>
 <div>
- <a-row class="bread-tool">
+ <a-row class="bread-tool" v-show='!isScreen'>
     <a-col > <Breadcrumb/> </a-col>
     <a-col class="tool"><ToolBar/></a-col>
   </a-row>

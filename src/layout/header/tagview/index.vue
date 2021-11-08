@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref,computed ,reactive, nextTick} from 'vue'
+import { ref, computed, reactive, nextTick, getCurrentInstance, ComponentInternalInstance } from 'vue';
 import { useStore } from '@/store';
 import { emitter } from '@/utils/bus';
 import {  useRouter } from 'vue-router'
@@ -163,7 +163,17 @@ const tags = computed({
       contextmenu.style.left = left + 'px'
       contextmenu.routeName = viewName
       contextmenu.show = true
-    }
+  }
+
+  const {proxy} = getCurrentInstance() as ComponentInternalInstance
+  const screen = ref('FullscreenOutlined')
+  const screenTtl = ref('全屏')
+  const setFullScreen = ()=>{
+    commit('setFullScreen',!state.fullScreen)
+      screen.value = state.fullScreen?'FullscreenExitOutlined':'FullscreenOutlined'
+      screenTtl.value = state.fullScreen?'还原':'全屏'
+      proxy?.$utils.fullScreen(state.fullScreen)
+  }
 </script>
 
 <template>
@@ -186,7 +196,15 @@ const tags = computed({
     <!-- </transition-group> -->
     </VueDraggableNext>    
 </div>
-<div class="screen">全屏</div>
+<div class="screen">
+   <a-tooltip placement="bottom">
+        <template #title>
+          <span>{{screenTtl}}</span>
+        </template>
+         <Icon :icon="screen" @click="setFullScreen" :title="screenTtl"  size="24px" color="#333"/> 
+ </a-tooltip>
+   
+</div>
 </div>
   <ContextMenu
     v-model:visable="contextmenu.show"
@@ -205,13 +223,20 @@ const tags = computed({
     right:0px;
     float:right;
     top:0;
-    width: 30px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index:10;
-    background-color: white;
+    height:100%;
+    border-top: solid 1px #eee; 
+    border-left: solid 1px #eee; 
+    &::v-deep(span.anticon){cursor: pointer;}
+    &::v-deep(span.anticon:hover){color: #1890ff !important;}
   }
 }
 .tagview{
-  margin-right:30px;
+  margin-right:40px;
   &::-webkit-scrollbar{
     height:6px;
     transform: translateY(-6px);
