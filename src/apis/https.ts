@@ -17,11 +17,11 @@ class Https{
       }
       interceptors(instance:any) {
           instance.interceptors.request.use((config:AxiosRequestConfig):AxiosRequestConfig => {
+            // console.log('config--->',config)
             // debugger
-            //     const token = localStorage.getItem("token");
-            //     if (token) {
-            //          config.headers["Access-Token"] = token;
-            //     }               
+             if(config.method=='get'){            
+               config.params = config.query
+             }         
                 // 请求拦截器中将请求加入cancel队列
                 if (!config.hasOwnProperty('cancelToken')) { // 排除不需要cancel的请求
                     const source = axios.CancelToken.source();  

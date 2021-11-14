@@ -7,9 +7,10 @@ import util from '@/utils/util';
 import getters from './getters'
 import modules from "./store";
 import {doLogin} from '../apis/login'
-import type {Tbread,Ttag} from '@/typings/route' 
+import type {AppRouteRecordRaw, Tbread,Ttag} from '@/typings/route' 
 // console.log('modules----->',modules)
 
+// debugger
 // 1.创建一个injectionKey
 export const key: InjectionKey<Store<State>> = Symbol()
 
@@ -25,10 +26,11 @@ export type State = {
   collapse:boolean,
   fullScreen:boolean,
   language?: string,
-  app?:Lang,
+  app?:{menus:AppRouteRecordRaw[]},
   breadcrumb:Tbread[],
   tagviews:Ttag[],
-  cachedList:Ttag[]
+  cachedList:Ttag[],
+  menus:AppRouteRecordRaw[]
   // todos?: TodoState
   // user?: LoginState
 }
@@ -70,9 +72,7 @@ export default createStore<State>({
     },
     sortTagviews(state:State,data:Ttag[]){
         state.tagviews = data
-    },
-    
-
+    }
   },
   modules,
   getters,
@@ -82,7 +82,7 @@ export default createStore<State>({
       // console.log('数据持久化-->',data)
       // debugger
       return {
-         app:{language:data.language}   //指定数据持久化
+         gloabalData:{language:data.language}   //指定数据持久化
         //  app:data   //指定数据持久化
       }
     }

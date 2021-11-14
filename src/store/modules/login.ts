@@ -14,10 +14,10 @@ export default {
     }
   },
   actions: {
-    doLogin:async ({},payload:any)=>{
+    doLogin:async ({commit},payload:any)=>{
         const result = await doLogin(payload)    
-        if(result.status==200){             
-            //  commit('doLogin',result)               
+        if(result.status==200){     
+             commit('doLogin',result)               
         }
         return result
      }

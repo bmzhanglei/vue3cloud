@@ -181,7 +181,6 @@ const tags = computed({
       // proxy?.$utils.fullScreen(state.fullScreen) 
       // util.fullScreen(state.fullScreen)
       toggleFull()
-   
       
   }
 </script>

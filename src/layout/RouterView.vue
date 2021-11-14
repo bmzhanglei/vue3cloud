@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed,watch } from 'vue';
+import { ref, computed,watch ,markRaw} from 'vue';
 import { useStore } from '@/store';
 const {state,commit} = useStore()
 import { emitter } from '@/utils/bus';
@@ -15,8 +15,11 @@ const excludeTag = ref<string>('')
 const reload = ref<boolean>(true)
 
 emitter.on('reload',(val:any):void=>{
-    reload.value = val.state;    
-    excludeTag.value = val.names  
+  excludeTag.value = val.names =="dashboardIndex"?"dashboard": val.names
+      reload.value = val.state;   
+    
+    console.log(reload.value)
+    console.log(excludeTag.value)
     // console.log(tagCache.value)  
 })
 </script>

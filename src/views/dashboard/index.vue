@@ -2,6 +2,13 @@
 import { ref } from 'vue'
 import HelloWorldVue from '@/components/HelloWorld.vue';
 import util from '@/utils/util';
+import {useStore} from '@/store'
+
+const {dispatch} = useStore()
+
+//  dispatch('app/setMenus',{roleId:1})
+//  console.log(loginState)
+
 </script>
 <script lang='ts'>export default{name:'dashboard'}</script>
 <template>

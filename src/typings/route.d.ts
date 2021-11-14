@@ -9,7 +9,8 @@ export type Component<T extends any = any> =
         | (() => Promise<T>);
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
-    hidden?:boolean,
+    id?:number,
+    pid?:number,
     onlyChild?:boolean,
     name: string;
     meta?: RouteMeta;

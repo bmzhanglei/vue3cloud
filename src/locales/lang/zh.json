@@ -15,6 +15,7 @@
     "dashboardIndex":"桌面",
     "fullScreen":"全屏",
     "exitFullScreen":"退出全屏",
+    "error":"错误",
     "error404":"404页面",
     "error401":"401页面"
 }

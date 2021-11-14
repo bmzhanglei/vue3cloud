@@ -11,6 +11,7 @@
     "ant-design-vue": "^2.2.8",
     "axios": "^0.22.0",
     "be-full": "^0.0.5",
+    "lodash": "^4.17.21",
     "mitt": "^3.0.0",
     "sortablejs": "^1.14.0",
     "vite-plugin-components": "^0.13.3",
@@ -23,7 +24,6 @@
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^2.4.0",
-    "@types/node": "^16.11.0",
     "@types/sortablejs": "^1.10.7",
     "@vitejs/plugin-vue": "^1.2.5",
     "@vitejs/plugin-vue-jsx": "^1.2.0",

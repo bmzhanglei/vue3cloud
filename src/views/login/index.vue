@@ -4,10 +4,14 @@ import Locale from '@/components/Locale.vue'
 import type { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
 import type { UnwrapRef } from "vue";
 import { reactive, ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, RouteRecordRaw } from 'vue-router';
 import { getCaptcha } from "apis/login";
 import { useStore } from "@/store";
  import {useI18n } from 'vue-i18n'
+import { Result } from '@/typings/login';
+import { AppRouteRecordRaw } from '@/typings/route';
+import layOut from '@/layout/index.vue';
+import RouterView from '@/layout/RouterView.vue';
  const {t,locale} = useI18n()
 interface FormState {
   username: string;
@@ -54,12 +58,39 @@ onMounted(() => {
   getCode();
 });
 
+// const routerPackag = (routers:AppRouteRecordRaw[]) => {
+//   routers.filter(itemRouter => {
+//     if (itemRouter.component != layOut && itemRouter.component != RouterView) {
+//       console.log(itemRouter.component)
+//       if(typeof itemRouter.component=="string"){        
+//            itemRouter.component = ()=>import(itemRouter.component)
+//         }
+//       router.addRoute(itemRouter as RouteRecordRaw);
+//     }
+//     // 是否存在子集
+//     if (itemRouter.children && itemRouter.children.length) {
+//       routerPackag(itemRouter.children);
+//     }
+//     return true;
+//   });
+// };
 
 const onSubmit = () => {
   formRef.value.validate().then(async () => {
-       const loginState = await store.dispatch('login/doLogin',{...formState})
+       const loginState:Result = await store.dispatch('login/doLogin',{...formState})
         if(loginState.status==200){
-          router.push("/dashboard");
+            store.dispatch('app/setMenus',{roleId:loginState.result?.roleId}).then(res=>{
+               //  doData.forEach(item=>router.addRoute(item))
+              //  let menus = store.state.app?.menus
+              //  menus?.forEach(item=>{
+              //   //  if(router.hasRoute(item.name)){
+              //      router.addRoute(item as RouteRecordRaw)
+              //   //  }
+              //   })
+              //  debugger
+              // routerPackag(menus as AppRouteRecordRaw[])
+                router.push("/dashboard");
+            })          
         }else{
           formState.tip = loginState.tip
         }

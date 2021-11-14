@@ -15,6 +15,7 @@
     "dashboardIndex":"Dashboard",
     "fullScreen":"Full Screen",
     "exitFullScreen":"Exit Full Screen",
+    "error":"Error",
     "error404":"error-404",
     "error401":"error-401"
 }
