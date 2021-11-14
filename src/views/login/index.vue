@@ -59,7 +59,7 @@ const onSubmit = () => {
   formRef.value.validate().then(async () => {
        const loginState = await store.dispatch('login/doLogin',{...formState})
         if(loginState.status==200){
-          router.push("/index");
+          router.push("/dashboard");
         }else{
           formState.tip = loginState.tip
         }

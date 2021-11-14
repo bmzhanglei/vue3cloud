@@ -56,18 +56,17 @@ export default createStore<State>({
         state.breadcrumb = data                     
     },
     addTagview(state:State,data:Ttag){
-      if(!state.tagviews.some(res=>res.key === data.key)){
+      if(!state.tagviews.some(res=>res.name === data.name)){
         state.tagviews.push(data)                    
       }
     },
     delTagview(state:State,data:string[]){
        util.delRest(state.tagviews,data);    
     },
-    activeTagview(state:State,key:string){
+    activeTagview(state:State,name:string){  //name必须是唯一的
       state.tagviews.forEach(item=>{
-          item.active = item.key === key         
+          item.active = item.name === name         
       })
-      // console.log(state.tagviews.map(res=>res.name))
     },
     sortTagviews(state:State,data:Ttag[]){
         state.tagviews = data

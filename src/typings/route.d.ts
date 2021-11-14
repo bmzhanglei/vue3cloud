@@ -10,13 +10,14 @@ export type Component<T extends any = any> =
 
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
     hidden?:boolean,
+    onlyChild?:boolean,
     name: string;
-    meta: RouteMeta;
+    meta?: RouteMeta;
     component?: Component | string;
     children?: AppRouteRecordRaw[] | undefined;
 }
 
-export type Tbread = Partial<Record<'name'|'path'|'key',string>>  //定义面包屑
+export type Tbread = Partial<Record<'name'|'path'|'title'|'locale',string>>  //定义面包屑
 
 export type Ttag = Tbread & {active?:boolean}  
 

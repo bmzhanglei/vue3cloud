@@ -2,14 +2,15 @@
 import { ref } from 'vue'
 
 </script>
-<script lang='ts'>export default{name:'role22'}</script>
+
 <template>
-<div>
-    角色2
-    <a-input></a-input>
+<div class='tagview'>
+    tagview
 </div>
 </template>
 
 <style lang='scss' scoped>
-
+.tagview{
+    border-top: solid 1px #eee;
+}
 </style>

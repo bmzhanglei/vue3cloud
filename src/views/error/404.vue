@@ -2,11 +2,10 @@
 import { ref } from 'vue'
 
 </script>
-<script lang='ts'>export default{name:'menuSetting'}</script>
+<script lang='ts'>export default{name:'error404'}</script>
 <template>
 <div>
-    菜单
-    <a-input></a-input>
+   404
 </div>
 </template>
 

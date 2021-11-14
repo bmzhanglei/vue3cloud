@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 
 </script>
-
+<script lang='ts'>export default{name:'test'}</script>
 <template>
 <div>
-   404
+    home
 </div>
 </template>
 

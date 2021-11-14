@@ -14,7 +14,8 @@ export default({command,mode}:UserConfig):UserConfig=>{
     css:{
       preprocessorOptions:{
         scss:{
-          additionalData:'@import "@/assets/styles/global.scss";'
+          additionalData:'@import "@/assets/styles/global.scss";',
+          charset: false
         }
       }
     },
@@ -51,7 +52,7 @@ export default({command,mode}:UserConfig):UserConfig=>{
         '^/v1':{
           target:url,
           changeOrigin:true,
-          rewrite:(path) => path.replace(/^\/v1/, '')
+          // rewrite:(path) => path.replace(/^\/v1/, '')
         },
         // '^/login':{
         //   target:url,

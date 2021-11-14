@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, ComponentInternalInstance } from 'vue';
 import App from './App.vue'
 import '@/style/common.scss'
 import store,{key} from './store'
@@ -9,16 +9,21 @@ import { emitter } from './utils/bus'
 import GlobalCommon from './plugins/global-common'
 
 const app = createApp(App)
+
+app.config.globalProperties.$utils = util
 declare module '@vue/runtime-core' {
     export interface ComponentCustomProperties {
       emitter: typeof emitter,
       $utils: typeof util
     }
+    // export interface ComponentInternalInstance {
+     
+    // }
 }
   
   // debugger
 // app.config.globalProperties.emitter = emitter
-app.config.globalProperties.$utils = util
+
 
 app.use(store,key)
 app.use(GlobalCommon)

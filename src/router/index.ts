@@ -1,182 +1,158 @@
 
 import { createRouter,RouteMeta, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import { emitter } from '@/utils/bus';
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from '@ant-design/icons-vue';
 import store from '@/store'
 import type {AppRouteRecordRaw}  from '@/typings/route'
-
 import layOut from "@/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
 
 const routes :AppRouteRecordRaw[]= [{     
       path: '/',
       hidden:true,
-      name: 'Login',   
-      meta: {    key:"0.1"   },
+      name: 'login',   
+      meta: { },
       component: () => import(/* webpackChunkName: "userManager" */'@/views/login/index.vue')
-    },{            
-      path: '/desktop',
-      name: 'desktop',
-      // hidden:true,
-      component:layOut,            
-      meta: {   
-        key:"3",         
-        title: "desktop",
-        locale: 'desktop',
-        icon: "UserOutlined",
-        breadcrumb: false
+    },
+    //桌面
+    {            
+      path: '/dashboard',
+      name: 'dashboard',
+      component:layOut,
+      meta: {
+        breadcrumb: false,
+        onlyChild:true
       },     
-      redirect: "/desktop/index",      
-      children:[
-        {         
-          // hidden:true,           
-          path: "/desktop/index",
-          name: "desktopIndex",
-          component: () => import("@/views/desktop/index.vue"),
+      redirect: "/dashboard/index",      
+      children:[{                 
+          path: "/dashboard/index",
+          name: "dashboardIndex",
+          component: () => import("@/views/dashboard/index.vue"),
           meta: {
-            key:"3.1",   
-            title: "desktop",
-            locale: 'desktop',        
-            icon: "UserOutlined",
+            locale: 'dashboard',        
+            icon: "DesktopOutlined",
             breadcrumb: true
           }        
         }
       ]
     },
+    //基础设置(涉及权限页面)
     {      
-      path: '/index',
-      name: 'index',
+      path: '/setting',
+      name: 'setting',
       component:layOut,
-      redirect: "/index/dashboard",
+      redirect: "/setting/user/list",
       meta: {
-        key:"1",
-        title: "index",
-        locale: 'index',
-        icon: "UserOutlined",
+        title: "基础设置",  
+        icon: "SettingOutlined",
         breadcrumb: true
-      },           
+      },      
+      //用户     
       children:[
         {         
-          path: "/index/dashboard",
-          name: "dashboard",
-          component: () => import("@/views/dashboard/index.vue"),
+          path: "/setting/user",
+          name: "user",
+          component: RouterView,        
           meta: {
-            key:"1.1",
-            title: "index",
-            locale: 'index',        
-            icon: "",
-            breadcrumb: true
-          }
-        },{          
-          path: "/index/role",
-          name: "roles",
-          hidden:false,
-          component: RouterView,
-          meta: {
-            key:"1.2",
-            title: "role",
-            locale: 'role',        
-            icon: "",
+            title: "用户管理",   
             breadcrumb: true
           },
           children:[{              
-              path: "/index/role",
-              name: "role1",
-              component: RouterView,
-              meta: {
-                key:"1.2.1",
-                title: "role",
-                locale: 'role',        
-                icon: "",
-                breadcrumb: true
-              },
-              children:[{               
-                path: "/index/role",
-                name: "role11",
-                component: () => import("@/views/role/index.vue"),
-                meta: {
-                  key:"1.2.1.1",
-                  title: "role",
-                  locale: 'role',        
-                  icon: "",
-                  breadcrumb: true
-                },
-              },{               
-                path: "/index/role2",
-                name: "role22",
-                component: () => import("@/views/role/index2.vue"),
-                meta: {
-                  key:"1.2.1.2",
-                  title: "role",
-                  locale: 'role',        
-                  icon: "",
-                  breadcrumb: true
-                },
-              }]
+            path: "/setting/user/add",
+            name: "userAdd",
+            component:()=> import("@/views/user/add.vue"),
+            meta: {
+              title: "用户添加",
+              breadcrumb: true
             }
-          ]
+          },{
+            path: "/setting/user/list",
+            name: "userList",
+            component:()=> import("@/views/user/index.vue"),
+            meta: {
+              title: "用户列表",
+              breadcrumb: true
+            }
+          }]           
         },{          
-          path: "/index/user",
-          name: "user",
-          hidden:false,
-          component: () => import("@/views/user/index.vue"),
+          path: "/setting/role",
+          name: "role",
+          component:()=> import("@/views/role/index.vue"),
           meta: {
-            key:"1.3",
-            title: "user",
-            locale: 'user',        
-            icon: "",
+            title: "角色管理", 
+            breadcrumb: true
+          },  
+        },{          
+          path: "/setting/auth",
+          name: "auth",
+          component: () => import("@/views/auth/index.vue"),
+          meta: {
+            title: "权限管理",    
             breadcrumb: true
           }        
         }
       ]           
     },
+    //菜单
     {             
         path: '/menu',
         name: 'menu',
-        // hidden:true,
-        component:layOut,            
-        meta: {  
-          key:"2",              
-          title: "menu",
-          locale: 'menu',
-          icon: "UserOutlined",
-          breadcrumb: false
+        component:layOut,
+        meta: {           
+          breadcrumb: false,
+          onlyChild:true
         },     
-        redirect: "/menu/childmenu1",      
+        redirect: "/menu/index",      
         children:[
-          {           
-            // hidden:true,           
-            path: "/menu/childmenu1",
-            name: "menu2",
+          {                     
+            path: "/menu/index",
+            name: "menuSetting",
             component: () => import("@/views/menu/index.vue"),
             meta: {
-              key:"2.1",   
-              title: "menu",
-              locale: 'menu',     
-              icon: "UserOutlined",
+              icon: "MenuOutlined",
+              title: "菜单设置",   
               breadcrumb: true
-            }
-          
+            }  
           }
         ]
     },
+    //报错 error
     {      
       path:"/:pathMatch(.*)",
-      hidden:true,
-      name: '404',
+      redirect: "/error/404",
+      name:"errorMath",
       meta: {
-        key:"0.2",
-        title: "404",
-        locale: '404',        
-        icon: "UserOutlined",
-        breadcrumb: true
+        hidden: true,        
+        breadcrumb: false
+      } 
+   },{
+     path:"/error",
+     name: 'error',
+     meta: {
+       hidden: true,        
+       breadcrumb: true
+     },     
+     component: layOut,        
+     children:[{           
+       path: "/error/404",
+       name: "error404",
+       component: () => import("@/views/error/404.vue"),
+       meta: {
+         locale: 'error404',        
+         breadcrumb: true
+       }        
       },
-      component: () => import("@/views/404.vue")
-    }
+      {           
+       path: "/error/401",
+       name: "error401",
+       component: () => import("@/views/error/401.vue"),
+       meta: {
+         locale: 'error401',        
+         breadcrumb: true
+       }        
+      }
+     ]
+   }
+
 ] 
 
 // debugger
@@ -190,9 +166,11 @@ router.beforeEach((to,from,next)=>{
   //  console.log('to',to.matched)
   if(to.fullPath!="/"){
       // debugger
-      const bread = to.matched.filter(res=>res.meta.breadcrumb).map(res=>({name:res.name,path:res.path,key:res.meta.key}))
-      if(bread[0].name!=='desktop'){
-        bread.unshift({name:'desktop',path:'/desktop/index',key:'3.1'})
+      const bread = to.matched.filter(res=>res.meta.breadcrumb).map(res=>({name:res.name,path:res.path,title:res.meta?.title,locale: res.meta?.locale}))
+      // debugger
+      // console.log(to.matched.filter(res=>res.meta.breadcrumb))
+      if(bread[0].name!=='dashboardIndex'){
+        bread.unshift({name:'dashboardIndex',path:'/dashboard/index',locale:'dashboard',title:""})
       }
       store.commit('addTagview',bread[0])      
       store.commit('setBreadcrumb',bread)
@@ -200,7 +178,7 @@ router.beforeEach((to,from,next)=>{
       const currentTag = bread[bread.length-1]
       // debugger
       store.commit('addTagview',currentTag)      
-      store.commit('activeTagview',currentTag.key)
+      store.commit('activeTagview',currentTag.name)
 
   }
    next()

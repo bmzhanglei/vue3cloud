@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 
 </script>
-<script lang='ts'>export default{name:'role11'}</script>
+<script lang='ts'>export default{name:'role'}</script>
 <template>
 <div>
-    角色
+    角色设置
     <a-input></a-input>
 </div>
 </template>

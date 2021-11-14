@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, reactive, nextTick, getCurrentInstance, ComponentInternalInstance } from 'vue';
+import { ref, computed, reactive, nextTick, getCurrentInstance } from 'vue';
+import type {  ComponentInternalInstance } from 'vue';
+
 import { useStore } from '@/store';
 import { emitter } from '@/utils/bus';
 import {  useRouter } from 'vue-router'
@@ -9,20 +11,23 @@ import type {Ttag} from '@/typings/route'
 import {DelState} from '../../../typings/enum'
 import {Icon} from '@/components/Icon';
 import { VueDraggableNext } from 'vue-draggable-next'
-
+import { useI18n } from 'vue-i18n';
+import {toggleFull} from 'be-full'
+const {t} = useI18n()
 const router =  useRouter()
 const {state,commit} = useStore()
+const dashboard = "dashboardIndex"
 
-const closeTags = (delState:DelState,routeName:string = "desktop")=>{
+const closeTags = (delState:DelState,routeName:string = dashboard)=>{
       const index = state.tagviews.findIndex(res=>res.name === routeName)
       if(index>-1){
          let delTags:Ttag[] = [];
           switch (delState){
             case DelState.All:              
-              delTags = state.tagviews.filter(res=>res.name!=="desktop")             
+              delTags = state.tagviews.filter(res=>res.name!==dashboard)             
               break;
             case DelState.Other:
-              delTags = state.tagviews.filter(res=>res.name!=="desktop" && res.name!==routeName)           
+              delTags = state.tagviews.filter(res=>res.name!==dashboard && res.name!==routeName)           
               break;
             case DelState.Right:
               if(index < state.tagviews.length-1){
@@ -49,7 +54,7 @@ const closeTags = (delState:DelState,routeName:string = "desktop")=>{
           if(activeIndex>-1){
             router.push({name:state.tagviews[activeIndex].name})         
           }   
-          commit('delTagview',delTags.map(res=>res.key))             
+          commit('delTagview',delTags.map(res=>res.name))             
       }   
 }
 
@@ -101,7 +106,7 @@ const contextMenuDisable = (delState:DelState,routeName:string = "desktop")=>{
                router.push({ name: routeName })               
             }else{
                 commit("addTagview",curTag)
-                commit("activeTagview",curTag.key)               
+                commit("activeTagview",curTag.name)               
             }
              nextTick(() => {
                 reload.state = true
@@ -149,6 +154,7 @@ const tags = computed({
        value[1] = value[0]
        value[0] = desktop
      }
+     console.log('sortTagviews',value)
     commit('sortTagviews',value)
   }
 }) 
@@ -165,14 +171,18 @@ const tags = computed({
       contextmenu.show = true
   }
 
-  const {proxy} = getCurrentInstance() as ComponentInternalInstance
+  // const {proxy} = getCurrentInstance() as ComponentInternalInstance
   const screen = ref('FullscreenOutlined')
-  const screenTtl = ref('全屏')
+  const screenTtl = ref(t('fullScreen'))
   const setFullScreen = ()=>{
     commit('setFullScreen',!state.fullScreen)
       screen.value = state.fullScreen?'FullscreenExitOutlined':'FullscreenOutlined'
-      screenTtl.value = state.fullScreen?'还原':'全屏'
-      proxy?.$utils.fullScreen(state.fullScreen)
+      screenTtl.value = state.fullScreen?t('exitFullScreen'):t('fullScreen')
+      // proxy?.$utils.fullScreen(state.fullScreen) 
+      // util.fullScreen(state.fullScreen)
+      toggleFull()
+   
+      
   }
 </script>
 
@@ -186,12 +196,12 @@ const tags = computed({
       filter=".no-drag" 
     >
       <!-- <transition-group>  -->
-           <a-button v-for="(item,index) in tags" :key="item.key" 
+           <a-button v-for="(item,index) in tags" :key="item.name" 
                    @contextmenu.prevent="onTagRightClick($event, item.name as string)"
-                  :class="{'no-drag': item.name === 'desktop' }"   
+                  :class="{'no-drag': item.name === 'dashboardIndex' }"   
                   :type="item.active?'primary':'default'" size="small">
-            <router-link :to="item.path"> {{$t(item?.name as string)}}-{{item.name}}  </router-link> 
-            <Icon icon="CloseOutlined"  @contextmenu.stop.prevent v-if="item.key!=='3.1'" class="icon" @click="closeTags(DelState.Single,item.name)"/>      
+            <router-link :to="item.path"> {{item.title || $t(item.locale as string)}} </router-link> 
+            <Icon icon="CloseOutlined"  @contextmenu.stop.prevent v-if="item.name!=='dashboardIndex'" class="icon" @click="closeTags(DelState.Single,item.name)"/>      
         </a-button>
     <!-- </transition-group> -->
     </VueDraggableNext>    
@@ -277,7 +287,6 @@ const tags = computed({
     } 
 }
 .tag-ghost {
-
     opacity: 0;
   }
 

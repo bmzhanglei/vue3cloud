@@ -14,9 +14,9 @@
 </template>
 
 <script lang="ts">
+import { CommonObject } from '@/typings'
 import { computed, defineComponent, PropType, watch } from 'vue'
 import { ContextMenuItemProps } from './typings'
-import type { CommonObject } from '@/typings'
 
 export default defineComponent({
   name: 'contextmenu',

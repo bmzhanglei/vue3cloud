@@ -16,9 +16,10 @@ import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
       // emitter.emit("getCollapse",!!collapsed.value)
   })
   const breads = computed(():Tbread[]=>{
+    // console.log(store.state.breadcrumb)
      return store.state.breadcrumb
   }) 
-
+  
   // onMounted(()=>{
   //   emitter.on('getBread',(param)=>{
   //     debugger
@@ -44,7 +45,7 @@ import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
  <a-breadcrumb class="bread">
     <a-breadcrumb-item v-for='(item,index) in breads'> 
      <router-link :to="item.path">             
-              {{ $t(item.name as string) }}
+              {{ item.title || $t(item.locale as string)}}
            </router-link>  </a-breadcrumb-item>
   </a-breadcrumb>
 </template>

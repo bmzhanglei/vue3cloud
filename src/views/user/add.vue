@@ -2,11 +2,11 @@
 import { ref } from 'vue'
 
 </script>
-<script lang='ts'>export default{name:'userList'}</script>
+<script lang='ts'>export default{name:'userAdd'}</script>
 <template>
 <div>
        <a-input></a-input>
-    用户列表
+    用户添加
     <!-- <router-view></router-view> -->
 </div>
 </template>
