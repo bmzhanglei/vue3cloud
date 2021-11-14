@@ -58,22 +58,22 @@ const closeTags = (delState:DelState,routeName:string = dashboard)=>{
       }   
 }
 
-const contextMenuDisable = (delState:DelState,routeName:string = "desktop")=>{
+const contextMenuDisable = (delState:DelState,routeName:string = "dashboardIndex")=>{
   let flag = false
   const index = state.tagviews.findIndex(res=>res.name === routeName)
   switch (delState){
     case DelState.Single:
-      flag = routeName==="desktop"   
+      flag = routeName==="dashboardIndex"   
       break;
     case DelState.Right:
       flag = !(index <= state.tagviews.length - 2) ;
       break;
     case DelState.Other:
-      const otherTags = state.tagviews.filter(res => res.name !== routeName || routeName !== "desktop")      
-      flag = !(routeName === "desktop"?otherTags.length >= 1:otherTags.length > 2)
+      const otherTags = state.tagviews.filter(res => res.name !== routeName || routeName !== "dashboardIndex")      
+      flag = !(routeName === "dashboardIndex"?otherTags.length >= 1:otherTags.length > 2)
       break;
     case DelState.All:
-      const otherTagsAll = state.tagviews.filter(res => res.name !== "desktop" )
+      const otherTagsAll = state.tagviews.filter(res => res.name !== "dashboardIndex" )
       flag = !(otherTagsAll.length >= 1);
       break;
     default:
@@ -149,7 +149,7 @@ const contextMenuDisable = (delState:DelState,routeName:string = "desktop")=>{
 const tags = computed({
   get:()=>state.tagviews ,
   set:(value)=>{
-    if(value[1].name==='desktop'){
+    if(value[1].name==='dashboardIndex'){
       const desktop = value[1]
        value[1] = value[0]
        value[0] = desktop
@@ -190,11 +190,10 @@ const tags = computed({
 <div class="tagviewOut">
 <div class='tagview'>
       <VueDraggableNext
-      v-model="tags"      
-      animation="300"            
-      ghostClass="tag-ghost"
-      filter=".no-drag" 
-    >
+        v-model="tags"      
+        animation="300"            
+        ghostClass="tag-ghost"
+        filter=".no-drag">
       <!-- <transition-group>  -->
            <a-button v-for="(item,index) in tags" :key="item.name" 
                    @contextmenu.prevent="onTagRightClick($event, item.name as string)"
