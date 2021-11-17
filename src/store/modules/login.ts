@@ -1,23 +1,23 @@
 import { Module } from "vuex";
 import { State } from "..";
-import { LoginState } from "../../typings/login";
+import { LoginState, UserInfo } from "../../typings/login";
 import { doLogin } from '../../apis/login'
 
 export default {
   namespaced: true,
   state:  { 
-      user:{},
+      userInfo:{},
   },
   mutations: {
-    doLogin(state:any,data:any){
-        // state.user = data                     
+    doLogin(state:any,data:UserInfo){
+        state.userInfo = data                     
     }
   },
   actions: {
     doLogin:async ({commit},payload:any)=>{
         const result = await doLogin(payload)    
         if(result.status==200){     
-             commit('doLogin',result)               
+             commit('doLogin',result?.result)               
         }
         return result
      }

@@ -7,7 +7,7 @@ let langStr = ref('English')
  const {t,locale} = useI18n()
  const store = useStore()
 //  debugger
- locale.value = store.state?.app?.language || "zh"
+ locale.value = store.state?.gloabalStore?.language || "zh"
  const isZh2 = locale.value === "zh"
  langStr.value=isZh2?'English':'中文';
   const toggleLanguage = ()=>{

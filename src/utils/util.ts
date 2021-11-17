@@ -2,7 +2,11 @@
 import { Menu } from '@/typings/login'
 import type {Ttag} from '@/typings/route'
 import { AppRouteRecordRaw } from '@/typings/route';
+import layOut from "/src/layout/index.vue";
+import RouterView from "@/layout/RouterView.vue";
 import _ from 'lodash'
+const moduless = import.meta.glob('/src/views/**/*.vue') 
+console.log('moduless--->',moduless)
 const add = (a:number,b:number)=>a+b
 
 const delRest = (origin:Ttag[],delKeys:string[])=>{
@@ -44,9 +48,26 @@ const toTreeMenu = (data:AppRouteRecordRaw[])=>{
     }
 }
 
+const changeComponent = (data:AppRouteRecordRaw[])=>{
+    data.forEach(item=>{
+        if(typeof item.component === "string"){
+            item.component = moduless[item.component.replace(/@/,'/src')]            
+        }else if(item.component?.__file.includes('RouterView')){
+            item.component =  RouterView
+        }else{
+            item.component = layOut
+        }
+     
+        if(item?.children?.length){
+            changeComponent(item.children)
+        }
+    })
+}
+
 export default {
     add,
     delRest,
     getBigName,
-    toTreeMenu
+    toTreeMenu,
+    changeComponent
 }

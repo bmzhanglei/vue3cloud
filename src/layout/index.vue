@@ -7,9 +7,10 @@ import { useStore } from '@/store';
 import { emitter } from '@/utils/bus';
 import {useRouter} from 'vue-router'
 import util from '@/utils/util'
-import {  ref ,nextTick,provide, computed} from 'vue';
+import { ref, nextTick, provide, computed, watch } from 'vue';
 import {Icon} from '@/components/Icon';
-const {commit,state} = useStore()
+// import getters from '../store/getters';
+const {commit,state,getters} = useStore()
 const router = useRouter()
 const collapsed = computed(()=>state.collapse);
 const isScreen = computed(()=>state.fullScreen);
@@ -17,6 +18,9 @@ const isScreen = computed(()=>state.fullScreen);
   //   collapsed.value = !!param 
   //     debugger
   // })
+//  watch(menus,(newVal,oldVal)=>{
+//    console.log('menus--->',newVal)
+//  },{immediate:true})
 </script>
 
 <template>

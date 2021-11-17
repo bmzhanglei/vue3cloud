@@ -2,12 +2,13 @@ import { InjectionKey } from 'vue'
 import { createStore, Store ,useStore as baseUseStore} from "vuex";
 import createPersistedState from 'vuex-persistedstate'
 import todos, { TodoState } from './modules/todos'
-import { LoginState } from "@/typings/login";
+import { LoginState, UserInfo } from "@/typings/login";
 import util from '@/utils/util';
 import getters from './getters'
 import modules from "./store";
 import {doLogin} from '../apis/login'
 import type {AppRouteRecordRaw, Tbread,Ttag} from '@/typings/route' 
+import store from '@/store';
 // console.log('modules----->',modules)
 
 // debugger
@@ -26,11 +27,16 @@ export type State = {
   collapse:boolean,
   fullScreen:boolean,
   language?: string,
-  app?:{menus:AppRouteRecordRaw[]},
+  gloabalStore?:{
+    language:'zh'|'en',
+    menus:AppRouteRecordRaw[],
+    userInfo:UserInfo
+  },
   breadcrumb:Tbread[],
   tagviews:Ttag[],
   cachedList:Ttag[],
-  menus:AppRouteRecordRaw[]
+  menus:AppRouteRecordRaw[],
+  userInfo:UserInfo
   // todos?: TodoState
   // user?: LoginState
 }
@@ -79,12 +85,22 @@ export default createStore<State>({
   plugins:[createPersistedState({  //状态管理持久化
     storage:window.sessionStorage,
     reducer: (data:State) =>{
+       let vuexStore = sessionStorage.getItem('vuex')
+       let gloabalStore = {}
+       if(vuexStore){
+          gloabalStore = JSON.parse(vuexStore)?.gloabalStore
+       }
+       gloabalStore.language = data.language
+    
+       if(data.app.menus?.length){
+            Object.assign(gloabalStore,{menus:data.app?.menus})
+       }
+      //  if(data.login.userInfo?.id){
+         gloabalStore.userInfo = data.login.userInfo
+      //  }
       // console.log('数据持久化-->',data)
       // debugger
-      return {
-         gloabalData:{language:data.language}   //指定数据持久化
-        //  app:data   //指定数据持久化
-      }
+      return {gloabalStore}
     }
   })] 
 })

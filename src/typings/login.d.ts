@@ -4,6 +4,14 @@ export type LoginState = {
     verify:string
 }
 
+interface UserInfo{
+    email: string,
+    id: number
+    roleId: number
+    status: number
+    username: string
+}
+
 
 interface Result {
     status:number,

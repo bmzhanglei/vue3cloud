@@ -6,6 +6,7 @@ import type {AppRouteRecordRaw}  from '@/typings/route'
 import { computed, watch } from 'vue';
 import layOut from "@/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
+import util from '@/utils/util';
 
 let routes :AppRouteRecordRaw[]= [{     
       path: '/',
@@ -180,25 +181,54 @@ const router = createRouter({
 // },{immediate:true})
 
 router.beforeEach((to,from,next)=>{
+
+  // store.state.menus?.forEach(item=>{
+  //   router.addRoute(item)
+  // })
+
+  // console.log('store.state.gloabalStore.menu--->',store.state.gloabalStore)
+  // console.log('store.state.menus--->',store.state.menus)
+  // menus?.forEach(element => {
+  //   router.addRoute(element)
+  // });
+  const {state,commit} = store
+  const userInfo = state.gloabalStore?.userInfo
+  if(userInfo.id && !state.userInfo?.id){
+    commit('login/doLogin',userInfo)
+  }
+  //  debugger
+  const menus = store.state.gloabalStore?.menus 
+  if(menus?.length && !state.app.menus?.length){
+    commit('app/setMenus',menus)
+  }
+  // debugger
+  if(state.app.menus && state.app.menus?.length){
+    const menuComs = JSON.parse(JSON.stringify(state.app.menus))
+    util.changeComponent(menuComs);
+    console.log('menuComs--->',menuComs)
+     menuComs.forEach(item=>{
+       router.addRoute(item)
+     })
+  }
   //  console.log('from',from)
   //  console.log('to',to.matched)
-  if(to.fullPath!="/"){
+  if(to.fullPath!=="/"){
     // const dynamicRoute:AppRouteRecordRaw[] = computed(()=>store.state.menus || [])
-
-      const bread = to.matched.filter(res=>res.meta.breadcrumb).map(res=>({name:res.name,path:res.path,title:res.meta?.title,locale: res.meta?.locale}))
-      // debugger
-      // console.log(to.matched.filter(res=>res.meta.breadcrumb))
-      if(bread[0].name!=='dashboardIndex'){
-        bread.unshift({name:'dashboardIndex',path:'/dashboard/index',locale:'dashboard',title:""})
-      }
-      store.commit('addTagview',bread[0])      
-      store.commit('setBreadcrumb',bread)
-
-      const currentTag = bread[bread.length-1]
-      // debugger
-      store.commit('addTagview',currentTag)      
-      store.commit('activeTagview',currentTag.name)
-
+       //数据持久化
+   
+       const bread = to.matched.filter(res=>res.meta.breadcrumb).map(res=>({name:res.name,path:res.path,title:res.meta?.title,locale: res.meta?.locale}))
+       // debugger
+       // console.log(to.matched.filter(res=>res.meta.breadcrumb))
+       if(bread[0].name!=='dashboardIndex'){
+         bread.unshift({name:'dashboardIndex',path:'/dashboard/index',locale:'dashboard',title:""})
+       }
+       store.commit('addTagview',bread[0])      
+       store.commit('setBreadcrumb',bread)
+ 
+       const currentTag = bread[bread.length-1]
+       // debugger
+       store.commit('addTagview',currentTag)      
+       store.commit('activeTagview',currentTag.name)
   }
    next()
 })
