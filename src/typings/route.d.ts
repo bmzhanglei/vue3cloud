@@ -14,7 +14,7 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
     onlyChild?:boolean,
     name: string;
     meta?: RouteMeta;
-    component?: Component | string;
+    component?: Component | string | null;
     children?: AppRouteRecordRaw[] | undefined;
 }
 

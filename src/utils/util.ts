@@ -50,12 +50,13 @@ const toTreeMenu = (data:AppRouteRecordRaw[])=>{
 
 const changeComponent = (data:AppRouteRecordRaw[])=>{
     data.forEach(item=>{
-        if(typeof item.component === "string"){
+        if(typeof item.component === "string" && item.component.includes("@")){
             item.component = moduless[item.component.replace(/@/,'/src')]            
-        }else if(item.component?.__file.includes('RouterView')){
+        }else if(item.component === 'RouterView'){
             item.component =  RouterView
         }else{
             item.component = layOut
+            // console.log('layOut---')
         }
      
         if(item?.children?.length){

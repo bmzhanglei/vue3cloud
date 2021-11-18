@@ -19,9 +19,9 @@ class Https{
           instance.interceptors.request.use((config:AxiosRequestConfig):AxiosRequestConfig => {
             // console.log('config--->',config)
             // debugger
-             if(config.method=='get'){            
-               config.params = config.query
-             }         
+            //  if(config.method=='get'){            
+            //    config.params = config.params
+            //  }         
                 // 请求拦截器中将请求加入cancel队列
                 if (!config.hasOwnProperty('cancelToken')) { // 排除不需要cancel的请求
                     const source = axios.CancelToken.source();  

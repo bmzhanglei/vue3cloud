@@ -1,5 +1,5 @@
 import { AppRouteRecordRaw } from "@/typings/route";
-import { Module } from "vuex";
+import { Module ,Commit, ActionContext, MapperForAction, ActionHandler, ActionTree, CommitOptions} from "vuex";
 import type { State } from "..";
 import router from '@/router'
 import { getMenu } from '../../apis/menu';
@@ -7,8 +7,9 @@ import { useI18n } from "vue-i18n";
 import util from '@/utils/util';
 import layOut from "@/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
-import { Menu } from "@/typings/login";
+import { Menu, Result } from '@/typings/login';
 import { markRaw } from "vue";
+import store from '@/store';
 
 // const moduless = import.meta.glob('/src/views/**/*.vue') 
 export default {
@@ -22,7 +23,7 @@ export default {
           // util.changeComponent(menuComs);
           state.menus = data
 
-          // const menuComs = JSON.parse(JSON.stringify(state.menus))
+          // const menuComs = JSON.parse(JSON.stringify(state.app.menus))
           // util.changeComponent(menuComs);
           // console.log('menuComs--->',menuComs)
           //  menuComs.forEach(item=>{
@@ -70,26 +71,26 @@ export default {
      }
   },
   actions: {
-    setMenus:async ({state,commit},payload:{roleId:number})=>{
-      const result = await getMenu(payload)   
+    setMenus:async ({commit}:ActionContext<State,State>,payload:{roleId:number})=>{
+      const result:Result = await getMenu(payload)   
       // debugger 
       if(result.status==200){    
         
-        let doData = []
+        let doData:AppRouteRecordRaw[] = []
         //  debugger
-        result.result.forEach(item=>{
+        let resMenu = result.result as Menu[]
+        resMenu.forEach((item:Menu)=>{
            let {id,pid,name,component,redirect,path,titleCn,titleEn,icon,breadcrumb,sort,hidden,onlyChild,level} = item
            if(level == 1&& !component){
-             component = markRaw(layOut)
+             component = "layOut"
            }else if(level > 1 && !component){
             //  console.log("menu-name-level--->",name,level)
-              component = markRaw(RouterView) 
+              component = "RouterView"
            }else if(typeof component==="string"){  
               // component = moduless[component.replace(/@/,'/src')] 
-              component = component
-             
+              component = component             
            }
-           let obj = {name,path,component,id,pid}
+           let obj = {name,path,component,id,pid,meta:{}}
            if(redirect){
               Object.assign(obj,{redirect})
             }
@@ -100,14 +101,14 @@ export default {
               if(icon){
                 Object.assign(obj.meta,{icon})
               }           
-              Object.assign(obj.meta,{breadcrumb:!!breadcrumb})
+                Object.assign(obj.meta,{breadcrumb:!!breadcrumb})
                 Object.assign(obj.meta,{hidden:!!hidden})
                 Object.assign(obj.meta,{onlyChild:!!onlyChild})               
                doData.push(obj)
          })  
          
          const res = util.toTreeMenu(doData)      
-             
+            
            commit('setMenus',res)               
       }
       return result

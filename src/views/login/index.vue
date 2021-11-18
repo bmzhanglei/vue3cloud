@@ -4,12 +4,12 @@ import Locale from '@/components/Locale.vue'
 import type { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
 import type { UnwrapRef } from "vue";
 import { reactive, ref, onMounted } from "vue";
-import { useRouter, RouteRecordRaw } from 'vue-router';
+import { useRouter } from 'vue-router';
+import type {  RouteRecordRaw } from 'vue-router';
 import { getCaptcha } from "apis/login";
 import { useStore } from "@/store";
  import {useI18n } from 'vue-i18n'
-import { Result } from '@/typings/login';
-import { AppRouteRecordRaw } from '@/typings/route';
+import type { Result } from '@/typings/login';
 import layOut from '@/layout/index.vue';
 import RouterView from '@/layout/RouterView.vue';
  const {t,locale} = useI18n()

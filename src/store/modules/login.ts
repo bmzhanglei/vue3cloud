@@ -1,7 +1,8 @@
-import { Module } from "vuex";
+import { ActionContext, Module } from "vuex";
 import { State } from "..";
-import { LoginState, UserInfo } from "../../typings/login";
+import { LoginState, Result, UserInfo } from "../../typings/login";
 import { doLogin } from '../../apis/login'
+
 
 export default {
   namespaced: true,
@@ -14,8 +15,8 @@ export default {
     }
   },
   actions: {
-    doLogin:async ({commit},payload:any)=>{
-        const result = await doLogin(payload)    
+    doLogin:async ({commit}:ActionContext<State,State>,payload:any)=>{
+        const result:Result = await doLogin(payload)    
         if(result.status==200){     
              commit('doLogin',result?.result)               
         }

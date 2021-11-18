@@ -8,11 +8,11 @@ import layOut from "@/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
 import util from '@/utils/util';
 
+
 let routes :AppRouteRecordRaw[]= [{     
-      path: '/',
-      hidden:true,
+      path: '/',     
       name: 'login',   
-      meta: { },
+      meta: {  hidden:true},
       component: () => import(/* webpackChunkName: "userManager" */'@/views/login/index.vue')
     },
     //桌面
@@ -171,66 +171,82 @@ let routes :AppRouteRecordRaw[]= [{
 // })
 
 // debugger
+
+const {state,commit} = store
 const router = createRouter({
     history:createWebHashHistory(),
     routes:routes as unknown as RouteRecordRaw[]
 })
 
-// watch(dynamicRoute,()=>{
-//   console.log(dynamicRoute.value)
-// },{immediate:true})
+//页面刷新的时候，重新赋值
+const userInfo = state.gloabalStore?.userInfo
+  if(userInfo?.id && !state.userInfo?.id){
+    commit('login/doLogin',userInfo)
+  }
+
+const menus = store.state.gloabalStore?.menus 
+if(menus?.length && !state?.app?.menus?.length){
+  commit('app/setMenus',menus)
+}
+// debugger
+if(state?.app?.menus && state?.app?.menus?.length){
+  const menuComs:AppRouteRecordRaw[] = JSON.parse(JSON.stringify(state.app.menus))
+  util.changeComponent(menuComs);
+  // console.log('menuComs--->',menuComs)
+   (menuComs as RouteRecordRaw[]).forEach((item)=>{
+     router.addRoute(item)
+   })
+}
 
 router.beforeEach((to,from,next)=>{
 
-  // store.state.menus?.forEach(item=>{
-  //   router.addRoute(item)
-  // })
+  //页面刷新的时候，重新赋值
+// const userInfo = state.gloabalStore?.userInfo
+// if(userInfo?.id && !state.userInfo?.id){
+//   commit('login/doLogin',userInfo)
+// }
 
-  // console.log('store.state.gloabalStore.menu--->',store.state.gloabalStore)
-  // console.log('store.state.menus--->',store.state.menus)
-  // menus?.forEach(element => {
-  //   router.addRoute(element)
-  // });
-  const {state,commit} = store
-  const userInfo = state.gloabalStore?.userInfo
-  if(userInfo.id && !state.userInfo?.id){
-    commit('login/doLogin',userInfo)
-  }
-  //  debugger
-  const menus = store.state.gloabalStore?.menus 
-  if(menus?.length && !state.app.menus?.length){
-    commit('app/setMenus',menus)
-  }
-  // debugger
-  if(state.app.menus && state.app.menus?.length){
-    const menuComs = JSON.parse(JSON.stringify(state.app.menus))
-    util.changeComponent(menuComs);
-    console.log('menuComs--->',menuComs)
-     menuComs.forEach(item=>{
-       router.addRoute(item)
-     })
-  }
+// const menus = store.state.gloabalStore?.menus 
+// if(menus?.length && !state.app.menus?.length){
+// commit('app/setMenus',menus)
+// }
+// debugger
+if(state?.app?.menus && state?.app?.menus?.length){
+const menuComs:AppRouteRecordRaw[] = JSON.parse(JSON.stringify(state?.app?.menus))
+util.changeComponent(menuComs);
+// console.log('menuComs--->',menuComs)
+ (menuComs as RouteRecordRaw[]).forEach((item)=>{
+   router.addRoute(item)
+ })
+}
+
+    // let isRefresh = sessionStorage.getItem('page_is_refresh')
+    // console.log('page_is_refresh--->',isRefresh)
+ 
   //  console.log('from',from)
   //  console.log('to',to.matched)
-  if(to.fullPath!=="/"){
-    // const dynamicRoute:AppRouteRecordRaw[] = computed(()=>store.state.menus || [])
-       //数据持久化
+
+
+    if(to.fullPath!=="/"){
+      // const dynamicRoute:AppRouteRecordRaw[] = computed(()=>store.state.menus || [])
+         //数据持久化
+     
+         const bread = to.matched.filter(res=>res.meta.breadcrumb).map(res=>({name:res.name,path:res.path,title:res.meta?.title,locale: res.meta?.locale}))
+         // debugger
+         // console.log(to.matched.filter(res=>res.meta.breadcrumb))
+         if(bread[0].name!=='dashboardIndex'){
+           bread.unshift({name:'dashboardIndex',path:'/dashboard/index',locale:'dashboard',title:""})
+         }
+         store.commit('addTagview',bread[0])      
+         store.commit('setBreadcrumb',bread)
    
-       const bread = to.matched.filter(res=>res.meta.breadcrumb).map(res=>({name:res.name,path:res.path,title:res.meta?.title,locale: res.meta?.locale}))
-       // debugger
-       // console.log(to.matched.filter(res=>res.meta.breadcrumb))
-       if(bread[0].name!=='dashboardIndex'){
-         bread.unshift({name:'dashboardIndex',path:'/dashboard/index',locale:'dashboard',title:""})
-       }
-       store.commit('addTagview',bread[0])      
-       store.commit('setBreadcrumb',bread)
- 
-       const currentTag = bread[bread.length-1]
-       // debugger
-       store.commit('addTagview',currentTag)      
-       store.commit('activeTagview',currentTag.name)
-  }
-   next()
+         const currentTag = bread[bread.length-1]
+         // debugger
+         store.commit('addTagview',currentTag)      
+         store.commit('activeTagview',currentTag.name)
+    }
+    next()
+
 })
 
 export default router
