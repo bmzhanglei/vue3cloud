@@ -21,6 +21,7 @@ export default {
      setMenus(state:State,data:any[]){
           // const menuComs = JSON.parse(JSON.stringify(data))
           // util.changeComponent(menuComs);
+          // debugger
           state.menus = data
 
           // const menuComs = JSON.parse(JSON.stringify(state.app.menus))
@@ -74,42 +75,30 @@ export default {
     setMenus:async ({commit}:ActionContext<State,State>,payload:{roleId:number})=>{
       const result:Result = await getMenu(payload)   
       // debugger 
+ 
       if(result.status==200){    
         
         let doData:AppRouteRecordRaw[] = []
         //  debugger
         let resMenu = result.result as Menu[]
         resMenu.forEach((item:Menu)=>{
-           let {id,pid,name,component,redirect,path,titleCn,titleEn,icon,breadcrumb,sort,hidden,onlyChild,level} = item
-           if(level == 1&& !component){
-             component = "layOut"
-           }else if(level > 1 && !component){
-            //  console.log("menu-name-level--->",name,level)
-              component = "RouterView"
-           }else if(typeof component==="string"){  
-              // component = moduless[component.replace(/@/,'/src')] 
-              component = component             
-           }
-           let obj = {name,path,component,id,pid,meta:{}}
+           let {id,pid,name,component,redirect,path,titleCn,titleEn,icon,breadcrumb,sort,hidden,level} = item
+           let obj = {name,path,component,meta:{id,pid,sort}}
            if(redirect){
-              Object.assign(obj,{redirect})
+               Object.assign(obj,{redirect})
             }
-           obj.meta = {sort}
               if(titleCn){
-                Object.assign(obj.meta,{title:titleCn})
+                Object.assign(obj.meta,{title:titleCn,titleEn})
               }
               if(icon){
                 Object.assign(obj.meta,{icon})
               }           
                 Object.assign(obj.meta,{breadcrumb:!!breadcrumb})
-                Object.assign(obj.meta,{hidden:!!hidden})
-                Object.assign(obj.meta,{onlyChild:!!onlyChild})               
+                Object.assign(obj.meta,{hidden:!!hidden})                        
                doData.push(obj)
-         })  
-         
-         const res = util.toTreeMenu(doData)      
-            
-           commit('setMenus',res)               
+         })           
+         const res = util.toTreeMenu(doData)         
+          commit('setMenus',res)               
       }
       return result
    }

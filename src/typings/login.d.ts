@@ -27,11 +27,15 @@ interface Menu{
     id: number,
     level: number,
     name: string,
-    onlyChild: number,
     path: string,
     pid: number,
     redirect: string,
     sort: number,
     titleCn: string,
     titleEn: string
+}
+
+declare enum M{
+    One,
+    Two
 }

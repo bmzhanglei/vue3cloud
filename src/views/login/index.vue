@@ -12,6 +12,9 @@ import { useStore } from "@/store";
 import type { Result } from '@/typings/login';
 import layOut from '@/layout/index.vue';
 import RouterView from '@/layout/RouterView.vue';
+import app from '@/store/modules/app';
+import type{ AppRouteRecordRaw } from '@/typings/route';
+import util from '@/utils/util';
  const {t,locale} = useI18n()
 interface FormState {
   username: string;
@@ -28,6 +31,7 @@ interface VerifyCode {
 
 const store = useStore()
 const router = useRouter();
+
 const layout = {
   labelCol: { span: 6},
   wrapperCol: { span: 12 },
@@ -58,37 +62,18 @@ onMounted(() => {
   getCode();
 });
 
-// const routerPackag = (routers:AppRouteRecordRaw[]) => {
-//   routers.filter(itemRouter => {
-//     if (itemRouter.component != layOut && itemRouter.component != RouterView) {
-//       console.log(itemRouter.component)
-//       if(typeof itemRouter.component=="string"){        
-//            itemRouter.component = ()=>import(itemRouter.component)
-//         }
-//       router.addRoute(itemRouter as RouteRecordRaw);
-//     }
-//     // 是否存在子集
-//     if (itemRouter.children && itemRouter.children.length) {
-//       routerPackag(itemRouter.children);
-//     }
-//     return true;
-//   });
-// };
-
 const onSubmit = () => {
   formRef.value.validate().then(async () => {
+
        const loginState:Result = await store.dispatch('login/doLogin',{...formState})
         if(loginState.status==200){
             store.dispatch('app/setMenus',{roleId:loginState.result?.roleId}).then(res=>{
-               //  doData.forEach(item=>router.addRoute(item))
-              //  let menus = store.state.app?.menus
-              //  menus?.forEach(item=>{
-              //   //  if(router.hasRoute(item.name)){
-              //      router.addRoute(item as RouteRecordRaw)
-              //   //  }
-              //   })
-              //  debugger
-              // routerPackag(menus as AppRouteRecordRaw[])
+                const menuComs:AppRouteRecordRaw[] = JSON.parse(JSON.stringify(store.state.app?.menus))
+                util.changeComponent(menuComs);
+                // console.log('menuComs--->',menuComs);
+                const routes = router.getRoutes().filter(res=>res.name === "layout")[0];
+                routes.children.push(...(menuComs as RouteRecordRaw[]));
+                router.addRoute(routes)    
                 router.push("/dashboard");
             })          
         }else{
@@ -102,7 +87,7 @@ const resetForm = () => {
   formRef.value.resetFields();
 };
 </script>
-
+<script lang='ts'>export default{name:'login'}</script>
 <template>
  <a-row>
     <a-col :offset="8" :span="8"><h3>{{formState.tip}}</h3></a-col>

@@ -15,7 +15,7 @@ const excludeTag = ref<string>('')
 const reload = ref<boolean>(true)
 
 emitter.on('reload',(val:any):void=>{
-  excludeTag.value = val.names =="dashboardIndex"?"dashboard": val.names
+      excludeTag.value = val.names
       reload.value = val.state;   
     
     console.log(reload.value)

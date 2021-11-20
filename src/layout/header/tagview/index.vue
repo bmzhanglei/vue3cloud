@@ -9,14 +9,13 @@ import type {   RouteRecordName } from 'vue-router';
 import type { ContextMenuItemProps } from '@/components/common/typings'
 import type {Ttag} from '@/typings/route'
 import {DelState} from '../../../typings/enum'
-import {Icon} from '@/components/Icon';
 import { VueDraggableNext } from 'vue-draggable-next'
 import { useI18n } from 'vue-i18n';
 import {toggleFull} from 'be-full'
 const {t} = useI18n()
 const router =  useRouter()
 const {state,commit} = useStore()
-const dashboard = "dashboardIndex"
+const dashboard = "dashboard"
 
 const closeTags = (delState:DelState,routeName:string = dashboard)=>{
       const index = state.tagviews.findIndex(res=>res.name === routeName)
@@ -58,22 +57,22 @@ const closeTags = (delState:DelState,routeName:string = dashboard)=>{
       }   
 }
 
-const contextMenuDisable = (delState:DelState,routeName:string = "dashboardIndex")=>{
+const contextMenuDisable = (delState:DelState,routeName:string = "dashboard")=>{
   let flag = false
   const index = state.tagviews.findIndex(res=>res.name === routeName)
   switch (delState){
     case DelState.Single:
-      flag = routeName==="dashboardIndex"   
+      flag = routeName==="dashboard"   
       break;
     case DelState.Right:
       flag = !(index <= state.tagviews.length - 2) ;
       break;
     case DelState.Other:
-      const otherTags = state.tagviews.filter(res => res.name !== routeName || routeName !== "dashboardIndex")      
-      flag = !(routeName === "dashboardIndex"?otherTags.length >= 1:otherTags.length > 2)
+      const otherTags = state.tagviews.filter(res => res.name !== routeName || routeName !== "dashboard")      
+      flag = !(routeName === "dashboard"?otherTags.length >= 1:otherTags.length > 2)
       break;
     case DelState.All:
-      const otherTagsAll = state.tagviews.filter(res => res.name !== "dashboardIndex" )
+      const otherTagsAll = state.tagviews.filter(res => res.name !== "dashboard" )
       flag = !(otherTagsAll.length >= 1);
       break;
     default:
@@ -149,7 +148,7 @@ const contextMenuDisable = (delState:DelState,routeName:string = "dashboardIndex
 const tags = computed({
   get:()=>state.tagviews ,
   set:(value)=>{
-    if(value[1].name==='dashboardIndex'){
+    if(value[1].name==='dashboard'){
       const desktop = value[1]
        value[1] = value[0]
        value[0] = desktop
@@ -196,10 +195,10 @@ const tags = computed({
       <!-- <transition-group>  -->
            <a-button v-for="(item,index) in tags" :key="item.name" 
                    @contextmenu.prevent="onTagRightClick($event, item.name as string)"
-                  :class="{'no-drag': item.name === 'dashboardIndex' }"   
+                  :class="{'no-drag': item.name === 'dashboard' }"   
                   :type="item.active?'primary':'default'" size="small">
             <router-link :to="item.path"> {{item.title || $t(item.locale as string)}} </router-link> 
-            <Icon icon="CloseOutlined"  @contextmenu.stop.prevent v-if="item.name!=='dashboardIndex'" class="icon" @click="closeTags(DelState.Single,item.name)"/>      
+            <Icon icon="CloseOutlined"  @contextmenu.stop.prevent v-if="item.name!=='dashboard'" class="icon" @click="closeTags(DelState.Single,item.name)"/>      
         </a-button>
     <!-- </transition-group> -->
     </VueDraggableNext>    

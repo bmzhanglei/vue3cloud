@@ -1,15 +1,16 @@
 import { createVNode } from 'vue'
 import  * as $Icon from '@ant-design/icons-vue'
-
-const MyIcon = $Icon.createFromIconfontCN({
-  // scriptUrl: '//at.alicdn.com/t/font_2873021_d2cl69gkfju.js', // 在 iconfont.cn 上生成
+// import font from '../utils/font'
+const MyIcon = $Icon.createFromIconfontCN({  
+  scriptUrl: "https://at.alicdn.com/t/font_2873021_df1zx1u8t9f.js", // 在 iconfont.cn 上生成
 });
 
 export const Icon = (props: { icon: string,color?:string,size?:string }) => {
+  // debugger
   const { icon ,color="#fff",size="14px"} = props;
-  if(icon && icon.includes('icon-')){
+  if(icon && icon.includes('icon-')){   
     return createVNode(MyIcon,{type:icon})
-  }else if(icon){
+  }else if(icon){   
     return createVNode($Icon[icon as keyof typeof $Icon],{style:`color:${color};font-size:${size}`});
   }
   return ""

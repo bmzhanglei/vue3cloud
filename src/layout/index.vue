@@ -8,7 +8,6 @@ import { emitter } from '@/utils/bus';
 import {useRouter} from 'vue-router'
 import util from '@/utils/util'
 import { ref, nextTick, provide, computed, watch } from 'vue';
-import {Icon} from '@/components/Icon';
 // import getters from '../store/getters';
 const {commit,state,getters} = useStore()
 const router = useRouter()
@@ -25,7 +24,7 @@ const isScreen = computed(()=>state.fullScreen);
 
 <template>
   <a-layout class="layout">
-    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible v-show="!isScreen">
+    <a-layout-sider v-model:collapsed="collapsed" :class="{'isCollapse':collapsed}" :trigger="null" collapsible v-show="!isScreen">
       <div class="logo">   
          <Icon icon="Html5Outlined" color="yellowgreen" size="30px"/> 
         <span :class='{"ttlShow":!collapsed}'>系统通用模版</span>    
@@ -54,7 +53,7 @@ const isScreen = computed(()=>state.fullScreen);
   max-height: 40px;
   overflow: hidden;
   flex-wrap: nowrap;
-  > span:first-of-type{margin-right: 10px;margin-left:25px;display: inline-flex;}
+  > span:first-of-type{margin-right: 10px;margin-left:16px;display: inline-flex;}
   > span:last-of-type{opacity: 0;}
 }
 .layout{
@@ -62,6 +61,19 @@ const isScreen = computed(()=>state.fullScreen);
   .ant-layout-header{
        background: #fff; padding: 0;height:auto;line-height: 40px;
   }  
+  .isCollapse {
+    .logo{margin-left:8px; transition: all .3s;}
+     &::v-deep(.ant-menu-submenu>.ant-menu-submenu-title ){
+        left: 0;
+        padding: 0 calc(50% - 16px / 2);
+        text-overflow: clip;
+    
+    .ant-menu-title-content,.ant-menu-submenu-arrow{
+      opacity:0
+    }
+  }
+  }
+
   .main{margin: 10px; padding: 10px; background: #fff; }
 }
 .ttlShow{

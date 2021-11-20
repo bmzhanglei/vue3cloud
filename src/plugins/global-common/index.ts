@@ -1,5 +1,6 @@
 
 import Contextmenu from '@/components/common/ContextMenu.vue'
+import {Icon} from '@/components/Icon'
 import { App } from 'vue'
 
 const commons = [
@@ -13,7 +14,11 @@ const commons = [
       rootNode.id = 'contextmenu'
       document.body.appendChild(rootNode)
     }
+  },{
+    name:'Icon',
+    component:Icon
   }
+
 ]
 
 const GlobalCommon = {

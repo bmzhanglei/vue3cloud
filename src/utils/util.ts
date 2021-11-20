@@ -5,6 +5,7 @@ import { AppRouteRecordRaw } from '@/typings/route';
 import layOut from "/src/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
 import _ from 'lodash'
+import { RouteMeta } from 'vue-router';
 const moduless = import.meta.glob('/src/views/**/*.vue') 
 console.log('moduless--->',moduless)
 const add = (a:number,b:number)=>a+b
@@ -24,16 +25,27 @@ const getBigName = (name: string) =>{
     return name.replace(name[0], name[0].toUpperCase())
 }
 
-
 const toTreeMenu = (data:AppRouteRecordRaw[])=>{
-    let parents = data.filter(p=>p.pid == 0)
-    let children = data.filter(c=>c.pid != 0)   
+    let parents = data.filter(p=>{
+        let p1 = (p.meta as RouteMeta).pid as number 
+        return p1 == 0
+    })
+    let children = data.filter(c=>{
+        let c1 = (c.meta as RouteMeta).pid as number 
+        return c1 != 0
+    }).sort((a,b)=>{
+        let a1 = (a.meta as RouteMeta).sort as number 
+        let b1 = (b.meta as RouteMeta).sort as number
+        return a1 - b1
+    })   
     dataToTree(parents,children);
     return parents
     function dataToTree(parents:AppRouteRecordRaw[],children:AppRouteRecordRaw[]) {
         parents.map(p => {
+            let pid = (p.meta as RouteMeta).id as number 
             children.map((c,i)=>{
-                if(c.pid === p.id){                     
+                let cpid = (c.meta as RouteMeta).pid as number 
+                if(cpid === pid){                     
                     let _children = _.cloneDeep(children)
                     _children.splice(i,1)
                     if(p.children){
@@ -52,13 +64,9 @@ const changeComponent = (data:AppRouteRecordRaw[])=>{
     data.forEach(item=>{
         if(typeof item.component === "string" && item.component.includes("@")){
             item.component = moduless[item.component.replace(/@/,'/src')]            
-        }else if(item.component === 'RouterView'){
-            item.component =  RouterView
         }else{
-            item.component = layOut
-            // console.log('layOut---')
+            item.component =  RouterView
         }
-     
         if(item?.children?.length){
             changeComponent(item.children)
         }
