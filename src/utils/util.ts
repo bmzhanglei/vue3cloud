@@ -4,7 +4,6 @@ import type {Ttag} from '@/typings/route'
 import { AppRouteRecordRaw } from '@/typings/route';
 import layOut from "/src/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
-import _ from 'lodash'
 import { RouteMeta } from 'vue-router';
 const moduless = import.meta.glob('/src/views/**/*.vue') 
 console.log('moduless--->',moduless)
@@ -46,7 +45,7 @@ const toTreeMenu = (data:AppRouteRecordRaw[])=>{
             children.map((c,i)=>{
                 let cpid = (c.meta as RouteMeta).pid as number 
                 if(cpid === pid){                     
-                    let _children = _.cloneDeep(children)
+                    let _children = JSON.parse(JSON.stringify(children))
                     _children.splice(i,1)
                     if(p.children){
                         p.children.push(c)

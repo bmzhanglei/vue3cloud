@@ -32,7 +32,7 @@ let routes:AppRouteRecordRaw[]= [
           component: () => import("@/views/dashboard/index.vue"),
           meta: {
             locale: 'dashboard',        
-            icon: "DesktopOutlined",
+            icon: "icon-shouye",
             breadcrumb: true
           }        
         },

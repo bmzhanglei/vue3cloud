@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { emitter } from '@/utils/bus';
 import { ref, watch,computed, onMounted, reactive } from 'vue';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-} from '@ant-design/icons-vue';
 import type {Tbread} from '@/typings/route'
 import { useStore } from '@/store';
-import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
   const collapsed = ref<boolean>(false);
@@ -36,12 +31,13 @@ import { useI18n } from 'vue-i18n';
 </script>
 
 <template>
-     <menu-unfold-outlined
+     <Icon icon="icon-zhankai"
           v-if="collapsed"
           class="trigger"
           @click="() => (collapsed = !collapsed)"
         />
-        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+       
+        <Icon icon="icon-shouqi" v-else class="trigger" @click="() => (collapsed = !collapsed)" />
  <a-breadcrumb class="bread">
     <a-breadcrumb-item v-for='(item,index) in breads'> 
      <router-link :to="item.path">             

@@ -27,7 +27,7 @@ const isScreen = computed(()=>state.fullScreen);
   <a-layout class="layout">
     <a-layout-sider v-model:collapsed="collapsed" :class="{'isCollapse':collapsed}" :trigger="null" collapsible v-show="!isScreen">
       <div class='logo'>   
-         <Icon :class="{'en':lang}" icon="Html5Outlined" color="yellowgreen" size="30px"/> 
+         <Icon :class="{'en':lang}" icon="icon-ZRX" color="yellowgreen" size="30px"/> 
         <span :class='{"ttlShow":!collapsed}'>{{$t("systemTemplate")}}</span>    
       </div>
       <NavMemu></NavMemu>
@@ -54,7 +54,7 @@ const isScreen = computed(()=>state.fullScreen);
   max-height: 40px;
   overflow: hidden;
   flex-wrap: nowrap;
-  > span:first-of-type{margin-right: 10px;margin-left:16px;display: inline-flex;}
+  > span:first-of-type{font-size: 30px;margin-right: 10px;margin-left:16px;display: inline-flex;}
   > span.en{margin-right: 2px;}
   > span:last-of-type{opacity: 0;}
 }

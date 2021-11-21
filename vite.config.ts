@@ -20,21 +20,19 @@ export default({command,mode}:UserConfig):UserConfig=>{
       }
     },
     esbuild:{},
-    // mode:"development",
-    // mode:"production",
     build:{
-      // minify: "esbuild",
-      // sourcemap:false,
-      // chunkSizeWarningLimit:1500,
-      // rollupOptions:{
-      //   output:{
-      //     manualChunks(id){
-      //         if(id.includes('node_modules')){
-      //           return id.toString().split('node_modules/')[1].split('/')[0].toString()
-      //         }
-      //     }
-      //   }
-      // }
+      minify: "esbuild",
+      sourcemap:false,
+      chunkSizeWarningLimit:500,
+      rollupOptions:{
+        output:{
+          manualChunks(id){
+              if(id.includes('node_modules')){
+                return id.toString().split('node_modules/')[1].split('/')[0].toString()
+              }
+          }
+        }
+      }
     },
     resolve:{
       alias:{
@@ -53,12 +51,7 @@ export default({command,mode}:UserConfig):UserConfig=>{
           target:url,
           changeOrigin:true,
           // rewrite:(path) => path.replace(/^\/v1/, '')
-        },
-        // '^/login':{
-        //   target:url,
-        //   changeOrigin:true,
-        //   // rewrite:(path) => path.replace(/^\/v1/, '')
-        // },
+        },       
         '^/socket.io':{
           target:url,
           changeOrigin:true

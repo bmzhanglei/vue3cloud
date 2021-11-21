@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, computed, reactive, nextTick, getCurrentInstance, onMounted } from 'vue';
+import { ref, computed, reactive, nextTick, getCurrentInstance, onMounted, watch } from 'vue';
 import type {  ComponentInternalInstance } from 'vue';
 
 import { useStore } from '@/store';
 import { emitter } from '@/utils/bus';
-import {  useRouter } from 'vue-router'
+import {  useRouter,useRoute } from 'vue-router'
 import type {   RouteRecordName } from 'vue-router';
 import type { ContextMenuItemProps } from '@/components/common/typings'
 import type {Ttag} from '@/typings/route'
@@ -14,6 +14,7 @@ import { useI18n } from 'vue-i18n';
 // import screenfull from 'screenfull';
 const {t,locale} = useI18n()
 const router =  useRouter()
+const route =  useRoute()
 const {state,commit} = useStore()
 const dashboard = "dashboard"
 
@@ -153,10 +154,18 @@ const tags = computed({
        value[1] = value[0]
        value[0] = desktop
      }
-     console.log('sortTagviews',value)
+  
+    //  console.log('sortTagviews',value)
     commit('sortTagviews',value)
   }
 }) 
+
+watch(route,()=>{
+  nextTick(()=>{
+      let activeDom:HTMLElement|null = document.querySelector(".tagview .ant-btn-primary")
+      activeDom?.scrollIntoView()
+  })
+})
 
  const onTagRightClick = (event: MouseEvent, viewName: RouteRecordName) => {
       contextmenu.style.top = event.clientY + 'px'
@@ -175,7 +184,7 @@ const tags = computed({
   const screenTtl = ref(t('fullScreen'))
   const setFullScreen = ()=>{
     commit('setFullScreen',!state.fullScreen)
-      screen.value = state.fullScreen?'FullscreenExitOutlined':'FullscreenOutlined'
+      screen.value = state.fullScreen?'icon-fullscreen-exit':'icon-fullscreen'
       screenTtl.value = state.fullScreen?t('exitFullScreen'):t('fullScreen')
       // proxy?.$utils.fullScreen(state.fullScreen) 
       // util.fullScreen(state.fullScreen)
@@ -219,7 +228,7 @@ const tags = computed({
                   :class="{'no-drag': item.name === 'dashboard' }"   
                   :type="item.active?'primary':'default'" size="small">
             <router-link :to="{name:item.name}"> {{(locale==='zh'?item.title:item.titleEn) || $t(item.locale as string)}} </router-link>            
-            <Icon icon="CloseOutlined" @contextmenu.stop.prevent v-if="item.name!=='dashboard'" class="icon" @click="closeTags(DelState.Single,item.name)"/>      
+            <Icon icon="icon-changyong_guanbi" @contextmenu.stop.prevent v-if="item.name!=='dashboard'" class="icon" @click="closeTags(DelState.Single,item.name)"/>      
         </a-button>
     <!-- </transition-group> -->
     </VueDraggableNext>    

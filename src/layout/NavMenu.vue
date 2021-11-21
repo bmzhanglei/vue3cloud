@@ -40,7 +40,7 @@ import { useI18n } from 'vue-i18n';
         <template v-for="(item,index) in routes" :key="item.name">
                 <a-menu-item  v-if="!item.children" :key="item.name" >  
                      <router-link :to="item.path">                     
-                        <Icon  :icon="item.meta?.icon as string"/> 
+                        <Icon style="font-size:16px" :icon="item.meta?.icon as string"/> 
                         <span>{{(locale=="zh"?item.meta?.title:item.meta?.titleEn) || $t(item.meta?.locale as string) || "--"}}</span>                 
                      </router-link>                
                 </a-menu-item>

@@ -96,7 +96,7 @@ const resetForm = () => {
 <script lang='ts'>export default{name:'login'}</script>
 <template>
 <div class="login">
-  <img class="login-bg" :src="img"/>
+  <img class="login-bg" src="https://images-1255367492.cos.ap-guangzhou.myqcloud.com/login-bg.svg"/>
 <div>
  <a-row>
     <a-col :offset="11" :span="8"><h3>{{formState.tip}}</h3></a-col>
@@ -106,14 +106,14 @@ const resetForm = () => {
     <a-form-item :label="$t('username')" name="username">
       <a-input v-model:value="formState.username" >
        <template #prefix>  
-         <Icon icon="UserOutlined" color="#666"></Icon>       
+         <Icon icon="icon-geren" color="#666"></Icon>       
       </template>
       </a-input>
     </a-form-item>
     <a-form-item :label="$t('password')" name="password">
       <a-input-password v-model:value="formState.password" >
           <template #prefix>  
-            <Icon icon="LockOutlined" color="#666"></Icon>       
+            <Icon icon="icon-mima" color="#666"></Icon>       
           </template>        
       </a-input-password>
     </a-form-item>

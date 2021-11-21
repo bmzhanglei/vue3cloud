@@ -10,7 +10,6 @@
   "dependencies": {
     "ant-design-vue": "^2.2.8",
     "axios": "^0.22.0",
-    "lodash": "^4.17.21",
     "mitt": "^3.0.0",
     "sortablejs": "^1.14.0",
     "vite-plugin-components": "^0.13.3",
