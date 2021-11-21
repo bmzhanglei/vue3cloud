@@ -180,7 +180,7 @@ watch(route,()=>{
   }
 
   // const {proxy} = getCurrentInstance() as ComponentInternalInstance
-  const screen = ref('FullscreenOutlined')
+  const screen = ref('icon-fullscreen')
   const screenTtl = ref(t('fullScreen'))
   const setFullScreen = ()=>{
     commit('setFullScreen',!state.fullScreen)
@@ -238,7 +238,7 @@ watch(route,()=>{
         <template #title>
           <span>{{screenTtl}}</span>
         </template>
-         <Icon :icon="screen" @click="setFullScreen" :title="screenTtl"  size="24px" color="#333"/> 
+         <Icon :icon="screen" @click="setFullScreen" :title="screenTtl"  style="font-size:25px"/> 
    </a-tooltip>
    
 </div>
