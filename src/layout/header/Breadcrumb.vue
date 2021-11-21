@@ -8,6 +8,7 @@ import {
 import type {Tbread} from '@/typings/route'
 import { useStore } from '@/store';
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
   const collapsed = ref<boolean>(false);
   const store = useStore()
@@ -19,7 +20,8 @@ import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
     // console.log(store.state.breadcrumb)
      return store.state.breadcrumb
   }) 
-  
+
+  const {t,locale} =useI18n()
   // onMounted(()=>{
   //   emitter.on('getBread',(param)=>{
   //     debugger
@@ -30,8 +32,6 @@ import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
     //   // debugger
     //    breads.value = param as Tbread[]   
     // })
-
-
 
 </script>
 
@@ -45,7 +45,7 @@ import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
  <a-breadcrumb class="bread">
     <a-breadcrumb-item v-for='(item,index) in breads'> 
      <router-link :to="item.path">             
-              {{ item.title || $t(item.locale as string)}}
+              {{ (locale==="zh"?item.title:item.titleEn) || $t(item.locale as string)}}
            </router-link>  </a-breadcrumb-item>
   </a-breadcrumb>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, reactive, nextTick, getCurrentInstance } from 'vue';
+import { ref, computed, reactive, nextTick, getCurrentInstance, onMounted } from 'vue';
 import type {  ComponentInternalInstance } from 'vue';
 
 import { useStore } from '@/store';
@@ -11,8 +11,8 @@ import type {Ttag} from '@/typings/route'
 import {DelState} from '../../../typings/enum'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { useI18n } from 'vue-i18n';
-import {toggleFull} from 'be-full'
-const {t} = useI18n()
+// import screenfull from 'screenfull';
+const {t,locale} = useI18n()
 const router =  useRouter()
 const {state,commit} = useStore()
 const dashboard = "dashboard"
@@ -37,7 +37,7 @@ const closeTags = (delState:DelState,routeName:string = dashboard)=>{
               delTags = [state.tagviews[index]]
               break;
             default:
-              throw TypeError('关闭类型错误！')           
+              throw TypeError(t("closeTypeError"))           
           }
           let activeIndexInDel = delTags.findIndex(res=>res.active)  
           let activeIndex = -1 
@@ -92,7 +92,7 @@ const contextMenuDisable = (delState:DelState,routeName:string = "dashboard")=>{
       routeName: '',
       menu: [
         {
-          label: '刷新',
+          label:"refresh",
           onClick: (routeName) => {
             let tagview = state.tagviews.map(res=>res.name)
             tagview = tagview.filter(res=>res!==routeName)
@@ -115,28 +115,28 @@ const contextMenuDisable = (delState:DelState,routeName:string = "dashboard")=>{
           }
         },
         {
-          label: '关闭',
+          label: "close",
           disabled: (routeName) => contextMenuDisable(DelState.Single,routeName as string),
           onClick: (routeName) => {
             closeTags(DelState.Single,routeName as string) 
           }
         },
         {
-          label: '关闭右侧',
+          label: 'closeright',
           disabled: (routeName) => contextMenuDisable(DelState.Right,routeName as string),
           onClick: (routeName) => {
               closeTags(DelState.Right,routeName as string)                   
           }
         },
         {
-          label: '关闭其他',
+          label: 'closeother',
           disabled: (routeName) => contextMenuDisable(DelState.Other,routeName as string),
           onClick: (routeName) => {
               closeTags(DelState.Other,routeName as string)     
           }
         },
         {
-          label: '关闭所有',
+          label: 'closeall',
           disabled: (routeName) => contextMenuDisable(DelState.All,routeName as string),
           onClick: () => {
              closeTags(DelState.All)     
@@ -179,9 +179,30 @@ const tags = computed({
       screenTtl.value = state.fullScreen?t('exitFullScreen'):t('fullScreen')
       // proxy?.$utils.fullScreen(state.fullScreen) 
       // util.fullScreen(state.fullScreen)
-      toggleFull()
-      
+
+      // screenfull.toggle() 
   }
+
+  const keyUp = (e:KeyboardEvent )=>{
+     if(e.code=== "Escape"){
+          //  console.log(screenfull.isFullscreen)
+          // commit('setFullScreen',!state.fullScreen)
+          // screen.value = state.fullScreen?'FullscreenExitOutlined':'FullscreenOutlined'
+          // screenTtl.value = state.fullScreen?t('exitFullScreen'):t('fullScreen')
+     }
+  }
+  const resize = ()=>{
+    //  console.log('screenfull.isFullscreen--->',screenfull.isFullscreen)
+    //  if(!screenfull.isFullscreen){
+    //          commit('setFullScreen',!state.fullScreen)
+    //       screen.value = state.fullScreen?'FullscreenExitOutlined':'FullscreenOutlined'
+    //       screenTtl.value = state.fullScreen?t('exitFullScreen'):t('fullScreen')
+    //  } 
+  }
+  onMounted(()=>{
+       document.addEventListener('keyup', keyUp)
+       window.addEventListener('resize', resize)
+  })
 </script>
 
 <template>
@@ -197,8 +218,8 @@ const tags = computed({
                    @contextmenu.prevent="onTagRightClick($event, item.name as string)"
                   :class="{'no-drag': item.name === 'dashboard' }"   
                   :type="item.active?'primary':'default'" size="small">
-            <router-link :to="item.path"> {{item.title || $t(item.locale as string)}} </router-link> 
-            <Icon icon="CloseOutlined"  @contextmenu.stop.prevent v-if="item.name!=='dashboard'" class="icon" @click="closeTags(DelState.Single,item.name)"/>      
+            <router-link :to="{name:item.name}"> {{(locale==='zh'?item.title:item.titleEn) || $t(item.locale as string)}} </router-link>            
+            <Icon icon="CloseOutlined" @contextmenu.stop.prevent v-if="item.name!=='dashboard'" class="icon" @click="closeTags(DelState.Single,item.name)"/>      
         </a-button>
     <!-- </transition-group> -->
     </VueDraggableNext>    
@@ -209,7 +230,7 @@ const tags = computed({
           <span>{{screenTtl}}</span>
         </template>
          <Icon :icon="screen" @click="setFullScreen" :title="screenTtl"  size="24px" color="#333"/> 
- </a-tooltip>
+   </a-tooltip>
    
 </div>
 </div>
@@ -268,14 +289,16 @@ const tags = computed({
     max-height: 40px;
     overflow-x: auto;
     overflow-y:hidden ;
-    .ant-btn{margin-right: 5px;}
+    .ant-btn{margin-right: 5px;
+      &:first-of-type{padding-right:10px}
+    }
     .ant-btn-primary {
         a{color:white}
         span{color:#ccc !important;
           &:hover{color:white !important;background-color: transparent;}
         }
     }
-    ::v-deep(a){font-size:12px;color:currentColor}
+    ::v-deep(a){font-size:12px;color:currentColor;letter-spacing: normal;}
     ::v-deep(div[ghostclass=tag-ghost]){    flex-wrap: nowrap;
     display: flex;height:40px;align-items: center;}
     .icon{color:#999 !important;

@@ -15,7 +15,7 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
     children?: AppRouteRecordRaw[] | undefined;
 }
 
-export type Tbread = Partial<Record<'name'|'path'|'title'|'locale',string>>  //定义面包屑
+export type Tbread = Partial<Record<'name'|'path'|'title'|'titleEn'|'locale',string>>  //定义面包屑
 
 export type Ttag = Tbread & {active?:boolean}  
 

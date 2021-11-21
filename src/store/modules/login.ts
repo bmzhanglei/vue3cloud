@@ -10,18 +10,18 @@ export default {
       userInfo:{},
   },
   mutations: {
-    doLogin(state:any,data:UserInfo){
-        state.userInfo = data                     
-    }
+    setUserInfo(state:State,data?:UserInfo){       
+        state.userInfo = data || undefined                    
+    } 
   },
   actions: {
     doLogin:async ({commit}:ActionContext<State,State>,payload:any)=>{
         const result:Result = await doLogin(payload)    
         if(result.status==200){     
-             commit('doLogin',result?.result)               
+             commit('setUserInfo',result?.result)               
         }
         return result
-     }
+     }    
   },
 } 
 // } as Module<LoginState, State>;  1_login.coderen.top_bundle.crt	2_login.coderen.top.key

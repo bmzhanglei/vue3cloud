@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed,watch ,markRaw} from 'vue';
 import { useStore } from '@/store';
-const {state,commit} = useStore()
+// const {state,commit} = useStore()
 import { emitter } from '@/utils/bus';
 
 interface RefreshState{
@@ -18,8 +18,8 @@ emitter.on('reload',(val:any):void=>{
       excludeTag.value = val.names
       reload.value = val.state;   
     
-    console.log(reload.value)
-    console.log(excludeTag.value)
+    // console.log(reload.value)
+    // console.log(excludeTag.value)
     // console.log(tagCache.value)  
 })
 </script>

@@ -4,7 +4,7 @@ import HelloWorldVue from '@/components/HelloWorld.vue';
 import util from '@/utils/util';
 import {useStore} from '@/store'
 
-const {dispatch} = useStore()
+// const {dispatch} = useStore()
 
 //  dispatch('app/setMenus',{roleId:1})
 //  console.log(loginState)

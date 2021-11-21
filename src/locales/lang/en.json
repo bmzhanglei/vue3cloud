@@ -1,9 +1,10 @@
 {
     "login":"Login",
+    "logout":"Logout",
     "reset":"Reset",
     "username":"Username",
     "password":"Password",
-    "verify":"Identifying Code",
+    "verify":"Code",
     "menu":"Menu",
     "auth":"Auth",
     "index":"Index",
@@ -12,10 +13,16 @@
     "userAdd":"User Add",
     "userList":"User List",
     "dashboard":"Dashboard",
-    "dashboardIndex":"Dashboard",
     "fullScreen":"Full Screen",
     "exitFullScreen":"Exit Full Screen",
     "error":"Error",
     "error404":"error-404",
-    "error401":"error-401"
+    "error401":"error-401",
+    "systemTemplate":"System Template",
+    "refresh":"Refresh",
+    "close":"Close",
+    "closeright":"Turn off the right",
+    "closeother":"Turn off the other",
+    "closeall":"Close all",
+    "closeTypeError":"Close type error！"
 }

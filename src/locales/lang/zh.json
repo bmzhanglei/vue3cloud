@@ -1,5 +1,6 @@
 {
     "login":"登录",
+    "logout":"注销",
     "reset":"重置",
     "username":"用户名",
     "password":"密码",
@@ -11,11 +12,17 @@
     "userAdd":"用户添加",
     "userList":"用户列表",
     "role":"角色",
-    "dashboard":"桌面",
-    "dashboardIndex":"桌面",
+    "dashboard":"桌面",   
     "fullScreen":"全屏",
     "exitFullScreen":"退出全屏",
     "error":"错误",
     "error404":"404页面",
-    "error401":"401页面"
+    "error401":"401页面",
+    "systemTemplate":"系统通用模版",
+    "refresh":"刷新",
+    "close":"关闭",
+    "closeright":"关闭右侧",
+    "closeother":"关闭其他",
+    "closeall":"关闭所有",
+    "closeTypeError":"关闭类型错误！"
 }

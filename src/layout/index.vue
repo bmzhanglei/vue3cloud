@@ -17,17 +17,18 @@ const isScreen = computed(()=>state.fullScreen);
   //   collapsed.value = !!param 
   //     debugger
   // })
-//  watch(menus,(newVal,oldVal)=>{
-//    console.log('menus--->',newVal)
-//  },{immediate:true})
+ watch(isScreen,(newVal,oldVal)=>{
+   console.log('isScreen--->',newVal)
+ })
+  const lang = computed(()=>state.language==="en")
 </script>
 
 <template>
   <a-layout class="layout">
     <a-layout-sider v-model:collapsed="collapsed" :class="{'isCollapse':collapsed}" :trigger="null" collapsible v-show="!isScreen">
-      <div class="logo">   
-         <Icon icon="Html5Outlined" color="yellowgreen" size="30px"/> 
-        <span :class='{"ttlShow":!collapsed}'>系统通用模版</span>    
+      <div class='logo'>   
+         <Icon :class="{'en':lang}" icon="Html5Outlined" color="yellowgreen" size="30px"/> 
+        <span :class='{"ttlShow":!collapsed}'>{{$t("systemTemplate")}}</span>    
       </div>
       <NavMemu></NavMemu>
     </a-layout-sider>
@@ -54,6 +55,7 @@ const isScreen = computed(()=>state.fullScreen);
   overflow: hidden;
   flex-wrap: nowrap;
   > span:first-of-type{margin-right: 10px;margin-left:16px;display: inline-flex;}
+  > span.en{margin-right: 2px;}
   > span:last-of-type{opacity: 0;}
 }
 .layout{
@@ -61,6 +63,7 @@ const isScreen = computed(()=>state.fullScreen);
   .ant-layout-header{
        background: #fff; padding: 0;height:auto;line-height: 40px;
   }  
+  &::v-deep(.ant-menu){height:calc(100% - 40px);overflow-y:auto}
   .isCollapse {
     .logo{margin-left:8px; transition: all .3s;}
      &::v-deep(.ant-menu-submenu>.ant-menu-submenu-title ){

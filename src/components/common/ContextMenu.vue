@@ -6,7 +6,7 @@
           v-if="item.disabled ? !item.disabled(routeName) : true"
           @click="item.onClick(routeName)"
         >
-          {{ item.label }}
+          {{ $t(item.label as string) }}
         </li>
       </template>
     </ul>

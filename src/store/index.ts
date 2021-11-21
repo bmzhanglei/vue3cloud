@@ -28,14 +28,9 @@ export type State = {
   collapse:boolean,
   fullScreen:boolean,
   language?: string,
-  gloabalStore?:{
-    language:'zh'|'en',
-    menus:AppRouteRecordRaw[],
-    userInfo:UserInfo
-  },
+  gloabalStore?:GlobalStore,
   breadcrumb:Tbread[],
   tagviews:Ttag[],
-  cachedList:Ttag[],
   app?:{
     menus:AppRouteRecordRaw[] | undefined
   },
@@ -53,7 +48,6 @@ export default createStore<State>({
     language:'zh',
     breadcrumb:[],
     tagviews:[],
-    cachedList:[],
     fullScreen:false,
     collapse:false  //左侧菜单是否展示
   },
@@ -75,6 +69,9 @@ export default createStore<State>({
         state.tagviews.push(data)                    
       }
     },
+    addAllTagview(state:State,data?:Ttag[]){      
+      state.tagviews = data || []
+    },
     delTagview(state:State,data:string[]){
        util.delRest(state.tagviews,data);    
     },
@@ -91,13 +88,13 @@ export default createStore<State>({
   getters,
   plugins:[createPersistedState({  //状态管理持久化
     storage:window.sessionStorage,
-    reducer: (data:State) =>{
- 
-       let gloabalStore:GlobalStore ={
+    reducer: (data:State) =>{ 
+      let gloabalStore:GlobalStore ={
         language : data.language,
         menus : data?.app?.menus,
-        userInfo : data?.login?.userInfo
-       };
+        userInfo : data?.login?.userInfo,
+        tagviews:data?.tagviews
+      };
       
       // console.log('数据持久化-->',data)
       // debugger

@@ -18,57 +18,8 @@ export default {
      menus:[]
   },
   mutations: {    
-     setMenus(state:State,data:any[]){
-          // const menuComs = JSON.parse(JSON.stringify(data))
-          // util.changeComponent(menuComs);
-          // debugger
-          state.menus = data
-
-          // const menuComs = JSON.parse(JSON.stringify(state.app.menus))
-          // util.changeComponent(menuComs);
-          // console.log('menuComs--->',menuComs)
-          //  menuComs.forEach(item=>{
-          //    router.addRoute(item)
-          //  })
-          // debugger
-        //  console.log(state.menus)
-          // menuComs.forEach(item=>{
-          //   router.addRoute(item)
-          // })
-
-        //  let doData = []
-        // //  debugger
- 
-        //  data.forEach(item=>{
-        //    let {id,pid,name,component,redirect,path,titleCn,titleEn,icon,breadcrumb,sort,hidden,onlyChild,level} = item
-        //    if(level == 1&& !component){
-        //      component = markRaw(layOut)
-        //    }else if(level > 1 && !component){
-        //       component =markRaw(RouterView) 
-        //    }else if(typeof component==="string"){  
-        //       component = moduless[component.replace(/@/,'/src')] 
-        //    }
-        //    let obj = {name,path,component,id,pid}
-        //    if(redirect){
-        //       Object.assign(obj,{redirect})
-        //     }
-        //    obj.meta = {sort}
-        //       if(titleCn){
-        //         Object.assign(obj.meta,{title:titleCn})
-        //       }
-        //       if(icon){
-        //         Object.assign(obj.meta,{icon})
-        //       }           
-        //       Object.assign(obj.meta,{breadcrumb:!!breadcrumb})
-        //         Object.assign(obj.meta,{hidden:!!hidden})
-        //         Object.assign(obj.meta,{onlyChild:!!onlyChild})               
-        //    doData.push(obj)
-        //  })  
-         
-        // //  console.log(doData)
-
-        //  const result = util.toTreeMenu(doData)          
-     
+     setMenus(state:State,data?:any[]){
+          state.menus = data || []
      }
   },
   actions: {
