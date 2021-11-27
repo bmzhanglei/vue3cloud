@@ -5,18 +5,11 @@ import type { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
 import type { getTransitionRawChildren, UnwrapRef } from "vue";
 import { reactive, ref, onMounted } from "vue";
 import { useRouter } from 'vue-router';
-import type {  RouteRecordRaw } from 'vue-router';
 import { getCaptcha } from "apis/login";
 import { useStore } from "@/store";
- import {useI18n } from 'vue-i18n'
 import type { Result } from '@/typings/login';
-import layOut from '@/layout/index.vue';
-import RouterView from '@/layout/RouterView.vue';
-import app from '@/store/modules/app';
-import type{ AppRouteRecordRaw } from '@/typings/route';
-import util from '@/utils/util';
+import useChangeRoute from '@/hooks/useChangeRoute'
 import img from '@/assets/login-bg.svg'
- const {t,locale} = useI18n()
 interface FormState {
   username: string;
   password: string;
@@ -68,20 +61,9 @@ const onSubmit = () => {
 
        const loginState:Result = await store.dispatch('login/doLogin',{...formState})
         if(loginState.status==200){
-            // debugger
-
-            store.dispatch('app/setMenus',{roleId:loginState.result?.roleId}).then(res=>{
-                const menuComs:AppRouteRecordRaw[] = JSON.parse(JSON.stringify(store.state.app?.menus))
-                util.changeComponent(menuComs);
-                // console.log('menuComs--->',menuComs);
-                const routes = router.getRoutes().filter(res=>res.name === "layout")[0];
-                // debugger
-                if(routes.children.length<4){
-                  routes.children.push(...(menuComs as RouteRecordRaw[]));
-                  router.addRoute(routes)    
-                }
-                router.push("/dashboard");
-            })          
+            useChangeRoute(store.state,store.dispatch,router,loginState.result?.roleId as number,()=>{
+               router.push("/dashboard");
+            })                
         }else{
           formState.tip = loginState.tip || "登陆失败！"
         }

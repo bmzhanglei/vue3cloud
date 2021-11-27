@@ -3,7 +3,7 @@ import  {createFromIconfontCN} from '@ant-design/icons-vue'
 // import  * as $Icon from '@ant-design/icons-vue'
 // import font from '../utils/font'
 const MyIcon = createFromIconfontCN({  
-  scriptUrl: "https://at.alicdn.com/t/font_2873021_ygng0v3nfl9.js", // 在 iconfont.cn 上生成
+  scriptUrl: "https://at.alicdn.com/t/font_2873021_fh0qqqvz37t.js", // 在 iconfont.cn 上生成
 });
 
 export const Icon = (props: { icon: string,color?:string,size?:string }) => {

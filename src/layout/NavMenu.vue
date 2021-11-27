@@ -27,8 +27,12 @@ import { useI18n } from 'vue-i18n';
   }
   },{immediate:true})
 
-  const routes:AppRouteRecordRaw[]= router.getRoutes().filter(res=>res.name=="layout")[0].children.filter(res=>!res.meta?.hidden) as unknown as AppRouteRecordRaw[]
+  let routes = ref<AppRouteRecordRaw[]>(router.getRoutes().filter(res=>res.name=="layout")[0].children.filter(res=>!res.meta?.hidden) as unknown as AppRouteRecordRaw[]) 
   // console.log('routes--->', routes)
+  //角色变化，路由变化
+  watch(()=>store.state.roleIdCurrent,()=>{
+     routes.value = router.getRoutes().filter(res=>res.name=="layout")[0].children.filter(res=>!res.meta?.hidden) as unknown as AppRouteRecordRaw[]
+  })
 </script>
 
 <template>

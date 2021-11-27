@@ -16,6 +16,7 @@ const {t,locale} = useI18n()
 const router =  useRouter()
 const route =  useRoute()
 const {state,commit} = useStore()
+
 const dashboard = "dashboard"
 
 const closeTags = (delState:DelState,routeName:string = dashboard)=>{
@@ -179,7 +180,7 @@ watch(route,()=>{
       contextmenu.show = true
   }
 
-  // const {proxy} = getCurrentInstance() as ComponentInternalInstance
+  const {proxy} = getCurrentInstance() as ComponentInternalInstance
   const screen = ref('icon-fullscreen')
   const screenTtl = ref(t('fullScreen'))
   const setFullScreen = ()=>{
@@ -212,6 +213,8 @@ watch(route,()=>{
        document.addEventListener('keyup', keyUp)
        window.addEventListener('resize', resize)
   })
+
+
 </script>
 
 <template>

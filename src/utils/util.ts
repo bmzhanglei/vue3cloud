@@ -6,7 +6,7 @@ import layOut from "/src/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
 import { RouteMeta } from 'vue-router';
 const moduless = import.meta.glob('/src/views/**/*.vue') 
-console.log('moduless--->',moduless)
+// console.log('moduless--->',moduless)
 const add = (a:number,b:number)=>a+b
 
 const delRest = (origin:Ttag[],delKeys:string[])=>{

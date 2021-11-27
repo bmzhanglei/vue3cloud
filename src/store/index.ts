@@ -25,6 +25,7 @@ export type User = {
 type Lang = {language:string}
 // app, login, menus, userInfo
 export type State = {
+  roleIdCurrent:number, 
   collapse:boolean,
   fullScreen:boolean,
   language?: string,
@@ -49,7 +50,8 @@ export default createStore<State>({
     breadcrumb:[],
     tagviews:[],
     fullScreen:false,
-    collapse:false  //左侧菜单是否展示
+    collapse:false,  //左侧菜单是否展示
+    roleIdCurrent:-1   //当前切换角色 id 
   },
   mutations:{
     setLanguage(state:State,data:string){
@@ -57,6 +59,9 @@ export default createStore<State>({
     },
     setCollapse(state:State,data:boolean){
       state.collapse = data
+    },
+    setCurrentRole(state:State,data:number){
+      state.roleIdCurrent = data
     },
     setFullScreen(state:State,data:boolean){
       state.fullScreen = data

@@ -63,7 +63,7 @@ const isScreen = computed(()=>state.fullScreen);
   .ant-layout-header{
        background: #fff; padding: 0;height:auto;line-height: 40px;
   }  
-  &::v-deep(.ant-menu){height:calc(100% - 40px);overflow-y:auto}
+  &::v-deep(.ant-menu-root){height:calc(100% - 40px);overflow-y:auto}
   .isCollapse {
     .logo{margin-left:8px; transition: all .3s;}
      &::v-deep(.ant-menu-submenu>.ant-menu-submenu-title ){

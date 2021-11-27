@@ -9,13 +9,20 @@ interface UserInfo{
     id: number
     roleId: number
     status: number
-    username: string
+    username: string,
+    avatar:string
 }
 
+interface Role{
+    id:number,
+    name_cn:string,
+    name_en:string
+}
 
 interface Result {
     status:number,
     tip?:string,
+    msg?:string
     result?:{roleId?:number}
 }
 
