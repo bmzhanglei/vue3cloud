@@ -1,21 +1,18 @@
 <script setup lang="ts">
 import { ref ,watch,computed} from 'vue'
-import { useRoute, useRouter } from "vue-router";
 import { useStore } from '@/store';
 import type {AppRouteRecordRaw} from '@/typings/route'
 import { useI18n } from 'vue-i18n';
  const menuInfos = defineProps<{menuInfo:AppRouteRecordRaw}>()
  const {locale} = useI18n()
   const store = useStore()
- const lang = computed(()=>store.getters.language==="zh")
 // debugger
 // console.log('menuInfo--->',menuInfos)
 
 </script>
 <template>
 <div>
-<a-sub-menu :key='menuInfo.name'>    
-
+<a-sub-menu :key='menuInfo.name'>
        <template #icon> <Icon style="font-size:16px" :icon="menuInfo.meta?.icon as string"/>{{menuInfo.meta?.icon}}</template>
        <template #title>{{ locale==="zh"?menuInfo.meta?.title:menuInfo.meta?.titleEn || $t(menuInfo.meta?.locale as string) || + menuInfo.name}}</template>
        
@@ -29,7 +26,7 @@ import { useI18n } from 'vue-i18n';
               </a-menu-item>
             </template>
             <template v-else>
-                <SubMenu :menuInfo="item"/> 
+                 <SubMenu :menuInfo="item"/> 
             </template>
       </template>
     
