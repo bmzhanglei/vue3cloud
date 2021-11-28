@@ -1,29 +1,24 @@
-# Vue 3 + Typescript + Vite
+# Vue 3.2 + Typescript + Vite + Ant Design Vue 后台系统管理模板
 
-This template should help get you started developing with Vue 3 and Typescript in Vite.
+[预览地址:https://login.coderen.top/#/login](https://login.coderen.top/#/login)  
+[预览地址:https://vue.coderen.top/#/login(腾讯云cos)](https://vue.coderen.top/#/login)
 
-[预览地址:https://login.coderen.top/#/login](https://login.coderen.top/#/login)
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur). Make sure to enable `vetur.experimental.templateInterpolationService` in settings!
+# 页面预览（Picture）
+![登陆界面](https://images-1255367492.cos.ap-guangzhou.myqcloud.com/coderen_login.png)
+![页面主体](https://images-1255367492.cos.ap-guangzhou.myqcloud.com/coderen_page.png)
 
-### If Using `<script setup>`
+# 页面功能
+  * 用户按角色权限登录显示不同的菜单
+  * 进入页面后，超级管理可以根据角色权限显示不同的菜单
+  * 页面加入了缓存功能
+  * 国际化
 
-[`<script setup>`](https://github.com/vuejs/rfcs/pull/227) is a feature that is currently in RFC stage. To get proper IDE support for the syntax, use [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) instead of Vetur (and disable Vetur).
+## 页面的其他功能，以后有时间回慢慢完善！
+### 欢迎大家 issue
 
-## Type Support For `.vue` Imports in TS
+### 如果觉得不错，请喝杯咖啡☕️吧
+![打赏](https://images-1255367492.cos.ap-guangzhou.myqcloud.com/sponsor.png?q-sign-algorithm=sha1&q-ak=AKIDbTn8ibbk0Ee-WXPWYPNWIidlLZjz_7yckumJD4-tMktmxsZZtvc99AIy8XQW0xbS&q-sign-time=1638068997;1638072597&q-key-time=1638068997;1638072597&q-header-list=host&q-url-param-list=&q-signature=a9c2092b0ee1dfb9338b4a3265502b503fcb76db&x-cos-security-token=fTPPi3r94EhrX1HwJX9KMdzRlVSpS4ra982ff15d8f8d3d9772e8c40b25bee37e1ooCz7mZUdjcIK07csk3UgeQf00cf21fTHFC6VIOBfHAV3S24O3w2d-rrEHtdMftC2lrvQOHfC3YbVLujGBrhcHZAPK8OXcdkdhTpJAXOsX7B_v3jXEUDEYMrX8epvarOzFxY0TeQWAFGlqpTiaV8ZblMSKxxGnIlR0a6vroQFh7Z0z5Oa-xoqILBH36gBoH&response-content-type=application%2Foctet-stream&response-content-disposition=attachment)
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can use the following:
 
-### If Using Volar
-
-Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
-
-### If Using Vetur
-
-1. Install and add `@vuedx/typescript-plugin-vue` to the [plugins section](https://www.typescriptlang.org/tsconfig#plugins) in `tsconfig.json`
-2. Delete `src/shims-vue.d.ts` as it is no longer needed to provide module info to Typescript
-3. Open `src/main.ts` in VSCode
-4. Open the VSCode command palette
-5. Search and run "Select TypeScript version" -> "Use workspace version"
