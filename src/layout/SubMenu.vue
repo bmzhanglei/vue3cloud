@@ -1,20 +1,15 @@
 <script setup lang="ts">
-import { ref ,watch,computed} from 'vue'
-import { useStore } from '@/store';
 import type {AppRouteRecordRaw} from '@/typings/route'
 import { useI18n } from 'vue-i18n';
- const menuInfos = defineProps<{menuInfo:AppRouteRecordRaw}>()
- const {locale} = useI18n()
-  const store = useStore()
-// debugger
-// console.log('menuInfo--->',menuInfos)
-
+defineProps<{menuInfo:AppRouteRecordRaw}>()
+const {locale} = useI18n()
 </script>
+
 <template>
 <div>
 <a-sub-menu :key='menuInfo.name'>
        <template #icon> <Icon style="font-size:16px" :icon="menuInfo.meta?.icon as string"/>{{menuInfo.meta?.icon}}</template>
-       <template #title>{{ locale==="zh"?menuInfo.meta?.title:menuInfo.meta?.titleEn || $t(menuInfo.meta?.locale as string) || + menuInfo.name}}</template>
+       <template #title>{{ locale==="zh"?menuInfo.meta?.title:menuInfo.meta?.titleEn || $t(menuInfo.meta?.locale as string)}}</template>
        
      <template v-for="item in menuInfo.children" :key="item.name">
             <template v-if="!item.children">
@@ -29,11 +24,8 @@ import { useI18n } from 'vue-i18n';
                  <SubMenu :menuInfo="item"/> 
             </template>
       </template>
-    
-    </a-sub-menu> 
-
+</a-sub-menu> 
 </div>
-
 </template>
 
 <style lang='scss' scoped>

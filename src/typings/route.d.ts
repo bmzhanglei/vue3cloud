@@ -8,10 +8,12 @@ export type Component<T extends any = any> =
         | (() => Promise<typeof import('*.vue')>)
         | (() => Promise<T>);
 
-export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
+export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'redirect'|'children'|'components'> {
     name: string;
     meta?: RouteMeta;
     component?: Component | string | null;
+    components?:undefined,
+    redirect?:string,
     children?: AppRouteRecordRaw[] | undefined;
 }
 
@@ -22,15 +24,14 @@ export type Ttag = Tbread & {active?:boolean}
 export type Reload = (routeName: string | RouteRecordName) => void
 
 declare module 'vue-router' {
-    interface RouteMeta {
-      id?:number,
-      pid?:number,
-      hidden?: boolean,      
-      sort?: number, //排序
-      icon?:string,
-      title?:string,
+    interface RouteMeta  {
+      id?:number;
+      pid?:number;
+      hidden?: boolean;      
+      sort?: number; //排序
+      icon?:string;
+      title?:string;
       breadcrumb?:boolean  //是否在面包屑里显示
-
     }
   }
 

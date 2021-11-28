@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, watch, computed, nextTick, onMounted } from 'vue';
-import { useRoute, useRouter } from "vue-router";
+import { ref, watch, computed} from 'vue';
+import { useRouter } from "vue-router";
 import SubMenus from './SubMenu.vue'
 import { emitter } from '@/utils/bus';
 import { useStore } from '@/store';
@@ -27,7 +27,12 @@ import { useI18n } from 'vue-i18n';
   }
   },{immediate:true})
 
-  const routes = computed(()=>router.getRoutes().filter(res=>res.name=="layout")[0].children.filter(res=>!res.meta?.hidden) as unknown as AppRouteRecordRaw[])
+  const getRoutes = ():AppRouteRecordRaw[] => router.getRoutes().filter(res=>res.name=="layout")[0].children.filter(res=>!res.meta?.hidden) as unknown as AppRouteRecordRaw[]
+  
+  let routes = ref(getRoutes())
+  watch(()=>store.state.roleIdCurrent,()=>{
+     routes.value =  getRoutes()
+  })
 </script>
 
 <template>
