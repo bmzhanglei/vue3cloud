@@ -1,33 +1,18 @@
 <script setup lang="ts">
-import { emitter } from '@/utils/bus';
-import { ref, watch,computed, onMounted, reactive } from 'vue';
+import { ref, watch,computed} from 'vue';
 import type {Tbread} from '@/typings/route'
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 
-  const collapsed = ref<boolean>(false);
-  const store = useStore()
-  watch(collapsed,()=>{
-    store.commit('setCollapse',!!collapsed.value)
-      // emitter.emit("getCollapse",!!collapsed.value)
-  })
-  const breads = computed(():Tbread[]=>{
-    // console.log(store.state.breadcrumb)
-     return store.state.breadcrumb
-  }) 
-
-  const {t,locale} =useI18n()
-  // onMounted(()=>{
-  //   emitter.on('getBread',(param)=>{
-  //     debugger
-  //      breads.value = param as Tbread[]   
-  //   })
-  //   })
-    // emitter.on('getBread',(param)=>{
-    //   // debugger
-    //    breads.value = param as Tbread[]   
-    // })
-
+const collapsed = ref<boolean>(false);
+const store = useStore()
+watch(collapsed,()=>{
+  store.commit('setCollapse',!!collapsed.value)
+})
+const breads = computed(():Tbread[]=>{
+    return store.state.breadcrumb
+}) 
+const {locale} =useI18n()
 </script>
 
 <template>

@@ -23,7 +23,7 @@ export default({command,mode}:UserConfig):UserConfig=>{
     build:{
       minify: "esbuild",
       sourcemap:false,
-      chunkSizeWarningLimit:500,
+      chunkSizeWarningLimit:1000,
       rollupOptions:{
         output:{
           manualChunks(id){

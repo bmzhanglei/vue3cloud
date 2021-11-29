@@ -4,7 +4,7 @@ import Breadcrumb from './Breadcrumb.vue';
 import ToolBar from './ToolBar.vue';
 import TagView from './tagview/index.vue';
 import { computed} from 'vue'
-const {commit,state} = useStore()
+const {state} = useStore()
 const isScreen = computed(()=>state.fullScreen);
 
 </script>

@@ -24,5 +24,6 @@
     "closeright":"Turn off the right",
     "closeother":"Turn off the other",
     "closeall":"Close all",
-    "closeTypeError":"Close type error！"
+    "closeTypeError":"Close type error！",
+    "loginFail":"The login failed!"
 }

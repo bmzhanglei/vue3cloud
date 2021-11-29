@@ -2,10 +2,11 @@
 import { ref, watch, computed} from 'vue';
 import { useRouter } from "vue-router";
 import SubMenus from './SubMenu.vue'
-import { emitter } from '@/utils/bus';
 import { useStore } from '@/store';
+
 import type {AppRouteRecordRaw,Tbread} from '@/typings/route'
 import { useI18n } from 'vue-i18n';
+
   const store = useStore()
   const router = useRouter()
   const selectedKeys= ref<string[]>([""]);
@@ -16,7 +17,6 @@ import { useI18n } from 'vue-i18n';
   })
 
   const collapsedMenu = computed(()=>store.state.collapse);
-  const lang = computed(()=>store.state.language);
 
   watch(selKeys,(newVal,oldVal)=>{
   if(newVal.length){
@@ -33,6 +33,7 @@ import { useI18n } from 'vue-i18n';
   watch(()=>store.state.roleIdCurrent,()=>{
      routes.value =  getRoutes()
   })
+  
 </script>
 
 <template>

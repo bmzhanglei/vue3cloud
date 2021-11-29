@@ -1,28 +1,17 @@
-
 <script lang="ts" setup>
-import Locale from '@/components/Locale.vue' 
-import type { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
-import type { getTransitionRawChildren, UnwrapRef } from "vue";
-import { reactive, ref, onMounted } from "vue";
+import { reactive, ref, onMounted, defineComponent } from 'vue';
+import type { UnwrapRef } from "vue";
 import { useRouter } from 'vue-router';
+import type { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
+import Locale from '@/components/Locale.vue' 
+import useChangeRoute from '@/hooks/useChangeRoute'
 import { getCaptcha } from "apis/login";
 import { useStore } from "@/store";
-import type { Result } from '@/typings/login';
-import useChangeRoute from '@/hooks/useChangeRoute'
-import img from '@/assets/login-bg.svg'
-interface FormState {
-  username: string;
-  password: string;
-  verify: string;
-  tip?:string
-}
-interface VerifyCode {
-  data: string | undefined;
-  text: string | undefined;
-}
+import type { Result, VerifyCode,LoginState } from '@/typings/login';
+import { useI18n } from 'vue-i18n';
 
 // console.log(import.meta.env.VITE_BASE_URL)
-
+const {t} = useI18n()
 const store = useStore()
 const router = useRouter();
 
@@ -31,7 +20,7 @@ const layout = {
   wrapperCol: { span: 12 },
 };
 const formRef = ref();
-const formState: UnwrapRef<FormState> = reactive({
+const formState: UnwrapRef<LoginState> = reactive({
   username: "zhangsan",
   password: "111111",
   verify: "",
@@ -58,16 +47,15 @@ onMounted(() => {
 
 const onSubmit = () => {
   formRef.value.validate().then(async () => {
-
        const loginState:Result = await store.dispatch('login/doLogin',{...formState})
         if(loginState.status==200){
             useChangeRoute(store.state,store.dispatch,router,loginState.result?.roleId as number,()=>{
                router.push("/dashboard");
             })                
         }else{
-          formState.tip = loginState.tip || "登陆失败！"
+          formState.tip = loginState.tip || t("loginFail")
         }
-    }).catch((error: ValidateErrorEntity<FormState>) => {
+    }).catch((error: ValidateErrorEntity<LoginState>) => {
       console.log("error", error);
     });
 };
@@ -75,13 +63,14 @@ const resetForm = () => {
   formRef.value.resetFields();
 };
 </script>
-<script lang='ts'>export default{name:'login'}</script>
+<script lang='ts'>export default defineComponent({name:'login'}) </script>
+
 <template>
 <div class="login">
   <img class="login-bg" src="https://images-1255367492.cos.ap-guangzhou.myqcloud.com/login-bg.svg"/>
 <div>
  <a-row>
-    <a-col :offset="11" :span="8"><h3>{{formState.tip}}</h3></a-col>
+    <a-col :offset="6" :span="13"><h3>{{formState.tip}}</h3></a-col>
     <a-col :span="5" > <Locale/></a-col>
   </a-row>
   <a-form ref="formRef" :model="formState" :rules="rules" v-bind="layout">
@@ -130,6 +119,7 @@ const resetForm = () => {
     height:100vh;
     z-index:-1
   }
+  h3{color:red}
   & > div{width:370px;
   box-shadow: 5px 5px 17px 0px #173d5c;
   padding-left:10px;

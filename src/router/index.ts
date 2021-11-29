@@ -1,13 +1,9 @@
 
-import { createRouter,RouteMeta, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import { emitter } from '@/utils/bus';
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import store from '@/store'
 import type {AppRouteRecordRaw}  from '@/typings/route'
-import { computed, watch } from 'vue';
-import layOut from "@/layout/index.vue";
-import RouterView from "@/layout/RouterView.vue";
+import LayOut from "@/layout/index.vue";
 import util from '@/utils/util';
-// import { useI18n } from 'vue-i18n';
 
 let routes:AppRouteRecordRaw[]= [
     {     
@@ -19,7 +15,7 @@ let routes:AppRouteRecordRaw[]= [
     {            
       path: '/',
       name: 'layout',
-      component:layOut,
+      component:LayOut,
       meta: {
         breadcrumb: false
       },     
@@ -136,7 +132,6 @@ let routes:AppRouteRecordRaw[]= [
       } 
    }
 ] 
-
 // debugger
 
 const {state,commit} = store
@@ -152,7 +147,7 @@ if(lang){
 }
 
 const userInfo = state.gloabalStore?.userInfo
-  if(userInfo?.id && !state.userInfo?.id){
+  if(userInfo?.id && !state?.login?.userInfo?.id){
     commit('login/setUserInfo',userInfo)
   }
 
@@ -179,16 +174,13 @@ router.beforeEach((to,from,next)=>{
   //  console.log('to',to.matched)
 
     if(to.name!=="login"){
-      // const dynamicRoute:AppRouteRecordRaw[] = computed(()=>store.state.menus || [])
          //数据持久化
          if(!state.login?.userInfo?.id){
             next({path:'/login'})
          }else{
-          //  
            const bread = to.matched.filter(res=>res.meta.breadcrumb)
              .map(res=>({name:res.name,path:res.path,title:res.meta?.title,locale: res.meta?.locale,titleEn:res.meta?.titleEn}))
           //  debugger
-          //  console.log(bread)
            if(bread[0]&&bread[0].name!=='dashboard'){
              bread.unshift({name:'dashboard',path:'/dashboard',locale:'dashboard',title:"",titleEn:''})
            }
@@ -201,10 +193,7 @@ router.beforeEach((to,from,next)=>{
            store.commit('activeTagview',currentTag.name)
            next()
          }
-     
     }else{
-      // console.log("state.login.userInfo---",state.login?.userInfo)
-      // console.log("state.gloabalStore?.userInfo---",state.gloabalStore?.userInfo)
       if(state.login?.userInfo?.id){
           next({path:'/'})
       }else{

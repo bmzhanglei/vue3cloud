@@ -10,6 +10,7 @@ import { useI18n } from 'vue-i18n';
 import useChangeRoute from '@/hooks/useChangeRoute'
 
 const {commit,state,dispatch} = useStore()
+
 const router = useRouter()
 const {locale} = useI18n()
 const avatarDefault = 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
@@ -41,7 +42,6 @@ const toDashboard = (id:number)=>{
        }
    }
 }
-
 
 const logout = async ()=>{
    let result = await loginOut("");

@@ -1,12 +1,11 @@
 
 import axios ,{ AxiosRequestConfig, AxiosResponse, AxiosError } from "axios"
 const cancelTokenSources = new Map(); // 定义cancel队列
-
 class Https{
     config = null
     constructor(config:any) {
         this.config = config || {
-          timeout: 6000,
+          timeout: 10000,
           withCredentials: true, //指定具体请求来源域名
           // baseURL: process.env.VUE_APP_API_BASE_URL,
           // baseURL: 'https://api.coderen.top',
@@ -18,10 +17,7 @@ class Https{
       interceptors(instance:any) {
           instance.interceptors.request.use((config:AxiosRequestConfig):AxiosRequestConfig => {
             // console.log('config--->',config)
-            // debugger
-            //  if(config.method=='get'){            
-            //    config.params = config.params
-            //  }         
+            // debugger     
                 // 请求拦截器中将请求加入cancel队列
                 if (!config.hasOwnProperty('cancelToken')) { // 排除不需要cancel的请求
                     const source = axios.CancelToken.source();  

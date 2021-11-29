@@ -1,16 +1,22 @@
 export type LoginState = {
-    username:string,
-    password:string,
-    verify:string
+    username: string;
+    password: string;
+    verify: string;
+    tip?:string
 }
 
+interface VerifyCode {
+    data: string | undefined;
+    text: string | undefined;
+  }
+
 interface UserInfo{
-    email: string,
-    id: number
-    roleId: number
-    status: number
-    username: string,
-    avatar:string
+    email?: string,
+    id?: number
+    roleId?: number
+    status?: number
+    username?: string,
+    avatar?:string
 }
 
 interface Role{

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, reactive, nextTick, getCurrentInstance, onMounted, watch } from 'vue';
-import type {  ComponentInternalInstance } from 'vue';
-
+import { ref, computed, reactive, nextTick, onMounted, watch } from 'vue';
 import { useStore } from '@/store';
 import { emitter } from '@/utils/bus';
 import {  useRouter,useRoute } from 'vue-router'
@@ -180,7 +178,7 @@ watch(route,()=>{
       contextmenu.show = true
   }
 
-  const {proxy} = getCurrentInstance() as ComponentInternalInstance
+  // const {proxy} = getCurrentInstance() as ComponentInternalInstance
   const screen = ref('icon-fullscreen')
   const screenTtl = ref(t('fullScreen'))
   const setFullScreen = ()=>{

@@ -3,24 +3,11 @@ import NavMemu from './NavMenu.vue'
 import Header from './header/index.vue'
 import RouterView  from './RouterView.vue';
 import { useStore } from '@/store';
-// import Header from './Header.vue'
-import { emitter } from '@/utils/bus';
-import {useRouter} from 'vue-router'
-import util from '@/utils/util'
-import { ref, nextTick, provide, computed, watch } from 'vue';
-// import getters from '../store/getters';
-const {commit,state,getters} = useStore()
-const router = useRouter()
+import { computed } from 'vue';
+const {state} = useStore()
 const collapsed = computed(()=>state.collapse);
 const isScreen = computed(()=>state.fullScreen);
-  // emitter.on("getCollapse",param=>{
-  //   collapsed.value = !!param 
-  //     debugger
-  // })
- watch(isScreen,(newVal,oldVal)=>{
-   console.log('isScreen--->',newVal)
- })
-  const lang = computed(()=>state.language==="en")
+const lang = computed(()=>state.language==="en")
 </script>
 
 <template>

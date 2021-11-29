@@ -24,5 +24,6 @@
     "closeright":"关闭右侧",
     "closeother":"关闭其他",
     "closeall":"关闭所有",
-    "closeTypeError":"关闭类型错误！"
+    "closeTypeError":"关闭类型错误！",
+    "loginFail":"登录失败!"
 }

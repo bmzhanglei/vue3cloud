@@ -2,12 +2,8 @@ import { createI18n } from 'vue-i18n'
 import store from '../store'
 import messages from '@intlify/vite-plugin-vue-i18n/messages'
 import getters from '../store/getters';
-// import { useI18n } from 'vue-i18n';
 
 const language = store.getters.language || navigator.language.split('-')[0] || 'zh'
-
-// const {t,locale} = useI18n()
-// console.log('lang-->',locale)
 
 const i18n = createI18n({
   globalInjection:true,

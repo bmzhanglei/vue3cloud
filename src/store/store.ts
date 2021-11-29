@@ -1,7 +1,6 @@
 
 const requireStoreContext = import.meta.globEager('./modules/*.ts');
 
-
 const files = Object.keys(requireStoreContext)
 const modules = files.reduce((modules, fileName) => {
   // console.log(fileName)

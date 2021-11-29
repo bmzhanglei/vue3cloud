@@ -1,13 +1,11 @@
-// import { Document, HTMLElement } from '@/typings'
 import { Menu } from '@/typings/login'
 import type {Ttag} from '@/typings/route'
 import { AppRouteRecordRaw } from '@/typings/route';
-import layOut from "/src/layout/index.vue";
+import layOut from "@/layout/index.vue";
 import RouterView from "@/layout/RouterView.vue";
 import { RouteMeta } from 'vue-router';
 const moduless = import.meta.glob('/src/views/**/*.vue') 
 // console.log('moduless--->',moduless)
-const add = (a:number,b:number)=>a+b
 
 const delRest = (origin:Ttag[],delKeys:string[])=>{
     if(delKeys && delKeys.length){
@@ -73,7 +71,6 @@ const changeComponent = (data:AppRouteRecordRaw[])=>{
 }
 
 export default {
-    add,
     delRest,
     getBigName,
     toTreeMenu,

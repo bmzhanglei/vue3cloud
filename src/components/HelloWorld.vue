@@ -16,6 +16,9 @@ export default defineComponent({
       required: true
     }
   },
+  mounted(){
+     
+  },
   setup: () => {
     const count = ref<number>(0)
      const value = ref<number>(2);

@@ -2,6 +2,8 @@
 import Contextmenu from '@/components/common/ContextMenu.vue'
 import {Icon} from '@/components/Icon'
 import { App } from 'vue'
+import util from '@/utils/util';
+import { emitter } from '../../utils/bus';
 
 const commons = [
   {
@@ -18,16 +20,17 @@ const commons = [
     name:'Icon',
     component:Icon
   }
-
 ]
 
 const GlobalCommon = {
-  install: (app: App<Element>) => {
+  install: (app: App<Element>,options?:any) => {
     commons.forEach((common) => {
-        // debugger
       app.component(common.name, common.component)
       common.register && common.register()
     })
+   
+    app.config.globalProperties.$utils = util
+    app.config.globalProperties.emitter = emitter
   }
 }
 

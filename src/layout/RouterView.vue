@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { ref, computed,watch ,markRaw} from 'vue';
-import { useStore } from '@/store';
-// const {state,commit} = useStore()
+import { ref} from 'vue';
 import { emitter } from '@/utils/bus';
 
 interface RefreshState{
   name:string,
   state:boolean
 }
-// const tagCache = computed(()=>state.tagviews.map(res=>res.name)) 
 
 const excludeTag = ref<string>('')
 
