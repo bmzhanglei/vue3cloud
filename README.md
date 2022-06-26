@@ -17,7 +17,4 @@
 ## 页面的其他功能，以后有时间回慢慢完善！
 ### 欢迎大家 issue
 
-### 如果觉得不错，请喝杯咖啡☕️吧
-![打赏](https://images-1255367492.cos.ap-guangzhou.myqcloud.com/github/sponsor.jpg)
-
 
