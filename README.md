@@ -1,8 +1,5 @@
 # Vue 3.2 + Typescript + Vite + Ant Design Vue 后台系统管理模板
 
-[预览地址:https://login.coderen.top/#/login](https://login.coderen.top/#/login)  
-[预览地址:https://vue.coderen.top/#/login(腾讯云cos)](https://vue.coderen.top/#/login)
-
 
 # 页面预览（Picture）
 ![登陆界面](https://images-1255367492.cos.ap-guangzhou.myqcloud.com/github/coderen_login.jpg)
